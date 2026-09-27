@@ -12,3 +12,6 @@
 # scratch
 node_modules/
 *.log
+
+# local test scaffolding
+_*.html
