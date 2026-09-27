@@ -1,0 +1,6 @@
+<!doctype html><meta charset=utf8><style>html,body{margin:0;background:#999}iframe{border:0;display:block}</style>
+<iframe id=f></iframe><script>
+const p=decodeURIComponent(location.hash.slice(1)).split('|');
+f.width=p[0]; f.height=p[1]; f.src='/index.html';
+f.onload=()=>setTimeout(()=>{const el=f.contentDocument.querySelector(p[2]);if(el)el.scrollIntoView({block:'center',behavior:'instant'});},1400);
+</script>

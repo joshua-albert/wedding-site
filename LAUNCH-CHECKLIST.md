@@ -5,7 +5,7 @@ confirmed to me yet. Nothing here is invented; where the page doesn't know
 something it says so out loud ("Times are coming soon", "more hotel options
 coming soon!") rather than guessing.
 
-Last updated: 2026-09-27 (end of Phase 1)
+Last updated: 2026-09-27 (after Joshua's first round of edits)
 
 ---
 
@@ -26,8 +26,16 @@ Last updated: 2026-09-27 (end of Phase 1)
 | Where | What it says now | What it needs |
 |---|---|---|
 | Weekend section | "Times are coming soon." | Real start times for Fri June 4, Sat June 5, Sun June 6 |
+| Friday poster | "More times and details to be announced." | Friday start time and the rest of the Deacon details |
 | Stay section | "more hotel options coming soon!" | Hotel options beyond The Deacon (names, addresses, any room block) |
-| Bok section | No ceremony location given | Where in Bok the ceremony happens (roof? gym? auditorium?) |
+| FAQ, "What do I wear?" | "More inspiration to come." | Links to add — there's a commented-out `<a class="ilink">` line in `index.html` right after that sentence showing the exact pattern |
+
+**Resolved:** the ceremony location. Joshua confirmed the ceremony and the celebration
+are up on the roof at Bok, and the illustration now says so.
+Worth a second look: the Saturday poster and the dinner menu still say the
+family-style dinner is *in the gym*, while the roof note now covers ceremony,
+cocktails and celebration. If the whole night is actually on the roof, the gym
+lines need changing too — tell me which is right.
 
 ## 3. Facts already on the page that I have NOT verified
 
@@ -76,6 +84,7 @@ found — please confirm or correct each before launch.
 - [x] Title, description, favicon (disco ball), apple-touch-icon
 - [x] Open Graph share image `og.png`, 1200×630, made from the hero
 - [x] All four Google Fonts load; zero console errors; no horizontal scroll at 390px
+- [x] Vendor Instagram links (Party Girl, The Deacon, Bok), all open in a new tab
 
 ## 5. Things to know
 

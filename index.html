@@ -83,9 +83,13 @@ svg.ill{display:block;overflow:visible}
 .sparks path{transform-box:fill-box;transform-origin:center;animation:tw 2.8s ease-in-out infinite}
 .sparks path:nth-child(2){animation-delay:-.9s}.sparks path:nth-child(3){animation-delay:-1.7s}.sparks path:nth-child(4){animation-delay:-2.3s}
 @keyframes tw{0%,100%{transform:scale(.35) rotate(0)}50%{transform:scale(1) rotate(45deg)}}
-.spinme{position:absolute;right:-6px;top:10px;font-size:22px;line-height:1;color:var(--hero-soft);transform:rotate(8deg);transition:opacity .5s;text-align:center}
+.spinme{position:absolute;right:-14px;top:4px;font-size:22px;line-height:1.05;color:var(--hero-soft);transform:rotate(8deg);transition:opacity .5s;text-align:center;
+  pointer-events:none} /* pointer-events:none, or the note swallows taps meant for the ball */
+.spinme .arr{display:block;width:2.1em;height:1.6em;margin:.15em .3em 0 auto;transform:rotate(-5deg)}
 .spun .spinme{opacity:0}
-.getting{text-align:center;font-size:clamp(26px,7vw,40px);line-height:1;margin-top:14px;color:var(--hero-soft);transform:rotate(-3deg)}
+.getting{text-align:center;font-size:clamp(26px,7vw,40px);line-height:1;margin-top:14px;color:var(--hero-soft);
+  /* nudged left so the "!" clears the sparkle; scales with the viewport */
+  transform:translateX(clamp(-76px,-9.5vw,-36px)) rotate(-3deg)}
 .names{font-family:var(--poster);font-weight:900;text-transform:uppercase;text-align:center;line-height:.8;margin:12px 0 0;font-size:clamp(84px,27vw,230px);letter-spacing:-.01em}
 .names span{display:block}
 .names .amp{color:var(--hero-hot);font-size:.55em;line-height:.9;transform:rotate(-6deg)}
@@ -127,10 +131,15 @@ p{max-width:36em;margin:0 0 14px}
 .poster h3{font-family:var(--poster);font-weight:900;text-transform:uppercase;font-size:64px;line-height:.82;margin:14px 0 0;color:var(--ink)}
 .poster h3 em{font-style:normal;color:var(--plum)}
 .poster:nth-child(3) h3 em{color:var(--butter)} /* palette A: delete this line */
+.poster h3.wp{margin:14px -16px 0;padding:3px 0 1px;font-size:46px;line-height:1.08;border-block:2px solid var(--ink);overflow:hidden}
+.wptrack{display:flex;width:max-content;animation:tick 26s linear infinite}
+.wptrack>span{white-space:nowrap}
+.wptrack svg{display:inline-block;width:15px;height:15px;margin:0 14px;vertical-align:-1px}
 .poster .art{flex:1;display:flex;align-items:center;justify-content:center;padding:8px 0}
 .poster .art svg{width:100%;max-width:300px;height:auto}
 .poster .deets{border-top:1.5px solid var(--ink);padding-top:10px;display:grid;gap:4px}
 .poster .deets p{font-size:16px;margin:0}
+.poster .deets .tba{font-family:var(--hand);font-size:20px;line-height:1.12;color:var(--plum);margin-top:4px}
 .swipe{font-size:22px;color:var(--plum);text-align:right;margin-top:-6px}
 
 /* ---------- Bok: school papers ---------- */
@@ -198,6 +207,7 @@ p{max-width:36em;margin:0 0 14px}
 
 /* ---------- FAQ on ruled paper ---------- */
 .faq{background:var(--paper)}
+.faq .soon{font-family:var(--hand);font-size:22px;line-height:30px;color:var(--plum)}
 .paper{background:var(--paper);border:2.5px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:10px 18px 14px 50px;position:relative;
   background-image:linear-gradient(90deg,transparent 36px,rgba(239,136,61,.9) 36px,rgba(239,136,61,.9) 38px,transparent 38px),repeating-linear-gradient(transparent 0 33px,rgba(80,120,200,.33) 33px 34px);background-position:0 0,0 8px}
 details{border-bottom:0}
@@ -206,6 +216,13 @@ summary::-webkit-details-marker{display:none}
 summary::after{content:"+";font-family:var(--poster);font-weight:900;font-size:30px;transition:transform .2s;color:var(--ink)}
 details[open] summary::after{transform:rotate(45deg)}
 details p{line-height:34px;margin:0;font-size:17px}
+
+/* ---------- vendor links ---------- */
+.ilink{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
+  border:2px solid currentColor;border-radius:999px;padding:6px 13px 5px;margin-top:14px;transition:transform .15s,box-shadow .15s}
+.ilink:hover{transform:translate(-1px,-2px);box-shadow:3px 3px 0 currentColor}
+.ilink:active{transform:translate(1px,1px);box-shadow:none}
+.ilink svg{width:15px;height:15px;flex:none}
 
 /* ---------- footer ---------- */
 footer{background:var(--hero-bg);color:var(--hero-fg);text-align:center;padding-block:40px 120px;overflow:hidden}
@@ -238,7 +255,7 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .hang,.track,.sparks path{animation:none}
+  .hang,.track,.wptrack,.sparks path{animation:none}
   .h,.poster .art svg,.menu,.card,.comp,.notebook{animation:none!important}
 }
 </style>
@@ -249,6 +266,7 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
     <filter id="ink" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/></filter>
     <filter id="boil" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="1" result="n"><animate attributeName="seed" values="1;7;13;19" dur="0.72s" calcMode="discrete" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/></filter>
     <filter id="marble"><feTurbulence type="fractalNoise" baseFrequency="0.045 0.06" numOctaves="3" seed="9"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncR type="discrete" tableValues="0.1 0.1 0.95 0.1 0.95 0.1"/><feFuncG type="discrete" tableValues="0.1 0.1 0.93 0.1 0.93 0.1"/><feFuncB type="discrete" tableValues="0.09 0.09 0.9 0.09 0.9 0.09"/></feComponentTransfer></filter>
+    <g id="ig"><rect x="-8" y="-8" width="16" height="16" rx="5.2" fill="none" stroke="currentColor" stroke-width="2.1"/><circle cx="0" cy="0" r="3.7" fill="none" stroke="currentColor" stroke-width="2.1"/><circle cx="4.7" cy="-4.7" r="1.2" fill="currentColor"/></g>
     <path id="star" d="M0 -10 C1 -3 3 -1 10 0 C3 1 1 3 0 10 C-1 3 -3 1 -10 0 C-3 -1 -1 -3 0 -10Z"/>
     <g id="coupe">
       <path d="M-40 -14 Q0 -10 40 -14 Q36 12 0 14 Q-36 12 -40 -14Z" style="fill:var(--c,#F9F4D6)" transform="translate(3 3)"/>
@@ -269,7 +287,7 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
       <div class="ballbox">
         <canvas id="ball" role="img" aria-label="A hand-drawn disco ball, spinning. Swipe it to spin faster."></canvas>
         <svg class="sparks" viewBox="0 0 100 100" aria-hidden="true" fill="currentColor"><use href="#star" transform="translate(12 22) scale(.7)"/><use href="#star" transform="translate(88 30) scale(.5)"/><use href="#star" transform="translate(84 84) scale(.8)"/><use href="#star" transform="translate(16 80) scale(.45)"/></svg>
-        <div class="spinme hand" aria-hidden="true">spin<br>me!</div>
+        <div class="spinme hand" aria-hidden="true">give it<br>a spin!<svg class="arr" viewBox="0 0 44 34" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M40 5C27 2 13 8 7 22"/><path d="M7 22l10-1.6M7 22l3.4 8.6"/></svg></div>
       </div>
     </div>
     <div class="getting hand">we're getting married!</div>
@@ -298,9 +316,9 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
     <div class="posters">
       <article class="poster">
         <div class="top mono"><span>Friday</span><span>06.04.27</span></div>
-        <h3>Welcome <em>party!</em></h3>
+        <h3 class="wp" aria-label="Welcome party!"><span class="wptrack" id="wptrack" aria-hidden="true"><span>Welcome <em>party!</em> <svg viewBox="-10 -10 20 20"><use href="#star"/></svg> </span></span></h3>
         <div class="art" id="art-fri"></div>
-        <div class="deets"><span class="mono">The Deacon · 1600 Christian St</span><p>Kick off the weekend with us. Tacos by Mission Taqueria.</p></div>
+        <div class="deets"><span class="mono">The Deacon · 1600 Christian St</span><p>Kick off the weekend with us. Tacos by Mission Taqueria.</p><p class="tba">More times and details to be announced.</p></div>
       </article>
       <article class="poster">
         <div class="top mono"><span>Saturday</span><span>06.05.27</span></div>
@@ -352,6 +370,7 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
           </ol>
         </div>
         <div class="addr mono">1901 S. 9th St · Philadelphia, PA 19148</div>
+        <a class="ilink" href="https://www.instagram.com/buildingbok/" target="_blank" rel="noopener" aria-label="Bok on Instagram"><svg viewBox="-10 -10 20 20" aria-hidden="true"><use href="#ig"/></svg>@buildingbok</a>
       </div>
     </div>
     <div id="art-bok" style="margin-top:40px"></div>
@@ -369,6 +388,7 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
     <div>
       <p><b>Party Girl is cooking.</b> It's a young Philadelphia cake and catering studio. Mallory Valvano started it in 2021 as Party Girl Bake Club, a pandemic side project, and it grew into a full kitchen with Daniel Daley as executive chef.</p>
       <p>Their food looks as good as it tastes, which is exactly why we picked them.</p>
+      <a class="ilink" href="https://www.instagram.com/partygirl.worldwide/" target="_blank" rel="noopener" aria-label="Party Girl on Instagram"><svg viewBox="-10 -10 20 20" aria-hidden="true"><use href="#ig"/></svg>@partygirl.worldwide</a>
     </div>
     <div class="menu">
       <span class="mono">Saturday · June 5 · Bok</span>
@@ -394,6 +414,7 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
       <p>It's our home base for the weekend. The Friday welcome party and the Sunday coffee are both here, and some of our people are staying here too.</p>
       <p class="hand" style="font-size:27px;color:var(--plum)">more hotel options coming soon!</p>
       <div class="addr mono">1600 Christian St · Philadelphia, PA 19146</div>
+      <a class="ilink" href="https://www.instagram.com/thedeaconphl/" target="_blank" rel="noopener" aria-label="The Deacon on Instagram"><svg viewBox="-10 -10 20 20" aria-hidden="true"><use href="#ig"/></svg>@thedeaconphl</a>
     </div>
     <div class="art" id="art-church" aria-hidden="true"></div>
   </div>
@@ -437,7 +458,10 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
       <details><summary>Can I bring my kids?</summary><p>The wedding is adults only. We'll have childcare at The Deacon on Saturday night, so parents can drop off their little ones and come party.</p></details>
       <details><summary>Can I take photos?</summary><p>The ceremony is unplugged, so please keep your phone put away. We'll have photographers and will share everything after.</p></details>
       <details><summary>Will there be a bar?</summary><p>Yes. Open bar.</p></details>
-      <details><summary>What do I wear?</summary><p>Fancy funky. Dress up and have fun with it.</p></details>
+      <details><summary>What do I wear?</summary><p>Fancy funky. Dress up and have fun with it.</p>
+        <p class="soon">More inspiration to come.<!-- Inspiration links go here. Copy this line and fill in the URL and the label:
+        <a class="ilink" href="https://example.com" target="_blank" rel="noopener">Lookbook</a>
+        --></p></details>
     </div>
   </div>
 </section>
@@ -513,7 +537,7 @@ function put(id,vb,body,boil){const el=document.getElementById(id); if(el) el.in
   b+=ln('M296 300 L296 244 Q340 214 384 244 L384 300')+ln('M40 196 L180 196 M500 196 L640 196',2)+ln('M10 300 L670 300');
   b+=`<text x="340" y="90" text-anchor="middle" font-family="Londrina Solid,Arial Black" font-weight="900" font-size="30" fill="${C.plum}" letter-spacing="6">BOK</text>`;
   b+=`<g transform="translate(252 36)">${ln('M0 24 L0 -4')}${ln('M-12 0 Q0 -8 12 0',2)}</g>`;
-  b+=star(596,70,1.4,C.plum)+star(640,110,.8)+star(90,96,1)+`<text x="560" y="40" text-anchor="end" font-family="Covered By Your Grace,cursive" font-size="26" fill="${C.plum}" transform="rotate(-4 560 40)">cocktails up here!</text>`+ln('M500 50 Q470 70 440 64',2);
+  b+=star(596,70,1.4,C.plum)+star(640,110,.8)+star(90,96,1)+`<text x="560" y="42" text-anchor="end" font-family="Covered By Your Grace,cursive" font-size="24" fill="${C.plum}" transform="rotate(-4 560 42)">ceremony, cocktails<tspan x="560" dy="24">and celebration</tspan><tspan x="560" dy="24">up here!</tspan></text>`+ln('M468 102 Q434 118 400 110',2);
   put('art-bok','0 20 680 300',b);
 })();
 
@@ -578,6 +602,11 @@ function put(id,vb,body,boil){const el=document.getElementById(id); if(el) el.in
   document.getElementById('track').innerHTML=s.repeat(4);
 })();
 
+/* Friday poster banner: repeat the unit so the -50% scroll loops seamlessly */
+(function(){
+  const el=document.getElementById('wptrack'); if(el) el.innerHTML=el.innerHTML.repeat(6);
+})();
+
 /* Countdown */
 (function(){
   const n=new Date(), d=Math.ceil((new Date(2027,5,5)-new Date(n.getFullYear(),n.getMonth(),n.getDate()))/864e5);
@@ -640,13 +669,28 @@ function put(id,vb,body,boil){const el=document.getElementById(id); if(el) el.in
       gx.globalAlpha=Math.min(1,(0.26+e)*Math.sqrt(c)*f);
       const w=p.s*(0.45+0.55*c)*2.4,h=p.s*2.4; gx.drawImage(sprites[p.k],x-w/2,y-h/2,w,h); }
     gx.globalAlpha=1; }
-  let rot=0.6,vel=0,last=performance.now(),drag=false,px=0,vis=true; const BASE=0.00026;
-  cv.addEventListener('pointerdown',e=>{drag=true;px=e.clientX;try{cv.setPointerCapture(e.pointerId)}catch(_){}document.body.classList.add('spun');});
-  cv.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-px;px=e.clientX;rot+=dx/(S*0.46);vel=Math.max(-0.02,Math.min(0.02,dx*0.00045));});
-  const end=()=>{drag=false}; cv.addEventListener('pointerup',end); cv.addEventListener('pointercancel',end);
+  let rot=0.6,vel=0,last=performance.now(),drag=false,px=0,vis=true,hist=[]; const BASE=0.00026;
+  const clampV=v=>Math.max(-0.02,Math.min(0.02,v));
+  /* one pointer path for both finger and mouse; touch-action:pan-y keeps vertical scrolling working */
+  cv.addEventListener('pointerdown',e=>{drag=true;px=e.clientX;vel=0;hist=[{x:e.clientX,t:e.timeStamp}];
+    try{cv.setPointerCapture(e.pointerId)}catch(_){}document.body.classList.add('spun');e.preventDefault();});
+  cv.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-px;px=e.clientX;rot+=dx/(S*0.46);
+    hist.push({x:e.clientX,t:e.timeStamp}); if(hist.length>12) hist.shift();});
+  /* on release, throw it: speed comes from the last ~90ms of the swipe, then eases back to the idle spin */
+  const end=e=>{ if(!drag) return; drag=false;
+    const now=(e&&e.timeStamp)||performance.now(), b=hist[hist.length-1];
+    if(b && now-b.t<160){                                  // still travelling when they let go
+      let i=hist.length-1;
+      while(i>0 && b.t-hist[i-1].t<90) i--;                 // average over the last ~90ms
+      if(i===hist.length-1 && hist.length>1) i=hist.length-2;  // sparse events: use the last pair
+      const a=hist[i];
+      if(a && b.t>a.t) vel=clampV(((b.x-a.x)/(S*0.46))/(b.t-a.t));
+    }
+    hist=[]; };
+  cv.addEventListener('pointerup',end); cv.addEventListener('pointercancel',end); cv.addEventListener('lostpointercapture',end);
   let lastY=scrollY; addEventListener('scroll',()=>{const dy=scrollY-lastY;lastY=scrollY;vel=Math.max(-0.012,Math.min(0.012,vel+dy*0.000012));},{passive:true});
   new IntersectionObserver(es=>{vis=es[0].isIntersecting}).observe(cv);
-  function frame(t){ const dt=Math.min(64,t-last); last=t; if(!drag) rot+=(BASE+vel)*dt; vel*=Math.pow(0.9978,dt);
+  function frame(t){ const dt=Math.min(64,t-last); last=t; if(!drag) rot+=(BASE+vel)*dt; vel*=Math.pow(0.9988,dt);
     if(vis) drawBall(rot,t); drawGlints(rot,t,(vis?0.28:0.1)+Math.min(0.5,Math.abs(vel)*60)); requestAnimationFrame(frame); }
   size(); addEventListener('resize',()=>{size(); if(reduce){drawBall(rot,0);drawGlints(rot,0,.3);} });
   if(reduce){drawBall(rot,0);drawGlints(rot,0,.3);} else requestAnimationFrame(frame);
