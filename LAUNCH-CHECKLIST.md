@@ -66,7 +66,8 @@ found — please confirm or correct each before launch.
 ## 4. Done in Phase 1
 
 - [x] Git repo, `.gitignore`, `.nojekyll`
-- [x] Private GitHub repo, pushed to `main`
+- [x] GitHub repo, pushed to `main`; Pages building from `main` / `/`
+- [x] Preview live at https://joshua-albert.github.io/wedding-site/
 - [x] Draft switch removed; **B Blue** locked in as the site's colours
       (A Plum kept commented in the CSS — see `:root` and the four lines marked
       `palette A` — so it can be flipped back)
@@ -78,6 +79,15 @@ found — please confirm or correct each before launch.
 
 ## 5. Things to know
 
+- **The repo is public.** GitHub's free plan won't serve Pages from a private
+  repo, and Joshua chose public over a $4/month Pro upgrade. There's no guest
+  data and no secrets in here, but the source is browsable at
+  github.com/joshua-albert/wedding-site by anyone who looks. Upgrading to Pro
+  later and flipping it back to private is a two-minute change.
+- **On the github.io preview URL, `robots.txt` does nothing.** Crawlers only
+  read `joshua-albert.github.io/robots.txt`, which is GitHub's, not ours. The
+  `noindex,nofollow` meta tag is doing the work for now; our robots.txt starts
+  applying in Phase 2 once the site is at its own domain.
 - **The share image won't preview until the domain is live.** `og:image` and
   `og:url` point at `https://annaandjoshuasayido.com/`, because that's the link
   guests will actually be texted. On the temporary github.io preview URL, the
