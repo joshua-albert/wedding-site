@@ -30,12 +30,10 @@ Last updated: 2026-09-27 (after Joshua's first round of edits)
 | Stay section | "more hotel options coming soon!" | Hotel options beyond The Deacon (names, addresses, any room block) |
 | FAQ, "What do I wear?" | "More inspiration to come." | Links to add — there's a commented-out `<a class="ilink">` line in `index.html` right after that sentence showing the exact pattern |
 
-**Resolved:** the ceremony location. Joshua confirmed the ceremony and the celebration
-are up on the roof at Bok, and the illustration now says so.
-Worth a second look: the Saturday poster and the dinner menu still say the
-family-style dinner is *in the gym*, while the roof note now covers ceremony,
-cocktails and celebration. If the whole night is actually on the roof, the gym
-lines need changing too — tell me which is right.
+**Resolved:** the ceremony location. Joshua confirmed the ceremony and cocktails
+are up on the roof at Bok and dinner stays in the gym, so the illustration reads
+"ceremony + cocktails up here!" and the Saturday poster and dinner menu are
+unchanged.
 
 ## 3. Facts already on the page that I have NOT verified
 
