@@ -84,10 +84,9 @@ svg.ill{display:block;overflow:visible}
 .sparks path{transform-box:fill-box;transform-origin:center;animation:tw 2.8s ease-in-out infinite}
 .sparks path:nth-child(2){animation-delay:-.9s}.sparks path:nth-child(3){animation-delay:-1.7s}.sparks path:nth-child(4){animation-delay:-2.3s}
 @keyframes tw{0%,100%{transform:scale(.35) rotate(0)}50%{transform:scale(1) rotate(45deg)}}
-.spinme{position:absolute;right:-14px;top:4px;font-size:22px;line-height:1.05;color:var(--hero-soft);transform:rotate(8deg);transition:opacity .5s;text-align:center;
+.spinme{position:absolute;right:-14px;top:4px;font-size:22px;line-height:1.05;color:var(--hero-soft);transform:rotate(8deg);text-align:center;
   pointer-events:none} /* pointer-events:none, or the note swallows taps meant for the ball */
 .spinme .arr{display:block;width:2.1em;height:1.6em;margin:.15em .3em 0 auto;transform:rotate(-5deg)}
-.spun .spinme{opacity:0}
 .getting{text-align:center;font-size:clamp(26px,7vw,40px);line-height:1;margin-top:14px;color:var(--hero-soft);
   /* nudged left so the "!" clears the sparkle; scales with the viewport */
   transform:translateX(clamp(-76px,-9.5vw,-36px)) rotate(-3deg)}
@@ -235,6 +234,7 @@ details p{line-height:34px;margin:0;font-size:17px}
 
 /* ---------- footer ---------- */
 footer{background:var(--hero-bg);color:var(--hero-fg);text-align:center;padding-block:40px 120px;overflow:hidden}
+footer .builtby{font-size:19px;line-height:1.2;margin-top:12px;opacity:.65}
 footer .big{font-family:var(--poster);font-weight:900;text-transform:uppercase;font-size:clamp(56px,16vw,150px);line-height:.82;margin:10px 0 0}
 footer .big em{font-style:normal;color:var(--hero-hot)}
 .flowers{margin:0 calc(-1 * var(--g)) 24px}
@@ -265,6 +265,7 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .hang,.sparks path,.bee{animation:none}
+  .lit #glints{opacity:.25}          /* shimmer right down, but not gone */
   /* the two tickers keep crawling rather than stopping dead */
   .track{animation-duration:150s}
   .wptrack{animation-duration:95s}
@@ -276,7 +277,7 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <filter id="ink" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/></filter>
-    <filter id="boil" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="1" result="n"><animate attributeName="seed" values="1;7;13;19" dur="0.72s" calcMode="discrete" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="boil" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="1" result="n"><animate attributeName="seed" values="1;7;13;19" dur="1.6s" calcMode="discrete" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/></filter>
     <filter id="marble"><feTurbulence type="fractalNoise" baseFrequency="0.045 0.06" numOctaves="3" seed="9"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncR type="discrete" tableValues="0.1 0.1 0.95 0.1 0.95 0.1"/><feFuncG type="discrete" tableValues="0.1 0.1 0.93 0.1 0.93 0.1"/><feFuncB type="discrete" tableValues="0.09 0.09 0.9 0.09 0.9 0.09"/></feComponentTransfer></filter>
     <g id="ig"><rect x="-8" y="-8" width="16" height="16" rx="5.2" fill="none" stroke="currentColor" stroke-width="2.1"/><circle cx="0" cy="0" r="3.7" fill="none" stroke="currentColor" stroke-width="2.1"/><circle cx="4.7" cy="-4.7" r="1.2" fill="currentColor"/></g>
     <path id="star" d="M0 -10 C1 -3 3 -1 10 0 C3 1 1 3 0 10 C-1 3 -3 1 -10 0 C-3 -1 -1 -3 0 -10Z"/>
@@ -298,7 +299,7 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
       <div class="cord" aria-hidden="true"></div>
       <div class="ballbox">
         <canvas id="ball" role="img" aria-label="A hand-drawn disco ball, spinning. Swipe it to spin faster."></canvas>
-        <svg class="sparks" viewBox="0 0 100 100" aria-hidden="true" fill="currentColor"><use href="#star" transform="translate(12 22) scale(.7)"/><use href="#star" transform="translate(88 30) scale(.5)"/><use href="#star" transform="translate(84 84) scale(.8)"/><use href="#star" transform="translate(16 80) scale(.45)"/></svg>
+        <svg class="sparks" viewBox="0 0 100 100" aria-hidden="true" fill="currentColor"><use href="#star" transform="translate(12 22) scale(.7)"/><use href="#star" transform="translate(88 30) scale(.5)"/><use href="#star" transform="translate(84 84) scale(.8)"/><use href="#star" transform="translate(16 80) scale(.45)"/><g id="bee-hero"></g></svg>
         <div class="spinme hand" aria-hidden="true">give it<br>a spin!<svg class="arr" viewBox="0 0 44 34" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M40 5C27 2 13 8 7 22"/><path d="M7 22l10-1.6M7 22l3.4 8.6"/></svg></div>
       </div>
     </div>
@@ -486,6 +487,7 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
     <div class="big">Dance <em>floor</em></div>
     <p style="margin:26px auto 0"><a class="btn zola" href="https://www.zola.com/" target="_blank" rel="noopener">RSVP on Zola →</a></p>
     <div class="mono" style="margin-top:22px;opacity:.8">Anna &amp; Joshua · 06.05.2027 · Philadelphia</div>
+    <div class="hand builtby">website built by Joshua</div>
   </div>
 </footer>
 
@@ -521,7 +523,7 @@ function put(id,vb,body,boil,extra){const el=document.getElementById(id); if(el)
   const shell='M40 300 A62 62 0 0 1 164 300 Z';
   b+=fl('M44 296 Q70 250 102 250 Q134 250 160 296',C.mustard,4,6)+`<path d="M52 292 q10 -26 22 -8 q12 -24 24 -6 q12 -24 24 -6 q12 -22 24 -2" fill="none" stroke="${C.blush}" stroke-width="9" stroke-linecap="round"/>`+ln('M40 300 A62 62 0 0 1 164 300')+ln('M58 300 A44 44 0 0 1 146 300',2.2);
   b+=star(60,60,1.2)+star(250,90,.8)+star(270,250,1);
-  put('art-fri','20 30 280 280',b,true);
+  put('art-fri','20 30 280 280',b,true,bee(256,136,1.15,-10,0.9));
 })();
 
 /* Saturday: coupe tower with sparkles */
@@ -530,7 +532,7 @@ function put(id,vb,body,boil,extra){const el=document.getElementById(id); if(el)
   rows.forEach((n,r)=>{ for(let k=0;k<n;k++){ const x=150+(k-(n-1)/2)*w, y=270-r*h; b+=`<use href="#coupe" x="${x}" y="${y}" style="--c:${r%2?C.butter:C.paper}"/>`; } });
   b+=ln('M150 60 L150 44',2.4)+star(40,70,1.6,C.plum)+star(262,52,1.1,C.plum)+star(274,190,.8)+star(24,210,.9);
   b+=`<circle cx="120" cy="92" r="4" fill="none" stroke="${INK}" stroke-width="2"/><circle cx="178" cy="70" r="3" fill="none" stroke="${INK}" stroke-width="2"/><circle cx="160" cy="40" r="5" fill="none" stroke="${INK}" stroke-width="2"/>`;
-  put('art-sat','0 20 300 320',b,true);
+  put('art-sat','0 20 300 320',b,true,bee(34,148,1.05,8,1.8));
 })();
 
 /* Sunday: coffee cup, steam and a croissant */
@@ -544,7 +546,7 @@ function put(id,vb,body,boil,extra){const el=document.getElementById(id); if(el)
   cr.forEach(([x,y,r,a])=>{ b+=`<ellipse cx="${x+4}" cy="${y+4}" rx="${r}" ry="${r*0.8}" fill="${C.mustard}" transform="rotate(${a} ${x} ${y})"/>`; });
   cr.forEach(([x,y,r,a])=>{ b+=`<ellipse cx="${x}" cy="${y}" rx="${r}" ry="${r*0.8}" fill="none" stroke="${INK}" stroke-width="3" transform="rotate(${a} ${x} ${y})"/>`; });
   b+=star(40,60,1.1)+star(250,90,.8,C.plum);
-  put('art-sun','20 20 320 270',b,true);
+  put('art-sun','20 20 320 270',b,true,bee(288,162,1.25,-6,2.6));
 })();
 
 /* Bok building, inked, full width */
@@ -586,7 +588,7 @@ function put(id,vb,body,boil,extra){const el=document.getElementById(id); if(el)
     b+=`<circle cx="${cx}" cy="${cy}" r="6" fill="${C.butter}" stroke="${INK}" stroke-width="2"/><circle cx="${cx}" cy="${cy}" r="12" fill="none" stroke="${C.mustard}" stroke-width="2" stroke-dasharray="3 5"/>`;
     b+=`<g transform="translate(${cx+36} ${cy-4})">${ln('M0 0 L10 -8 M4 6 L14 -2',2)}</g>`;
   }
-  document.getElementById('art-table').innerHTML=`<svg class="ill" viewBox="0 0 ${W} 250"><g filter="url(#ink)">${b}</g></svg>`;
+  document.getElementById('art-table').innerHTML=`<svg class="ill" viewBox="0 0 ${W} 250"><g filter="url(#ink)">${b}</g>${bee(575,28,1.1,-9,1.1)}</svg>`;
 })();
 
 /* The Deacon church */
@@ -598,7 +600,7 @@ function put(id,vb,body,boil,extra){const el=document.getElementById(id); if(el)
   b+=ln('M144 300 L144 234 Q170 206 196 234 L196 300')+ln('M94 196 L94 250 Q106 240 118 250 L118 196 Q106 180 94 196 M222 196 L222 250 Q234 240 246 250 L246 196 Q234 180 222 196',2.6);
   b+=ln('M270 200 L330 200 L330 300 M270 230 L330 230',2.6)+ln('M20 300 L340 300');
   b+=star(40,90,1.1,C.plum)+star(300,70,1.4)+`<text x="210" y="60" font-family="Covered By Your Grace,cursive" font-size="24" fill="${C.plum}" transform="rotate(-6 210 60)">est. 1906</text>`;
-  put('art-church','0 0 360 310',b,false,bee(30,238,1.15,8,1.4));
+  put('art-church','0 0 360 310',b,false,bee(30,238,1.15,8,1.4)+bee(318,152,1.05,-9,3.1));
 })();
 
 /* Footer bouquet row */
@@ -617,6 +619,9 @@ function put(id,vb,body,boil,extra){const el=document.getElementById(id); if(el)
   b+=ln(`M0 202 L${W} 202`,2.4);
   document.getElementById('art-flowers').innerHTML=`<svg class="ill" viewBox="0 0 ${W} 210" style="color:inherit"><g filter="url(#ink)">${b}</g>${bee(238,48,2.2,-7,0.6)+bee(716,42,2,9,2.2)}</svg>`;
 })();
+
+/* the hero bee lives in the sparks layer, which is already pointer-events:none */
+(function(){ const el=document.getElementById('bee-hero'); if(el) el.innerHTML=bee(6,58,0.24,-6,0.4); })();
 
 /* Ticker */
 (function(){
@@ -696,11 +701,13 @@ function put(id,vb,body,boil,extra){const el=document.getElementById(id); if(el)
      guest actually asks for still visibly spins the ball. This is what used to
      freeze the ball outright on iOS with Reduce Motion switched on. */
   let rot=0.6,vel=0,last=performance.now(),drag=false,px=0,vis=true,hist=[]; const BASE=reduce?0:0.00026;
-  const clampV=v=>Math.max(-0.02,Math.min(0.02,v));
+  const clampV=v=>Math.max(-0.012,Math.min(0.012,v));   // ≈1.9 turns/sec, well under a flicker
+  const GLINTCAP=0.008;                                  // glint blink ceiling ≈2/sec (WCAG 2.3.1 allows 3)
+  let gRot=0.6, pRot=0.6;
   /* one gesture, two ways in: pointer events normally, raw touch events as a fallback
      for engines that don't deliver pointer events on a canvas. touch-action:pan-y
      means a sideways drag spins the ball while an up/down drag still scrolls the page. */
-  function gStart(x,t){ drag=true; px=x; vel=0; hist=[{x,t}]; document.body.classList.add('spun'); }
+  function gStart(x,t){ drag=true; px=x; vel=0; hist=[{x,t}]; }
   function gMove(x,t){ if(!drag) return; const dx=x-px; px=x; rot+=dx/(S*0.46);
     hist.push({x,t}); if(hist.length>12) hist.shift(); }
   /* on release, throw it: speed comes from the last ~90ms of the swipe, then eases back to the idle spin */
@@ -726,14 +733,17 @@ function put(id,vb,body,boil,extra){const el=document.getElementById(id); if(el)
   let lastY=scrollY; addEventListener('scroll',()=>{const dy=scrollY-lastY;lastY=scrollY;vel=Math.max(-0.012,Math.min(0.012,vel+dy*0.000012));},{passive:true});
   new IntersectionObserver(es=>{vis=es[0].isIntersecting}).observe(cv);
   function frame(t){ const dt=Math.min(64,t-last); last=t; if(!drag) rot+=(BASE+vel)*dt; vel*=Math.pow(0.9988,dt);
+    const cap=GLINTCAP*dt;                              // glints follow the ball, but never faster than the cap
+    gRot+=Math.max(-cap,Math.min(cap,rot-pRot)); pRot=rot;
     if(!reduce || drag || Math.abs(vel)>1e-6){          // under Reduce Motion only redraw while it's actually turning
       if(vis) drawBall(rot,t);
-      drawGlints(rot,t,(vis?0.28:0.1)+Math.min(0.5,Math.abs(vel)*60));
+      drawGlints(gRot,t,(vis?0.28:0.1)+Math.min(0.15,Math.abs(vel)*25));
     }
     requestAnimationFrame(frame); }
-  size(); addEventListener('resize',()=>{size(); drawBall(rot,0); drawGlints(rot,0,.3);});
-  drawBall(rot,0); drawGlints(rot,0,.3);
+  size(); addEventListener('resize',()=>{size(); drawBall(rot,0); drawGlints(gRot,0,.3);});
+  drawBall(rot,0); drawGlints(gRot,0,.3);
   requestAnimationFrame(frame);
+  if(reduce) document.querySelectorAll('#boil animate').forEach(a=>a.remove());
   setTimeout(()=>document.documentElement.classList.add('lit'),300);
 })();
 </script>

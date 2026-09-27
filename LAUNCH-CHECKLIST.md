@@ -5,7 +5,7 @@ confirmed to me yet. Nothing here is invented; where the page doesn't know
 something it says so out loud ("Times are coming soon", "more hotel options
 coming soon!") rather than guessing.
 
-Last updated: 2026-09-27 (after the iOS fixes and the bees)
+Last updated: 2026-09-27 (after the flash-safety pass)
 
 ---
 
@@ -86,7 +86,15 @@ found — please confirm or correct each before launch.
 - [x] Works with iOS **Reduce Motion** switched on: the ball still spins when you
       swipe it and both tickers keep crawling. Tested in real WebKit (iPhone
       emulation) at 390px and 402px, with Reduce Motion both on and off.
-- [x] Four small bumblebees tucked into the Bok, Deacon and footer illustrations
+- [x] Ten small bumblebees spread from the hero down to the footer, all tucked
+      inside illustrations so they can't cover text or buttons (checked
+      automatically against every link, button and text node at 390px and 402px)
+- [x] The "give it a spin!" note stays visible at all times
+- [x] **Flash safety (WCAG 2.3.1, no more than 3 flashes/second).** Measured after
+      the hardest possible flick: glints 1.99/s, ink-line jitter 2.5/s (was 5.6/s),
+      ball capped at ~1.5 turns/sec (was 3.2). With Reduce Motion on, the glint
+      layer drops to 25% and the ink lines stop boiling, while both tickers crawl.
+- [x] "website built by Joshua" in the footer
 
 ## 5. Things to know
 
