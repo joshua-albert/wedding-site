@@ -1,0 +1,603 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"></head><body><title>Anna &amp; Joshua's Dinner Club</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400..800;1,400..800&family=Roboto+Mono:wght@400;500&family=Londrina+Solid:wght@400;900&family=Covered+By+Your+Grace&display=swap">
+<style>
+/* Second Direction · Palette 2 */
+:root{
+  color-scheme:light;
+  --butter:#F9F4D6; --mustard:#D7C44B; --blush:#EFB9B9; --powder:#CBDBF4;
+  --plum:#732242; --tan:#EF883D; --ink:#231605; --paper:#FCF9F4; --night:#2A0A18;
+  --grot:"Hanken Grotesk","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:"Roboto Mono",ui-monospace,Menlo,monospace;
+  --poster:"Londrina Solid","Arial Black",Impact,sans-serif;
+  --hand:"Covered By Your Grace","Bradley Hand","Segoe Print",cursive;
+  --g:18px;
+}
+*{box-sizing:border-box}
+html{overflow-x:clip}
+body{margin:0;background:var(--ink);color:var(--ink);font-family:var(--grot);font-size:17px;line-height:1.45;-webkit-font-smoothing:antialiased;overflow-x:clip;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+a{color:inherit}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.hand{font-family:var(--hand);font-weight:400;line-height:1}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:3px solid var(--tan);outline-offset:3px}
+svg.paint{display:block;width:100%;height:auto;overflow:visible}
+svg.art{display:block;overflow:visible}
+
+/* ---------- the flyers: each one gets pasted over the last ---------- */
+.flyer{position:sticky;top:0;min-height:100svh;padding:70px var(--g) 40px;overflow:hidden;isolation:isolate;
+  box-shadow:0 -18px 40px -10px rgba(20,8,4,.45);
+  clip-path:polygon(0 6px,3% 0,7% 5px,12% 1px,18% 6px,24% 0,31% 4px,38% 1px,45% 6px,52% 0,59% 5px,66% 1px,73% 6px,80% 0,87% 5px,93% 1px,100% 5px,100% 100%,0 100%)}
+.flyer:first-child{clip-path:none}
+/* printed paper: fine grain + a soft wrinkle */
+.flyer::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.35;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='480'%3E%3Cfilter id='p' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeDiffuseLighting lighting-color='%23fff' surfaceScale='1.3'%3E%3CfeDistantLight azimuth='60' elevation='68'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E")}
+.flyer::after{content:"";position:absolute;inset:0;z-index:5;pointer-events:none;opacity:.16;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .15 0 0 0 0 .08 0 0 0 0 .05 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.inner{max-width:1100px;margin:0 auto;position:relative}
+.side{position:absolute;left:4px;top:50%;transform-origin:left center;transform:rotate(-90deg) translate(-50%,0);white-space:nowrap;z-index:3}
+.kick{display:flex;justify-content:space-between;gap:10px;border-bottom:2px solid currentColor;padding-bottom:8px;margin-bottom:18px}
+.lede{font-size:20px;font-weight:500;letter-spacing:-.01em;line-height:1.25;max-width:26em;margin:0}
+p{margin:0 0 12px;max-width:34em}
+
+/* top + bottom bars */
+.top{position:fixed;left:0;right:0;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:calc(10px + env(safe-area-inset-top,0px)) var(--g) 10px;pointer-events:none}
+.top > *{pointer-events:auto}
+.badge{font-family:var(--poster);font-weight:900;font-size:18px;text-transform:uppercase;background:var(--ink);color:var(--butter);padding:6px 12px 4px;transform:rotate(-3deg);text-decoration:none}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--poster);font-weight:900;font-size:20px;text-transform:uppercase;text-decoration:none;
+  background:var(--tan);color:var(--ink);border:2.5px solid var(--ink);border-radius:999px;padding:10px 22px 8px;box-shadow:4px 4px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translate(-2px,-2px) rotate(-2deg);box-shadow:6px 6px 0 var(--ink)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.bar{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;justify-content:space-between;align-items:center;gap:10px;
+  background:var(--ink);color:var(--butter);border-radius:999px;padding:6px 6px 6px 18px;box-shadow:0 12px 30px -8px rgba(0,0,0,.5)}
+.bar b{display:block;font-family:var(--grot);font-size:15px;font-weight:600;letter-spacing:-.01em;text-transform:none}
+.bar .btn{box-shadow:none;border-width:2px;padding:9px 20px 7px}
+
+/* ---------- 1. cover ---------- */
+.f-cover{background:var(--powder);padding-top:64px}
+.f-cover .ballhang{position:absolute;right:6%;top:-64px;z-index:4;display:flex;flex-direction:column;align-items:center}
+.f-cover .ballhang i{width:2px;height:92px;background:var(--ink);opacity:.7}
+#ball1{width:min(34vw,200px);height:min(34vw,200px);touch-action:pan-y;cursor:grab}
+.f-cover .title{position:relative;z-index:2;margin-top:clamp(60px,20vw,140px);padding-left:22px}
+.once{font-size:clamp(30px,8.5vw,54px);color:var(--plum);transform:rotate(-6deg);margin:-4px 0 0 30%;position:relative;z-index:3}
+.pour{position:relative;height:clamp(250px,74vw,440px);margin-top:4px}
+.pour svg{position:absolute;left:-6%;bottom:0;height:100%;width:auto}
+.cover-deets{position:relative;z-index:3;display:grid;gap:10px;margin-top:-20px;padding-left:22px}
+.cover-deets .row{display:flex;flex-wrap:wrap;gap:6px 10px}
+.chip{background:var(--ink);color:var(--powder);padding:5px 10px 4px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.chip.alt{background:var(--plum);color:var(--butter)}
+.count{font-size:28px;color:var(--plum)}
+
+/* ---------- 2. rules ---------- */
+.f-rules{background:var(--plum);color:var(--butter)}
+.rules{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:4px;counter-reset:r}
+.rules li{display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:start;padding:12px 0;border-top:2px dashed rgba(249,244,214,.35);counter-increment:r}
+.rules li::before{content:counter(r);font-family:var(--poster);font-weight:900;font-size:52px;line-height:.8;color:var(--mustard);transform:rotate(-6deg)}
+.rules b{display:block;font-family:var(--poster);font-weight:900;font-size:clamp(30px,8.4vw,48px);line-height:.9;text-transform:uppercase;color:var(--blush)}
+.rules span{display:block;margin-top:4px;font-size:16px;opacity:.9}
+
+/* ---------- 3. weekend ---------- */
+.f-week{background:var(--butter)}
+.cards{display:grid;grid-auto-flow:column;grid-auto-columns:84%;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:22px calc(-1*var(--g)) 0;padding:6px var(--g) 18px;scrollbar-width:none}
+.cards::-webkit-scrollbar{display:none}
+.mini{scroll-snap-align:center;border:2.5px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:14px;display:flex;flex-direction:column;min-height:min(118vw,560px);position:relative;overflow:hidden}
+.mini:nth-child(1){background:var(--tan);transform:rotate(-1deg)}
+.mini:nth-child(2){background:var(--blush);transform:rotate(1deg)}
+.mini:nth-child(3){background:var(--powder);transform:rotate(-.6deg)}
+.mini .kick{margin-bottom:10px}
+.mini .ill{flex:1;display:flex;align-items:center;justify-content:center;min-height:0}
+.mini .ill svg{width:100%;max-height:100%;height:auto}
+.mini .it{font-family:var(--hand);font-size:24px;color:var(--plum);margin-top:4px}
+.mini .d{border-top:2px solid var(--ink);padding-top:8px;font-size:15.5px;line-height:1.35}
+.swipe{display:flex;justify-content:space-between;align-items:center}
+.swipe .hand{font-size:24px;color:var(--plum)}
+.dots{display:flex;gap:6px}.dots i{width:9px;height:9px;border-radius:50%;border:2px solid var(--ink)}.dots i.on{background:var(--ink)}
+
+/* ---------- 4. la cena ---------- */
+.f-cena{background:var(--tan)}
+.twirl{width:min(92vw,460px);margin:10px auto 0;position:relative}
+.twirl svg{width:100%;height:auto}
+.menu{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:10px}
+.menu li{display:flex;align-items:baseline;gap:10px;border-bottom:2px solid var(--ink);padding-bottom:8px}
+.menu li b{font-family:var(--poster);font-weight:900;font-size:clamp(30px,8vw,46px);line-height:.9;text-transform:uppercase}
+.menu li span{margin-left:auto;text-align:right;font-size:15px;max-width:14em}
+.credit{margin-top:22px;background:var(--butter);border:2.5px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:14px 16px;transform:rotate(-1.5deg)}
+.credit .n{font-family:var(--poster);font-weight:900;font-size:36px;line-height:.9;color:var(--plum);text-transform:uppercase}
+.credit p{font-size:15.5px;margin:8px 0 0}
+
+/* ---------- 5. photocopies ---------- */
+.f-photos{background:var(--blush)}
+.copies{position:relative;height:min(150vw,760px);margin-top:10px}
+.dt{position:absolute;overflow:hidden;border:2.5px solid var(--ink);box-shadow:6px 6px 0 var(--ink);background:var(--blush)}
+.dt img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.35) brightness(1.08);mix-blend-mode:multiply}
+.dt::after{content:"";position:absolute;inset:0;background:var(--c,#732242);mix-blend-mode:lighten}
+.dt.a{left:0;top:0;width:66%;aspect-ratio:4/5;transform:rotate(-4deg);--c:#732242}
+.dt.b{right:0;top:30%;width:58%;aspect-ratio:4/5;transform:rotate(5deg);--c:#732242;background:var(--butter)}
+.dt.c{left:10%;bottom:0;width:62%;aspect-ratio:5/4;transform:rotate(-2deg);--c:#231605;background:var(--tan)}
+.copies .tape{position:absolute;width:90px;height:26px;background:rgba(249,244,214,.75);z-index:3;transform:rotate(-12deg)}
+
+/* ---------- 6. Bok ---------- */
+.f-bok{background:var(--mustard)}
+.bokart{width:100%;max-width:640px;margin:10px auto 0}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:18px;border-top:2.5px solid var(--ink)}
+.facts div{padding:10px 8px 12px 0;border-bottom:2.5px solid var(--ink)}
+.facts div:nth-child(odd){border-right:2.5px solid var(--ink)}
+.facts div:nth-child(even){padding-left:12px}
+.facts b{display:block;font-family:var(--poster);font-weight:900;font-size:clamp(34px,9vw,56px);line-height:.9;color:var(--plum)}
+
+/* ---------- 7. The Deacon ---------- */
+.f-stay{background:var(--powder)}
+.church{width:min(78vw,380px);margin:6px auto 0}
+
+/* ---------- 8. si balla ---------- */
+.f-dance{background:var(--night);color:var(--blush);text-align:center}
+.f-dance .beams{position:absolute;left:50%;top:22%;width:220vmax;height:220vmax;margin:-110vmax 0 0 -110vmax;z-index:-1;opacity:.35;animation:spin 40s linear infinite;
+  background:repeating-conic-gradient(from 0deg,rgba(239,136,61,.0) 0 7deg,rgba(239,136,61,.55) 7deg 9deg,rgba(0,0,0,0) 9deg 18deg,rgba(239,185,185,.45) 18deg 19.5deg,rgba(0,0,0,0) 19.5deg 30deg,rgba(203,219,244,.45) 30deg 31deg,rgba(0,0,0,0) 31deg 45deg)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.f-dance .hangbig{display:flex;flex-direction:column;align-items:center;margin-top:-70px}
+.f-dance .hangbig i{width:2px;height:120px;background:var(--blush);opacity:.6}
+#ball2{width:min(80vw,440px);height:min(80vw,440px);touch-action:pan-y;cursor:grab}
+.f-dance .late{font-size:clamp(28px,8vw,48px);color:var(--mustard);transform:rotate(-4deg);margin-top:8px}
+
+/* ---------- 9. join the club ---------- */
+.f-rsvp{background:var(--butter);padding-bottom:96px}
+.tabs{display:flex;margin:26px calc(-1*var(--g)) 0;border-top:2.5px dashed var(--ink)}
+.tab{flex:1;display:flex;align-items:center;justify-content:center;height:190px;border-right:2px dashed var(--ink);text-decoration:none;background:var(--butter);position:relative;transform-origin:top center}
+.tab:last-child{border-right:0}
+.tab span{writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--poster);font-weight:900;font-size:20px;text-transform:uppercase;letter-spacing:.02em;white-space:nowrap}
+.tab small{position:absolute;bottom:8px;font-family:var(--mono);font-size:9px}
+.tab.gone{visibility:hidden}
+.tab.rip{animation:rip .9s cubic-bezier(.5,0,.8,.6) forwards;z-index:4}
+@keyframes rip{0%{transform:none}25%{transform:rotate(-6deg) translateY(4px)}100%{transform:translate(20px,120vh) rotate(38deg);opacity:0}}
+.gift{display:grid;gap:10px;margin-top:30px;padding:16px;background:var(--plum);color:var(--butter);border:2.5px solid var(--ink);box-shadow:6px 6px 0 var(--ink);transform:rotate(1deg)}
+.gift .t{font-family:var(--poster);font-weight:900;font-size:40px;line-height:.9;text-transform:uppercase;color:var(--blush)}
+.gift .btn{justify-self:start;background:var(--butter)}
+
+footer{position:relative;background:var(--ink);color:var(--butter);padding:40px var(--g) 30px;text-align:center}
+footer .mono{opacity:.8}
+
+/* ---------- motion in the paintings ---------- */
+.anim{transform-box:fill-box}
+.pour-bottle{transform-origin:70% 20%;animation:tilt 5s ease-in-out infinite}
+@keyframes tilt{0%,12%{transform:rotate(0)}30%,70%{transform:rotate(-24deg)}88%,100%{transform:rotate(0)}}
+.stream{stroke-dasharray:200;stroke-dashoffset:200;animation:stream 5s ease-in-out infinite}
+@keyframes stream{0%,28%{stroke-dashoffset:200}40%,68%{stroke-dashoffset:0}80%,100%{stroke-dashoffset:-200}}
+.wine{transform-origin:50% 100%;animation:fill 5s ease-in-out infinite}
+@keyframes fill{0%,34%{transform:scaleY(.15)}72%,100%{transform:scaleY(1)}}
+.handL{transform-origin:40% 100%;animation:clinkL 2.4s ease-in-out infinite}
+.handR{transform-origin:60% 100%;animation:clinkR 2.4s ease-in-out infinite}
+@keyframes clinkL{0%,100%{transform:rotate(-8deg)}40%,55%{transform:rotate(5deg)}}
+@keyframes clinkR{0%,100%{transform:rotate(8deg)}40%,55%{transform:rotate(-5deg)}}
+.splash{transform-origin:center;animation:splash 2.4s ease-out infinite;opacity:0}
+@keyframes splash{0%,42%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1)}75%,100%{opacity:0;transform:scale(1.25)}}
+.fork{transform-origin:50% 50%;animation:twirl 3.6s linear infinite}
+.noodles{transform-origin:50% 50%;animation:twirl 7.2s linear infinite}
+@keyframes twirl{to{transform:rotate(360deg)}}
+.steam path{stroke-dasharray:60;animation:steam 2.8s linear infinite}
+@keyframes steam{from{stroke-dashoffset:120}to{stroke-dashoffset:0}}
+.bob{animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px) rotate(2deg)}}
+
+#glints{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:40}
+
+@media (min-width:760px){
+  :root{--g:40px}
+  body{padding-bottom:0}
+  .bar{display:none}
+  .flyer{padding-top:96px;padding-bottom:70px}
+  .f-cover .title{margin-top:90px;max-width:760px;padding-left:40px}
+  .f-cover .pour{position:absolute;right:4%;bottom:-40px;height:560px;margin:0;width:480px}
+  .f-cover .pour svg{left:auto;right:0}
+  .cover-deets{margin-top:30px;padding-left:40px;max-width:560px}
+  .cards{grid-auto-flow:row;grid-template-columns:repeat(3,1fr);overflow:visible;margin-inline:0;padding-inline:0}
+  .mini{min-height:560px}
+  .swipe{display:none}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+  .rules{grid-template-columns:1fr 1fr;column-gap:40px}
+  .copies{height:620px}
+  .dt.a{width:40%}.dt.b{width:36%;top:10%;right:6%}.dt.c{width:38%;left:34%;bottom:0}
+  .tabs{margin-inline:0}
+  .inner > svg.paint,.split svg.paint{max-width:640px}
+  .f-dance svg.paint{margin-inline:auto}
+  .f-cover .pour{right:1%;bottom:-70px}
+}
+@media (prefers-reduced-motion:reduce){
+  .pour-bottle,.stream,.wine,.handL,.handR,.splash,.fork,.noodles,.steam path,.bob,.f-dance .beams{animation:none}
+  .stream{stroke-dashoffset:0}.wine{transform:none}.splash{opacity:1}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- painted edges + dry-brush speckle -->
+    <filter id="brush" x="-6%" y="-10%" width="112%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="3" result="w"/>
+      <feDisplacementMap in="SourceGraphic" in2="w" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="1" seed="8" result="g"/>
+      <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.4 1.4" result="m"/>
+      <feComposite in="d" in2="m" operator="in"/>
+    </filter>
+    <path id="star" d="M0 -10 C1 -3 3 -1 10 0 C3 1 1 3 0 10 C-1 3 -3 1 -10 0 C-3 -1 -1 -3 0 -10Z"/>
+  </defs>
+</svg>
+
+<header class="top">
+  <a class="badge" href="#cover">A&amp;J Dinner Club</a>
+</header>
+
+<main>
+<!-- ================= 1. the cover flyer ================= -->
+<section class="flyer f-cover" id="cover">
+  <div class="ballhang" aria-hidden="true"><i></i><canvas id="ball1"></canvas></div>
+  <div class="side mono" aria-hidden="true">Sat 06.05.2027 · Bok · South Philadelphia</div>
+  <div class="inner">
+    <h1 class="sr">Anna and Joshua's Dinner Club</h1>
+    <div class="title"><svg class="paint" data-lines="Anna &amp;|Joshua's|Dinner|Club" data-colors="#732242|#732242|#EF883D|#EF883D" data-max="300" aria-hidden="true"></svg></div>
+    <div class="once hand" aria-hidden="true">one night only!</div>
+    <div class="pour" aria-hidden="true">
+      <svg class="art" viewBox="0 0 520 560">
+        <g filter="url(#brush)">
+          <!-- the glass -->
+          <g transform="translate(300 300)">
+            <clipPath id="bowl"><path d="M-110 0 Q0 12 110 0 Q96 96 0 104 Q-96 96 -110 0Z"/></clipPath>
+            <g clip-path="url(#bowl)"><rect class="wine anim" x="-120" y="30" width="240" height="90" fill="#732242"/></g>
+            <path d="M-110 0 Q0 12 110 0 Q96 96 0 104 Q-96 96 -110 0Z" fill="none" stroke="#231605" stroke-width="9" stroke-linejoin="round"/>
+            <path d="M0 104 L0 220 M-62 236 Q0 214 62 236" fill="none" stroke="#231605" stroke-width="10" stroke-linecap="round"/>
+          </g>
+          <!-- the pour -->
+          <path class="stream" d="M232 150 Q262 210 290 318" fill="none" stroke="#732242" stroke-width="12" stroke-linecap="round"/>
+          <!-- the bottle -->
+          <g class="pour-bottle anim">
+            <g transform="translate(40 -40) rotate(-40 180 200)">
+              <path d="M150 40 H200 V150 C250 176 266 214 266 268 V520 C266 540 252 552 232 552 H118 C98 552 84 540 84 520 V268 C84 214 100 176 150 150 Z" fill="#732242"/>
+              <rect x="146" y="112" width="58" height="26" fill="#EF883D"/>
+              <rect x="96" y="330" width="158" height="120" fill="#F9F4D6"/>
+              <text x="175" y="404" text-anchor="middle" font-family="Covered By Your Grace,cursive" font-size="44" fill="#732242">vino!</text>
+              <path d="M110 290 V500" stroke="#F9F4D6" stroke-width="10" stroke-linecap="round" opacity=".45"/>
+            </g>
+          </g>
+          <use href="#star" transform="translate(470 120) scale(2.2)" fill="#231605"/>
+          <use href="#star" transform="translate(440 470) scale(1.4)" fill="#EF883D"/>
+        </g>
+      </svg>
+    </div>
+    <div class="cover-deets">
+      <div class="row"><span class="chip">Saturday, June 5, 2027</span><span class="chip">Bok, South Philly</span></div>
+      <div class="row"><span class="chip alt">Italian, family style</span><span class="chip alt">Cocktails on the roof</span><span class="chip alt">Dancing late</span></div>
+      <div class="count hand" id="count"></div>
+      <div><a class="btn zola" href="https://www.zola.com/" target="_blank" rel="noopener">RSVP on Zola ↗</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 2. rules of the club ================= -->
+<section class="flyer f-rules" id="rules">
+  <div class="inner">
+    <div class="kick mono"><span>Membership</span><span>Read before June 5</span></div>
+    <h2 class="sr">Rules of the club</h2>
+    <svg class="paint" data-lines="Rules of|the club" data-colors="#EFB9B9|#F9F4D6" data-max="260" aria-hidden="true"></svg>
+    <ol class="rules">
+      <li><div><b>Come hungry</b><span>Dinner is Italian, family style.</span></div></li>
+      <li><div><b>Pass the plates</b><span>Big platters go down the table. Take some, pass it on.</span></div></li>
+      <li><div><b>Phones down</b><span>The ceremony is unplugged. We'll have photographers and will share everything.</span></div></li>
+      <li><div><b>Grown-ups only</b><span>The wedding is adults only. Childcare is set up at The Deacon on Saturday night.</span></div></li>
+      <li><div><b>Dress fancy funky</b><span>Dress up and have fun with it.</span></div></li>
+      <li><div><b>The bar is open</b><span>Open bar, all night.</span></div></li>
+      <li><div><b>Stay late</b><span>There's a disco ball. Use it.</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= 3. the weekend ================= -->
+<section class="flyer f-week" id="weekend">
+  <div class="inner">
+    <div class="kick mono"><span>Three nights</span><span>June 4–6</span></div>
+    <h2 class="sr">The weekend</h2>
+    <svg class="paint" data-lines="The|weekend" data-colors="#732242|#EF883D" data-max="260" aria-hidden="true"></svg>
+    <div class="cards" id="cards">
+      <article class="mini">
+        <div class="kick mono"><span>Fri · June 4</span><span>The Deacon</span></div>
+        <svg class="paint" data-lines="Welcome|party!" data-colors="#231605|#732242" data-max="200" aria-hidden="true"></svg>
+        <div class="ill" id="art-taco"></div>
+        <div class="d"><div class="it">venerdì</div>Kick off the weekend with us. Tacos by Mission Taqueria. Time TBA.</div>
+      </article>
+      <article class="mini">
+        <div class="kick mono"><span>Sat · June 5</span><span>Bok</span></div>
+        <svg class="paint" data-lines="The|wedding!" data-colors="#231605|#732242" data-max="200" aria-hidden="true"></svg>
+        <div class="ill" id="art-cheers"></div>
+        <div class="d"><div class="it">sabato</div>Cocktails on the roof, family-style Italian dinner in the old gym, then dancing. Time TBA.</div>
+      </article>
+      <article class="mini">
+        <div class="kick mono"><span>Sun · June 6</span><span>The Deacon</span></div>
+        <svg class="paint" data-lines="Coffee &amp;|goodbyes" data-colors="#231605|#732242" data-max="200" aria-hidden="true"></svg>
+        <div class="ill" id="art-coffee"></div>
+        <div class="d"><div class="it">domenica</div>Coffee and pastries before everyone heads home. Time TBA.</div>
+      </article>
+    </div>
+    <div class="swipe"><div class="dots" id="dots"><i class="on"></i><i></i><i></i></div><span class="hand">swipe →</span></div>
+  </div>
+</section>
+
+<!-- ================= 4. la cena ================= -->
+<section class="flyer f-cena" id="dinner">
+  <div class="inner split">
+    <div>
+      <div class="kick mono"><span>Saturday night</span><span>In the gym</span></div>
+      <h2 class="sr">La cena</h2>
+      <svg class="paint" data-lines="La cena" data-colors="#231605" data-max="300" aria-hidden="true"></svg>
+      <p class="lede" style="margin-top:12px">One long Italian dinner. No buffet line. Big plates come to the table and get passed down it.</p>
+      <ul class="menu">
+        <li><b>Aperitivo</b><span>Cocktails on the roof</span></li>
+        <li><b>La cena</b><span>Family style, in the gym</span></li>
+        <li><b>Dolci</b><span>Dessert, and plenty of it</span></li>
+        <li><b>Si balla</b><span>Dancing till late</span></li>
+      </ul>
+    </div>
+    <div>
+      <div class="twirl" id="art-pasta" aria-hidden="true"></div>
+      <div class="credit">
+        <div class="mono">In the kitchen</div>
+        <div class="n">Party Girl</div>
+        <p>A young Philly cake and catering studio. Mallory Valvano started it in 2021 as Party Girl Bake Club, a pandemic side project, and it grew into a full kitchen with Daniel Daley as executive chef.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 5. photocopies ================= -->
+<section class="flyer f-photos" id="photos">
+  <div class="inner">
+    <div class="kick mono"><span>Photocopies</span><span>Shot by Joshua</span></div>
+    <h2 class="sr">Pass the plates</h2>
+    <svg class="paint" data-lines="Pass the|plates" data-colors="#732242|#231605" data-max="260" aria-hidden="true"></svg>
+    <div class="copies">
+      <figure class="dt a" style="margin:0"><img src="photos/names.jpg" alt="Names drawn on a paper tablecloth mid-dinner" loading="lazy"></figure>
+      <figure class="dt b" style="margin:0"><img src="photos/tulips.jpg" alt="Tulips, candles and doodles on a dinner table" loading="lazy"></figure>
+      <figure class="dt c" style="margin:0"><img src="photos/table.jpg" alt="A long table with candles, fruit and names written on the cloth" loading="lazy"></figure>
+      <div class="tape" style="left:44%;top:-6px"></div><div class="tape" style="right:6%;top:31%;transform:rotate(14deg)"></div><div class="tape" style="left:6%;bottom:30%"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 6. Bok ================= -->
+<section class="flyer f-bok" id="bok">
+  <div class="inner split">
+    <div>
+      <div class="kick mono"><span>The place</span><span>1901 S. 9th St</span></div>
+      <h2 class="sr">Back to school</h2>
+      <svg class="paint" data-lines="Back to|school" data-colors="#732242|#231605" data-max="260" aria-hidden="true"></svg>
+      <p class="lede" style="margin-top:12px">Bok is an Art Deco trade school in South Philly, where kids learned to lay brick, fix pipes, tailor and cut hair. It closed in 2013. Now it's full of studios, and on June 5 it's ours.</p>
+      <div class="facts">
+        <div><b>1938</b><span class="mono">Opens as Edward W. Bok Technical High School</span></div>
+        <div><b>2014</b><span class="mono">Scout turns it into workspace</span></div>
+        <div><b>200+</b><span class="mono">Artists &amp; small businesses today</span></div>
+        <div><b>Roof</b><span class="mono">Where the cocktails are</span></div>
+      </div>
+    </div>
+    <div class="bokart" id="art-bok" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- ================= 7. The Deacon ================= -->
+<section class="flyer f-stay" id="stay">
+  <div class="inner split">
+    <div>
+      <div class="kick mono"><span>Home base</span><span>1600 Christian St</span></div>
+      <h2 class="sr">The Deacon</h2>
+      <svg class="paint" data-lines="The|Deacon" data-colors="#EF883D|#732242" data-max="260" aria-hidden="true"></svg>
+      <p class="lede" style="margin-top:12px">A 1906 church in Graduate Hospital, restored as a small hotel and event space.</p>
+      <p style="margin-top:12px">It's our home base for the weekend. The Friday welcome party and the Sunday coffee are both here, and some of our people are staying here too.</p>
+      <div class="hand" style="font-size:26px;color:var(--plum);margin-top:6px">more hotel options coming soon!</div>
+    </div>
+    <div class="church" id="art-church" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- ================= 8. si balla ================= -->
+<section class="flyer f-dance" id="dance">
+  <div class="beams" aria-hidden="true"></div>
+  <div class="inner">
+    <div class="hangbig" aria-hidden="true"><i></i><canvas id="ball2"></canvas></div>
+    <h2 class="sr">Si balla. Dance till late.</h2>
+    <svg class="paint" data-lines="Si balla!" data-colors="#EFB9B9" data-max="300" aria-hidden="true"></svg>
+    <div class="late hand">dance till late, under this thing</div>
+  </div>
+</section>
+
+<!-- ================= 9. join the club ================= -->
+<section class="flyer f-rsvp" id="rsvp">
+  <div class="inner">
+    <div class="kick mono"><span>Now accepting members</span><span>RSVP on Zola</span></div>
+    <h2 class="sr">Join the club</h2>
+    <svg class="paint" data-lines="Join the|club!" data-colors="#732242|#EF883D" data-max="280" aria-hidden="true"></svg>
+    <p class="lede" style="margin-top:12px">RSVPs and the registry both live on Zola. Tear off a tab.</p>
+    <div class="gift">
+      <div class="mono">Registry</div>
+      <div class="t">Our first year</div>
+      <p style="margin:0">Having you there is the gift. If you'd like to give something, we set up a fund for our first year of marriage and picked a few things we'd love.</p>
+      <a class="btn zola" href="https://www.zola.com/" target="_blank" rel="noopener">See the registry ↗</a>
+    </div>
+    <div class="tabs" id="tabs">
+      <a class="tab gone" href="https://www.zola.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span>RSVP on Zola</span></a>
+      <a class="tab zola" href="https://www.zola.com/" target="_blank" rel="noopener"><span>RSVP on Zola</span><small>↗</small></a>
+      <a class="tab zola" href="https://www.zola.com/" target="_blank" rel="noopener"><span>RSVP on Zola</span><small>↗</small></a>
+      <a class="tab gone" href="https://www.zola.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span>RSVP on Zola</span></a>
+      <a class="tab zola" href="https://www.zola.com/" target="_blank" rel="noopener"><span>RSVP on Zola</span><small>↗</small></a>
+      <a class="tab zola" href="https://www.zola.com/" target="_blank" rel="noopener"><span>RSVP on Zola</span><small>↗</small></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <svg class="paint" data-lines="See you there!" data-colors="#EF883D" data-max="200" aria-hidden="true" style="max-width:700px;margin:0 auto 14px"></svg>
+  <div class="mono">Anna &amp; Joshua · 06.05.2027 · Bok · Philadelphia</div>
+</footer>
+
+<nav class="bar" aria-label="Quick RSVP">
+  <div class="mono"><span>Sat 06.05.27</span><b id="count2"></b></div>
+  <a class="btn zola" href="https://www.zola.com/" target="_blank" rel="noopener">RSVP ↗</a>
+</nav>
+
+<canvas id="glints" aria-hidden="true"></canvas>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ============ hand-painted poster lettering ============ */
+let _s=11; const rnd=()=>{_s=(_s*16807)%2147483647;return (_s-1)/2147483646};
+function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+document.querySelectorAll('svg.paint').forEach((svg,si)=>{
+  _s=11+si*97;
+  const lines=svg.dataset.lines.split('|'), cols=(svg.dataset.colors||'#231605').split('|'), max=+svg.dataset.max||260, W=1000;
+  let y=0, out='', lastFs=0;
+  lines.forEach((ln,i)=>{
+    const chars=[...ln], n=chars.length, fs=Math.min(max, W/(n*0.5)); lastFs=fs; y+=fs*0.86;
+    const rot=chars.map(()=>(rnd()*8-4).toFixed(1)).join(' ');
+    let prev=0; const dy=chars.map(()=>{const j=(rnd()*2-1)*fs*0.035; const d=j-prev; prev=j; return d.toFixed(1);}).join(' ');
+    const fitW=(n*fs*0.56>W*0.86)?`textLength="${W-16}" lengthAdjust="spacingAndGlyphs"`:"";
+    out+=`<text x="${W/2}" y="${y.toFixed(1)}" text-anchor="middle" ${fitW} font-size="${fs.toFixed(1)}" fill="${cols[i]||cols[cols.length-1]}" rotate="${rot}" dy="${dy}">${esc(ln.toUpperCase())}</text>`;
+    y+=fs*0.02;
+  });
+  svg.setAttribute('viewBox',`0 0 ${W} ${(y+lastFs*0.12).toFixed(0)}`);
+  svg.innerHTML=`<g filter="url(#brush)" font-family="Londrina Solid, Arial Black, Impact, sans-serif" font-weight="900">${out}</g>`;
+});
+
+/* ============ brush paintings (original, in the Second Direction style) ============ */
+const P={ink:'#231605',plum:'#732242',tan:'#EF883D',blush:'#EFB9B9',butter:'#F9F4D6',mustard:'#D7C44B',powder:'#CBDBF4'};
+const S=(d,c,w)=>`<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+const F=(d,c)=>`<path d="${d}" fill="${c}"/>`;
+const star=(x,y,s,c)=>`<use href="#star" transform="translate(${x} ${y}) scale(${s})" fill="${c}"/>`;
+function paintArt(id,vb,body){const el=document.getElementById(id); if(el) el.innerHTML=`<svg class="art" viewBox="${vb}" style="width:100%;height:auto"><g filter="url(#brush)">${body}</g></svg>`;}
+
+/* Friday: a big taco */
+paintArt('art-taco','0 0 400 300',
+  F('M24 262 A176 176 0 0 1 376 262 Z',P.mustard)+
+  `<g class="bob anim">`+
+  [[70,200,26,P.blush],[112,160,30,P.plum],[160,138,28,P.blush],[210,132,30,P.powder],[258,140,28,P.plum],[302,166,30,P.blush],[334,206,24,P.powder]].map(([x,y,r,c])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${c}"/>`).join('')+
+  S('M60 214 q20 -40 44 -20 q22 -44 48 -22 q24 -40 50 -18 q26 -38 50 -12 q24 -30 48 0',P.butter,10)+`</g>`+
+  S('M24 262 A176 176 0 0 1 376 262',P.ink,10)+S('M56 262 A144 144 0 0 1 344 262',P.ink,5)+
+  F('M300 250 A46 46 0 0 1 392 250 Z',P.butter)+S('M346 250 L322 216 M346 250 L346 206 M346 250 L370 216',P.plum,5)+S('M300 250 A46 46 0 0 1 392 250 Z',P.ink,7)+
+  star(40,60,2,P.ink)+star(360,70,1.4,P.plum));
+
+/* Saturday: two hands clinking coupes */
+(function(){
+  const coupe=(c)=>F('M-70 0 Q0 8 70 0 Q60 60 0 66 Q-60 60 -70 0Z',c)+S('M-70 0 Q0 8 70 0 Q60 60 0 66 Q-60 60 -70 0Z',P.ink,7)+S('M0 66 L0 140',P.ink,8);
+  const hand=`${F('M-34 130 C-52 130 -60 150 -58 172 C-56 196 -40 214 -14 216 L22 216 C44 212 54 196 52 172 C50 148 38 132 18 130 Z',P.butter)}
+    ${S('M-34 130 C-52 130 -60 150 -58 172 C-56 196 -40 214 -14 216 L22 216 C44 212 54 196 52 172 C50 148 38 132 18 130 Z',P.ink,7)}
+    ${S('M-52 158 H44 M-54 182 H48',P.ink,4)}${S('M18 132 C32 116 50 120 48 138',P.ink,6)}
+    ${F('M-30 214 L-40 330 L44 330 L30 214 Z',P.plum)}${F('M-44 300 L48 300 L50 330 L-46 330 Z',P.tan)}`;
+  paintArt('art-cheers','0 0 440 420',
+    `<g transform="translate(140 80)"><g class="handL anim">${coupe(P.butter)}${hand}</g></g>`+
+    `<g transform="translate(300 80) scale(-1 1)"><g class="handR anim">${coupe(P.butter)}${hand}</g></g>`+
+    `<g class="splash anim">${star(220,52,2.6,P.tan)}${star(180,24,1.3,P.plum)}${star(262,20,1.5,P.plum)}${S('M200 70 L186 40 M240 70 L254 40 M220 64 L220 30',P.ink,5)}</g>`);
+})();
+
+/* Sunday: coffee with steam and a croissant */
+paintArt('art-coffee','0 0 400 320',
+  F('M70 130 L210 130 L198 236 Q196 252 178 252 L102 252 Q84 252 82 236 Z',P.butter)+S('M70 130 L210 130 L198 236 Q196 252 178 252 L102 252 Q84 252 82 236 Z',P.ink,8)+
+  S('M208 152 Q248 152 246 184 Q244 212 202 212',P.ink,8)+F('M40 262 Q140 284 240 262 L236 272 Q140 296 44 272 Z',P.plum)+
+  `<g class="steam">${S('M104 110 q-14 -20 0 -40 q14 -20 0 -40',P.ink,5)}${S('M140 106 q-14 -20 0 -40 q14 -20 0 -40',P.ink,5)}${S('M176 110 q-14 -20 0 -40 q14 -20 0 -40',P.ink,5)}</g>`+
+  [[262,268,22,0],[290,254,26,-24],[322,250,28,0],[354,254,26,24],[382,268,22,0]].map(([x,y,r,a])=>`<ellipse cx="${x}" cy="${y}" rx="${r}" ry="${r*.8}" fill="${P.mustard}" stroke="${P.ink}" stroke-width="5" transform="rotate(${a} ${x} ${y})"/>`).join('')+
+  star(330,90,2,P.plum));
+
+/* La cena: a plate of spaghetti with a fork mid-twirl */
+(function(){
+  let noodles=''; for(let k=0;k<7;k++){ const r=40+k*16; noodles+=`<path d="M${200+r} 200 A${r} ${r*0.92} 0 1 1 ${200+r-1} 196" fill="none" stroke="${k%2?P.mustard:P.butter}" stroke-width="12" stroke-linecap="round" stroke-dasharray="${60+k*18} 22"/>`; }
+  paintArt('art-pasta','0 0 400 400',
+    `<circle cx="200" cy="200" r="186" fill="${P.powder}"/>`+`<circle cx="200" cy="200" r="186" fill="none" stroke="${P.ink}" stroke-width="9"/>`+`<circle cx="200" cy="200" r="150" fill="none" stroke="${P.plum}" stroke-width="5" stroke-dasharray="4 14"/>`+
+    `<g class="noodles anim">${noodles}${[[150,150],[250,170],[190,260],[270,240],[140,230]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="13" fill="${P.plum}"/>`).join('')}</g>`+
+    `<g class="fork anim"><path d="M196 200 L196 40 M184 40 V96 M196 40 V96 M208 40 V96 M180 96 Q196 116 212 96" fill="none" stroke="${P.ink}" stroke-width="9" stroke-linecap="round"/></g>`+
+    `<path d="M300 90 q20 -24 44 -10 q-18 22 -44 10Z" fill="${P.plum}"/>`+star(60,60,2,P.ink)+star(356,330,1.5,P.plum));
+})();
+
+/* Bok, in brush */
+(function(){
+  let b=F('M40 300 L40 150 L180 150 L180 120 L250 120 L250 90 L290 90 L290 60 L390 60 L390 90 L430 90 L430 120 L500 120 L500 150 L640 150 L640 300 Z',P.butter)+
+    S('M40 300 L40 150 L180 150 L180 120 L250 120 L250 90 L290 90 L290 60 L390 60 L390 90 L430 90 L430 120 L500 120 L500 150 L640 150 L640 300 Z',P.ink,8);
+  for(let x=64;x<=160;x+=24) b+=S(`M${x} 172 L${x} 282`,P.plum,7);
+  for(let x=520;x<=616;x+=24) b+=S(`M${x} 172 L${x} 282`,P.plum,7);
+  for(let x=312;x<=372;x+=20) b+=S(`M${x} 104 L${x} 220`,P.plum,7);
+  b+=F('M296 300 L296 244 Q340 214 384 244 L384 300 Z',P.tan)+S('M296 300 L296 244 Q340 214 384 244 L384 300',P.ink,8)+S('M10 300 L670 300',P.ink,9);
+  b+=`<text x="340" y="92" text-anchor="middle" font-family="Londrina Solid,Arial Black" font-weight="900" font-size="34" fill="${P.plum}">BOK</text>`;
+  b+=`<text x="600" y="40" text-anchor="end" font-family="Covered By Your Grace,cursive" font-size="32" fill="${P.plum}" transform="rotate(-4 600 40)">cocktails up here!</text>`+S('M530 56 Q490 76 446 70',P.plum,5)+S('M458 58 L444 70 L460 80',P.plum,5);
+  b+=star(90,90,2,P.ink);
+  paintArt('art-bok','0 10 680 300',b);
+})();
+
+/* The Deacon, in brush */
+paintArt('art-church','0 0 360 310',
+  F('M70 300 L70 150 L170 70 L270 150 L270 300 Z',P.butter)+S('M70 300 L70 150 L170 70 L270 150 L270 300 Z',P.ink,8)+S('M170 70 L170 14 M150 32 L190 32',P.ink,8)+
+  `<circle cx="170" cy="146" r="28" fill="${P.tan}"/>`+S('M170 118 V174 M142 146 H198',P.ink,5)+
+  F('M144 300 L144 234 Q170 206 196 234 L196 300 Z',P.plum)+
+  F('M94 196 L94 250 L118 250 L118 196 Q106 180 94 196Z',P.blush)+F('M222 196 L222 250 L246 250 L246 196 Q234 180 222 196Z',P.blush)+
+  S('M20 300 L340 300',P.ink,9)+star(46,90,1.8,P.plum)+star(306,70,2.2,P.tan)+
+  `<text x="214" y="58" font-family="Covered By Your Grace,cursive" font-size="28" fill="${P.plum}" transform="rotate(-6 214 58)">est. 1906</text>`);
+
+/* weekend dots */
+(function(){ const t=document.getElementById('cards'), d=[...document.querySelectorAll('#dots i')];
+  t.addEventListener('scroll',()=>{ const w=t.firstElementChild.getBoundingClientRect().width+14; const i=Math.round(t.scrollLeft/w); d.forEach((x,k)=>x.classList.toggle('on',k===i)); },{passive:true}); })();
+
+/* countdown */
+(function(){ const n=new Date(), d=Math.ceil((new Date(2027,5,5)-new Date(n.getFullYear(),n.getMonth(),n.getDate()))/864e5);
+  document.getElementById('count').textContent=d>1?d+' days to go!':''; document.getElementById('count2').textContent=d>1?d+' days to go':''; })();
+
+/* tall flyers scroll through before the next one pastes over them */
+function stick(){ document.querySelectorAll('.flyer').forEach(f=>{ f.style.top=Math.min(0,innerHeight-f.offsetHeight)+'px'; }); }
+addEventListener('resize',stick); addEventListener('load',stick); stick(); setTimeout(stick,1200);
+
+/* tear-off tabs */
+document.querySelectorAll('.tab.zola').forEach(t=>t.addEventListener('click',()=>{ t.classList.add('rip'); setTimeout(()=>{t.classList.remove('rip');t.classList.add('gone');},900); }));
+
+/* ============ the real disco ball + light across the flyers ============ */
+(function(){
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const gl=document.getElementById('glints'), gx=gl.getContext('2d'); let W=0,H=0,dpr=1;
+  const balls=[...document.querySelectorAll('#ball1,#ball2')].map((cv,i)=>({cv,night:i===1,vis:false,r:null}));
+  function makeReal(b){
+    if(!window.THREE) return null; let R; try{ R=new THREE.WebGLRenderer({canvas:b.cv,alpha:true,antialias:true}); }catch(e){ return null; }
+    R.setPixelRatio(Math.min(devicePixelRatio||1,2)); R.outputEncoding=THREE.sRGBEncoding; R.toneMapping=THREE.ACESFilmicToneMapping; R.toneMappingExposure=b.night?1.2:1.05;
+    const scene=new THREE.Scene(), cam=new THREE.PerspectiveCamera(26,1,.1,50); cam.position.set(0,0,4.9);
+    const ec=document.createElement('canvas'); ec.width=1024; ec.height=512; const g=ec.getContext('2d'); const vg=g.createLinearGradient(0,0,0,512);
+    if(b.night){vg.addColorStop(0,'#2a0a18');vg.addColorStop(1,'#050203');} else {vg.addColorStop(0,'#eef3fb');vg.addColorStop(.5,'#cbdbf4');vg.addColorStop(.62,'#5a4a50');vg.addColorStop(1,'#2a1d18');}
+    g.fillStyle=vg; g.fillRect(0,0,1024,512);
+    const blob=(x,y,r,c,a)=>{const gr=g.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,c);gr.addColorStop(1,'rgba(0,0,0,0)');g.globalAlpha=a;g.fillStyle=gr;g.fillRect(x-r,y-r,r*2,r*2);g.globalAlpha=1;};
+    const cols=['#EF883D','#EFB9B9','#CBDBF4','#D7C44B','#ffffff','#fff1d6','#732242'];
+    for(let i=0;i<(b.night?70:26);i++) blob(Math.random()*1024,60+Math.random()*300,5+Math.random()*28,cols[i%cols.length],.9);
+    if(!b.night){ g.fillStyle='rgba(255,255,255,.95)'; for(let i=0;i<5;i++) g.fillRect(80+i*190,70,110,150); }
+    const tex=new THREE.CanvasTexture(ec); tex.mapping=THREE.EquirectangularReflectionMapping; tex.encoding=THREE.sRGBEncoding;
+    scene.environment=new THREE.PMREMGenerator(R).fromEquirectangular(tex).texture;
+    const grp=new THREE.Group(); grp.rotation.z=.14; scene.add(grp);
+    grp.add(new THREE.Mesh(new THREE.SphereGeometry(.985,48,32),new THREE.MeshStandardMaterial({color:0x0e0c0a,roughness:.9})));
+    const s=.074,list=[]; let row=0; for(let lat=-Math.PI/2+s*.6;lat<Math.PI/2-s*.4;lat+=s*1.02,row++){const n=Math.max(3,Math.round(2*Math.PI*Math.cos(lat)/(s*1.04))); for(let k=0;k<n;k++) list.push([lat,(k+(row%2)*.5)*2*Math.PI/n]);}
+    const mesh=new THREE.InstancedMesh(new THREE.PlaneGeometry(s*.9,s*.9),new THREE.MeshStandardMaterial({metalness:1,roughness:.16}),list.length);
+    const d=new THREE.Object3D(),col=new THREE.Color(),v=new THREE.Vector3();
+    list.forEach(([lat,lon],i)=>{v.set(Math.cos(lat)*Math.sin(lon),Math.sin(lat),Math.cos(lat)*Math.cos(lon));d.position.copy(v);d.lookAt(v.clone().multiplyScalar(2));d.rotateX((Math.random()-.5)*.09);d.rotateY((Math.random()-.5)*.09);d.updateMatrix();mesh.setMatrixAt(i,d.matrix);const k=.78+Math.random()*.22;col.setRGB(k,k,k*.98);mesh.setColorAt(i,col);});
+    grp.add(mesh);
+    const cap=new THREE.Mesh(new THREE.CylinderGeometry(.09,.12,.1,24),new THREE.MeshStandardMaterial({metalness:1,roughness:.3})); cap.position.y=1.02; grp.add(cap);
+    const key=new THREE.DirectionalLight(0xfff1d6,b.night?3:2.2); key.position.set(-2,3,4); scene.add(key);
+    const rim=new THREE.PointLight(b.night?0xEF883D:0xffffff,b.night?4:1.5,10); rim.position.set(2.5,-1,2.5); scene.add(rim);
+    const fit=()=>{const w=b.cv.clientWidth; R.setSize(w,w,false);}; fit(); addEventListener('resize',fit);
+    return rot=>{grp.rotation.y=rot; R.render(scene,cam);};
+  }
+  balls.forEach(b=>{ b.r=makeReal(b); if(!b.r) b.cv.style.display='none'; new IntersectionObserver(es=>{b.vis=es[0].isIntersecting}).observe(b.cv); });
+  const tints=[[249,244,214],[203,219,244],[239,185,185],[215,196,75],[239,136,61]];
+  const sprites=tints.map(([r,g,b])=>{const c=document.createElement('canvas');c.width=c.height=64;const x=c.getContext('2d');const gr=x.createRadialGradient(32,32,0,32,32,32);
+    gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(.28,'rgba(255,255,255,.9)');gr.addColorStop(.5,`rgba(${r},${g},${b},.6)`);gr.addColorStop(1,`rgba(${r},${g},${b},0)`);x.fillStyle=gr;x.fillRect(0,0,64,64);return c;});
+  const N=innerWidth<760?24:42, spots=[]; for(let i=0;i<N;i++) spots.push({lon:Math.random()*Math.PI*2,y:Math.random(),s:4+Math.random()*8,k:Math.floor(Math.random()*5),ph:Math.random()*10});
+  function size(){dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;gl.width=W*dpr;gl.height=H*dpr;gx.setTransform(dpr,0,0,dpr,0,0);} size(); addEventListener('resize',size);
+  let rot=.6,vel=0,last=performance.now(),drag=null,px=0; const BASE=.00026;
+  balls.forEach(b=>{ b.cv.addEventListener('pointerdown',e=>{drag=b;px=e.clientX;try{b.cv.setPointerCapture(e.pointerId)}catch(_){}});
+    b.cv.addEventListener('pointermove',e=>{if(drag!==b)return;const dx=e.clientX-px;px=e.clientX;rot+=dx/(b.cv.clientWidth*.46);vel=Math.max(-.02,Math.min(.02,dx*.00045));});
+    const end=()=>{drag=null}; b.cv.addEventListener('pointerup',end); b.cv.addEventListener('pointercancel',end); });
+  let lastY=scrollY; addEventListener('scroll',()=>{const dy=scrollY-lastY;lastY=scrollY;vel=Math.max(-.012,Math.min(.012,vel+dy*.000012));},{passive:true});
+  function frame(t){ const dt=Math.min(64,t-last); last=t; if(!drag) rot+=(BASE+vel)*dt; vel*=Math.pow(.9978,dt);
+    balls.forEach(b=>{ if(b.vis&&b.r) b.r(rot); });
+    const e=(balls[1].vis?.55:.22)+Math.min(.45,Math.abs(vel)*60); gx.clearRect(0,0,W,H);
+    for(const p of spots){const a=p.lon-rot*1.6,c=Math.cos(a); if(c<=0) continue; const x=W/2+Math.sin(a)*W*.72,y=p.y*H,f=.75+.25*Math.sin(t*.003+p.ph);
+      gx.globalAlpha=Math.min(1,e*Math.sqrt(c)*f); const w=p.s*(.45+.55*c)*2.4,h=p.s*2.4; gx.drawImage(sprites[p.k],x-w/2,y-h/2,w,h);} gx.globalAlpha=1;
+    if(!reduce) requestAnimationFrame(frame); }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body></html>

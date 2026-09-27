@@ -1,0 +1,761 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Anna &amp; Joshua: The Mix</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..800;1,300..800&family=Roboto+Mono:wght@400;500&family=Londrina+Solid:wght@400;900&family=Covered+By+Your+Grace&display=swap">
+<style>
+/* The palette is the menu. */
+:root{
+  color-scheme:light;
+  --burrata:#FCF9F4; --grissini:#F9F4D6; --aperol:#EF883D; --chianti:#732242; --limoncello:#D7C44B;
+  --prosciutto:#EFB9B9; --ceramica:#CBDBF4; --notte:#1A1004;
+  --bg:var(--burrata); --fg:var(--notte);
+  --grot:"Hanken Grotesk","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:"Roboto Mono",ui-monospace,Menlo,monospace;
+  --g:18px;
+}
+*{box-sizing:border-box}
+html{overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--grot);font-size:17px;line-height:1.45;-webkit-font-smoothing:antialiased;overflow-x:clip;transition:background-color .9s ease,color .9s ease}
+a{color:inherit}
+img{display:block;max-width:100%}
+.w{padding-inline:var(--g);max-width:1440px;margin-inline:auto}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.it{font-style:italic;font-weight:300;text-transform:none;letter-spacing:-.02em}
+i.o{font-style:italic}
+.disp{font-weight:600;text-transform:uppercase;letter-spacing:-.055em;line-height:.8;margin:0}
+.line{display:block;overflow:hidden;padding-bottom:.04em}
+.line > span{display:block}
+:focus-visible{outline:2px solid var(--aperol);outline-offset:4px}
+/* grain over everything, like film */
+body::after{content:"";position:fixed;inset:-50%;pointer-events:none;z-index:90;opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1s steps(4) infinite}
+@keyframes grain{25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-1%,3%)}}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;left:0;right:0;top:0;z-index:50;padding-top:env(safe-area-inset-top,0px);mix-blend-mode:difference;color:#fff}
+.nav .w{display:flex;align-items:center;justify-content:space-between;height:58px}
+.mark{font-weight:600;letter-spacing:-.03em;font-size:19px;text-decoration:none}
+.nav .mid{display:none}
+.pill{display:inline-flex;align-items:center;gap:8px;border:1.5px solid currentColor;border-radius:999px;padding:8px 16px;text-decoration:none;font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+
+/* ---------- 1. hero ---------- */
+.hero{position:relative;padding-top:74px;padding-bottom:40px;background:var(--burrata)}
+.hero .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.hero .top p{margin:0;max-width:17em}
+.names{font-size:clamp(80px,23vw,400px);position:relative;z-index:1}
+.names .l2{text-align:right}
+.photo-hero{position:relative;z-index:2;width:min(74vw,440px);margin:-6vw auto -9vw;aspect-ratio:3/4;overflow:hidden}
+.photo-hero img{width:100%;height:100%;object-fit:cover;transform-origin:50% 60%}
+.names .l2{position:relative;z-index:3;mix-blend-mode:normal}
+.photo-back{position:absolute;z-index:1;left:max(2vw,8px);top:38%;width:min(34vw,300px);aspect-ratio:3/4;overflow:hidden;transform:rotate(-7deg);margin:0;box-shadow:0 30px 50px -20px rgba(26,16,4,.4)}
+.photo-back img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1)}
+.hero .w{position:relative}
+.ballhang{position:absolute;right:max(4vw,14px);top:0;z-index:4;display:flex;flex-direction:column;align-items:center;pointer-events:none}
+.ballhang .cord{width:1.5px;height:clamp(60px,12vw,140px);background:currentColor;opacity:.6}
+.ballhang canvas{width:clamp(110px,28vw,240px);height:clamp(110px,28vw,240px);pointer-events:auto;touch-action:pan-y;cursor:grab}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;margin-top:28px;border-top:1.5px solid currentColor;padding-top:14px}
+.meta b{display:block;font-family:var(--grot);font-weight:500;font-size:19px;letter-spacing:-.01em;text-transform:none;margin-top:4px}
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--fg);color:var(--bg);border-radius:999px;padding:16px 26px;text-decoration:none;font-weight:600;font-size:15px;letter-spacing:.05em;text-transform:uppercase;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.cta:hover{transform:scale(1.04)}
+.cta .arr{display:inline-block;transition:transform .3s}
+.cta:hover .arr{transform:translate(3px,-3px)}
+.hero .cta{margin-top:22px;width:100%}
+
+/* ---------- 2. statement ---------- */
+.statement{padding-block:110px;background:var(--burrata)}
+.statement p{font-size:clamp(32px,8.6vw,92px);font-weight:500;letter-spacing:-.04em;line-height:.98;margin:0;max-width:15em;text-wrap:balance}
+.statement p .wd{display:inline-block}
+.statement .it{font-weight:300}
+.statement .sig{margin-top:34px}
+
+/* ---------- 3. weekend (pins and slides sideways) ---------- */
+.weekend{position:relative;overflow:hidden}
+.track{display:block}
+.panel{position:relative;min-height:100svh;padding:84px var(--g) 28px;display:flex;flex-direction:column;overflow:hidden}
+.panel.fri{background:var(--aperol);color:var(--notte)}
+.panel.sat{background:var(--prosciutto);color:var(--chianti)}
+.panel.sun{background:var(--ceramica) url(photos/graph.jpg) center/cover;background-blend-mode:multiply;color:var(--notte)}
+.panel .row1{display:flex;justify-content:space-between;border-bottom:1.5px solid currentColor;padding-bottom:10px}
+.panel .ital{font-size:clamp(58px,17vw,250px);font-style:italic;font-weight:300;letter-spacing:-.05em;line-height:.85;margin:18px 0 0}
+.panel h3{font-size:clamp(40px,11vw,150px);margin-top:6px}
+.panel .body{display:grid;gap:18px;margin-top:auto;padding-top:24px}
+.panel .facts{display:grid;grid-template-columns:1fr 1fr;gap:12px 18px;border-top:1.5px solid currentColor;padding-top:12px}
+.panel .facts b{display:block;font-family:var(--grot);font-weight:500;font-size:18px;letter-spacing:-.01em;text-transform:none;margin-top:4px}
+.panel .pic{position:absolute;right:var(--g);top:30%;width:min(42vw,300px);aspect-ratio:4/5;overflow:hidden;transform:rotate(3deg);box-shadow:0 20px 40px -12px rgba(26,16,4,.35)}
+.panel .pic img{width:100%;height:100%;object-fit:cover}
+.panel .num{position:absolute;right:var(--g);bottom:24px;font-size:clamp(90px,26vw,340px);font-weight:600;letter-spacing:-.06em;line-height:.75;opacity:.14}
+.hz-progress{display:none}
+
+/* ---------- 4. la tavola ---------- */
+.tavola{background:var(--chianti);color:var(--burrata);padding-block:100px 60px}
+.tavola .big{font-size:clamp(70px,22vw,360px);position:relative;z-index:2}
+.tavola .big .it{font-weight:300}
+.tavola .fullpic{position:relative;margin:-7vw calc(-1 * var(--g)) 0;height:min(120vw,88svh);overflow:hidden;z-index:1}
+.tavola .fullpic img{width:100%;height:120%;object-fit:cover;object-position:50% 40%}
+.tavola .lede{font-size:clamp(22px,5.4vw,40px);letter-spacing:-.03em;line-height:1.08;max-width:22em;margin:40px 0 0;font-weight:500}
+.courses{list-style:none;margin:60px 0 0;padding:0;border-top:1.5px solid currentColor}
+.course{display:grid;grid-template-columns:52px 1fr;gap:6px 14px;padding:20px 0 22px;border-bottom:1.5px solid currentColor;opacity:.32;transition:opacity .5s}
+.course.on{opacity:1}
+.course .n{font-family:var(--grot);font-style:italic;font-weight:300;font-size:24px;line-height:1}
+.course .t{font-size:clamp(44px,12.5vw,168px);font-weight:600;letter-spacing:-.055em;line-height:.8;text-transform:uppercase}
+.course .t .it{font-weight:300}
+.course p{grid-column:2;margin:10px 0 0;font-size:17px;max-width:30em}
+.pg{display:grid;gap:16px;margin-top:60px;padding-top:18px;border-top:1.5px solid currentColor}
+.pg .name{font-size:clamp(40px,10vw,110px);font-weight:600;letter-spacing:-.05em;line-height:.85;text-transform:uppercase}
+.pg p{margin:0;max-width:34em}
+
+/* ---------- 5. Bok ---------- */
+.bok{position:relative;color:#F4F1E8;padding-block:100px;background:#1f3a31 url(photos/chalk.jpg) center/cover;isolation:isolate}
+.bok::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(24,46,38,.72),rgba(24,46,38,.55) 40%,rgba(24,46,38,.8));z-index:-1}
+.bok .w{position:relative}
+.bokword{position:relative;font-size:clamp(150px,50vw,760px);line-height:.74;letter-spacing:-.07em;font-weight:700;text-transform:uppercase;margin:0}
+.bokword .stroke{color:transparent;-webkit-text-stroke:2px rgba(244,241,232,.85)}
+.bokword .fill{position:absolute;inset:0;color:#F4F1E8;text-shadow:0 0 1px rgba(255,255,255,.4);filter:url(#chalk)}
+.bok .intro{font-size:clamp(22px,5.4vw,40px);letter-spacing:-.03em;line-height:1.08;font-weight:500;max-width:22em;margin:30px 0 0}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:50px;border-top:1.5px solid currentColor}
+.stat{padding:16px 0 20px;border-bottom:1.5px solid currentColor}
+.stat:nth-child(odd){border-right:1.5px solid currentColor;padding-right:12px}
+.stat:nth-child(even){padding-left:14px}
+.stat .v{font-size:clamp(40px,11vw,130px);font-weight:600;letter-spacing:-.055em;line-height:.9;font-variant-numeric:tabular-nums}
+.stat .mono{margin-top:8px;display:block}
+.bok .copy{margin-top:34px;max-width:34em}
+.bok .copy p{margin:0 0 12px}
+
+/* ---------- 6. The Deacon ---------- */
+.casa{background:var(--prosciutto);color:var(--chianti);padding-block:100px;overflow:hidden}
+.casa .yr{font-size:clamp(120px,40vw,600px);font-weight:600;letter-spacing:-.07em;line-height:.75;color:transparent;-webkit-text-stroke:2px currentColor;margin:0}
+.casa h2{font-size:clamp(52px,15vw,210px);margin-top:-.18em;position:relative}
+.casa .grid{display:grid;gap:24px;margin-top:34px}
+.casa p{margin:0;max-width:30em}
+.casa .lede{font-size:clamp(22px,5.4vw,40px);letter-spacing:-.03em;line-height:1.08;font-weight:500;max-width:20em}
+
+/* ---------- 7. night falls ---------- */
+.notte{background:var(--notte);color:var(--burrata);position:relative;overflow:hidden;padding-block:0 90px}
+.notte .fullpic{position:relative;height:min(140vw,100svh);overflow:hidden}
+.notte .fullpic img{width:100%;height:118%;object-fit:cover;object-position:50% 45%}
+.notte .fullpic::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,16,4,.2),rgba(26,16,4,0) 40%,rgba(26,16,4,.92))}
+.notte .over{position:absolute;left:0;right:0;bottom:0;z-index:2;padding-bottom:28px}
+.notte .over .disp{font-size:clamp(56px,16vw,250px)}
+.danceball{display:flex;flex-direction:column;align-items:center;margin-top:10px}
+.danceball .cord{width:1.5px;height:90px;background:currentColor;opacity:.5}
+.danceball canvas{width:min(78vw,440px);height:min(78vw,440px);touch-action:pan-y;cursor:grab}
+.siballa{text-align:center;font-size:clamp(70px,22vw,340px);margin-top:10px}
+.siballa .it{display:block;font-size:.34em;letter-spacing:-.03em;margin-bottom:.1em}
+
+/* ---------- 8. RSVP ---------- */
+.rsvp{background:var(--aperol);color:var(--notte);padding-block:90px;text-align:center;position:relative;overflow:hidden}
+.rsvp .huge{font-size:clamp(120px,34vw,560px);line-height:.76;letter-spacing:-.07em}
+.rsvp p{margin:26px auto 0;max-width:26em;font-size:19px}
+.magnet{display:inline-block;margin-top:30px}
+.magnet .cta{padding:22px 34px;font-size:17px;background:var(--notte);color:var(--burrata)}
+.gift{margin:70px auto 0;max-width:620px;border-top:1.5px solid currentColor;padding-top:18px;display:grid;gap:12px;text-align:left}
+.gift .t{font-size:clamp(34px,9vw,70px);font-weight:600;letter-spacing:-.05em;line-height:.9;text-transform:uppercase}
+.gift a{justify-self:start}
+.cta.ghost{background:transparent;color:inherit;box-shadow:inset 0 0 0 1.5px currentColor}
+
+/* ---------- 9. questions ---------- */
+.faq{background:var(--notte);color:var(--burrata);padding-block:90px}
+.faq h2{font-size:clamp(52px,15vw,200px);margin-bottom:30px}
+details{border-top:1.5px solid rgba(252,249,244,.35)}
+details:last-child{border-bottom:1.5px solid rgba(252,249,244,.35)}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;font-size:clamp(24px,6vw,44px);font-weight:500;letter-spacing:-.035em;line-height:1.05}
+summary::-webkit-details-marker{display:none}
+summary .pm{flex:none;width:30px;height:30px;position:relative}
+summary .pm::before,summary .pm::after{content:"";position:absolute;left:50%;top:50%;width:22px;height:2px;margin:-1px -11px;background:currentColor;transition:transform .3s}
+summary .pm::after{transform:rotate(90deg)}
+details[open] summary .pm::after{transform:rotate(0)}
+details p{margin:0 0 22px;max-width:34em;font-size:18px;opacity:.85}
+
+footer{background:var(--notte);color:var(--burrata);padding-block:40px calc(40px + env(safe-area-inset-bottom,0px))}
+footer .disp{font-size:clamp(60px,18vw,300px)}
+footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;margin-top:24px;border-top:1.5px solid rgba(252,249,244,.35);padding-top:14px}
+
+/* JS on: sections go transparent and the page itself changes color as the night goes on */
+.js .tint{background:transparent!important;color:inherit!important}
+.js .tint .fg-keep{color:inherit}
+
+#glints{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:40}
+.cursor{position:fixed;left:0;top:0;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:#fff;mix-blend-mode:difference;pointer-events:none;z-index:100;display:none;transition:width .25s,height .25s,margin .25s}
+.cursor.big{width:64px;height:64px;margin:-32px 0 0 -32px}
+
+@media (min-width:760px){
+  :root{--g:36px}
+  .nav .mid{display:block}
+  .hero .cta{width:auto}
+  .meta{grid-template-columns:repeat(4,1fr)}
+  .photo-hero{width:min(34vw,520px);margin:-5vw auto -7vw}
+  .hz-on .track{display:flex;width:max-content}
+  .hz-on .panel{width:100vw;height:100svh;flex:none}
+  .panel .body{grid-template-columns:1.2fr 1fr;align-items:end}
+  .panel .pic{top:22%;right:10vw;width:min(24vw,380px)}
+  .hz-on .hz-progress{display:block;position:absolute;left:var(--g);right:var(--g);bottom:14px;height:2px;background:rgba(26,16,4,.2);z-index:5}
+  .hz-progress i{display:block;height:100%;width:0;background:var(--notte)}
+  .course{grid-template-columns:90px 1fr 1fr;align-items:end}
+  .course p{grid-column:3;margin:0}
+  .pg{grid-template-columns:1fr 1fr;align-items:end}
+  .stats{grid-template-columns:repeat(4,1fr)}
+  .stat{border-right:1.5px solid currentColor;padding:18px 16px 22px!important}
+  .stat:last-child{border-right:0}
+  .bok .copy{columns:2;column-gap:40px;max-width:none}
+  .casa .grid{grid-template-columns:1.2fr 1fr;align-items:end}
+  .cursor{display:block}
+}
+@media (max-width:759px){
+  .hz-on .track{display:flex;width:max-content}
+  .hz-on .panel{width:100vw;height:100svh;flex:none}
+  .hz-on .hz-progress{display:block;position:absolute;left:var(--g);right:var(--g);bottom:12px;height:2px;background:rgba(26,16,4,.2);z-index:5}
+  .hz-progress i{display:block;height:100%;width:0;background:var(--notte)}
+  .panel .pic{top:auto;bottom:38%;right:var(--g);width:40vw}
+}
+@media (prefers-reduced-motion:reduce){ body::after{animation:none} }
+</style>
+
+<style>
+/* ---- carried over from the first design: poster lettering, ink drawings, handwriting, school papers ---- */
+:root{--poster:"Londrina Solid","Arial Black",Impact,sans-serif;--hand:"Covered By Your Grace","Bradley Hand","Segoe Print",cursive}
+.cta{font-family:var(--poster);font-weight:900;font-size:21px;letter-spacing:.02em;background:var(--aperol);color:var(--notte);border:2.5px solid var(--notte);box-shadow:4px 4px 0 var(--notte);padding:11px 24px 10px;transition:transform .15s,box-shadow .15s}
+.cta:hover{transform:translate(-2px,-2px) rotate(-1.5deg);box-shadow:6px 6px 0 var(--notte)}
+.cta:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--notte)}
+.rsvp .magnet .cta{background:var(--grissini);color:var(--notte);font-size:26px;box-shadow:5px 5px 0 var(--notte);padding:16px 32px 14px}
+.cta.ghost{background:var(--grissini);color:var(--notte);box-shadow:4px 4px 0 var(--notte)}
+.hand{font-family:var(--hand);font-weight:400;line-height:1}
+.scrawl{position:relative;z-index:5;pointer-events:none;font-family:var(--hand);line-height:1}
+.hero .married{text-align:center;color:var(--aperol);font-size:clamp(34px,9vw,70px);transform:rotate(-5deg);margin:-2vw 0 -3vw}
+.spinme{position:absolute;right:62%;top:96%;font-family:var(--hand);font-size:clamp(20px,5vw,28px);color:var(--chianti);transform:rotate(-8deg);white-space:nowrap;transition:opacity .5s}
+.spun .spinme{opacity:0}
+.sparks{position:absolute;left:50%;bottom:0;width:170%;aspect-ratio:1;transform:translate(-50%,18%);pointer-events:none;color:var(--notte)}
+.sparks use{transform-box:fill-box;transform-origin:center;animation:tw 2.8s ease-in-out infinite}
+.sparks use:nth-child(2){animation-delay:-.9s}.sparks use:nth-child(3){animation-delay:-1.7s}.sparks use:nth-child(4){animation-delay:-2.3s}
+@keyframes tw{0%,100%{transform:scale(.35) rotate(0)}50%{transform:scale(1) rotate(45deg)}}
+.counthand{display:block;text-align:center;font-family:var(--hand);font-size:26px;color:var(--chianti);margin-top:14px;transform:rotate(-2deg)}
+.ticker{background:var(--aperol);color:var(--notte);border-block:2.5px solid var(--notte);overflow:hidden;transform:rotate(-2.2deg);margin:-14px -10px;position:relative;z-index:6}
+.ticker .trk{display:flex;width:max-content;animation:tick 40s linear infinite}
+.ticker span{font-family:var(--poster);font-weight:900;text-transform:uppercase;font-size:28px;padding:7px 0 5px;white-space:nowrap}
+.ticker svg{display:inline-block;width:18px;height:18px;margin:0 16px;vertical-align:0}
+@keyframes tick{to{transform:translateX(-50%)}}
+.panel h3.poster{font-family:var(--poster);font-weight:900;letter-spacing:0;line-height:.82;text-transform:uppercase;font-size:clamp(58px,16vw,200px)}
+.panel h3.poster em{font-style:normal}
+.panel.fri h3 em{color:var(--chianti)} .panel.sat h3 em{color:var(--aperol)} .panel.sun h3 em{color:var(--chianti)}
+.panel .ink{position:absolute;z-index:3;left:var(--g);bottom:33%;width:min(48vw,300px);pointer-events:none}
+.panel.sun .ink{left:50%;transform:translateX(-50%);bottom:30%;width:min(78vw,440px)}
+.panel .ink svg,.art svg{display:block;width:100%;height:auto;overflow:visible}
+.tavola .scrawl{text-align:right;color:var(--grissini);font-size:clamp(28px,7vw,54px);margin:-1.1em 4% 0 0;transform:rotate(-4deg)}
+.tavola .scrawl svg{display:inline-block;width:.9em;height:.9em;vertical-align:-.1em;margin-left:.2em}
+.school{display:grid;gap:34px;margin-top:54px}
+.comp{position:relative;background:#1d1a17;border:2.5px solid var(--notte);box-shadow:6px 6px 0 rgba(0,0,0,.55);aspect-ratio:4/5;max-width:400px;width:100%;margin-inline:auto;overflow:hidden;transform:rotate(-3deg)}
+.comp svg.marble{position:absolute;inset:0;width:100%;height:100%}
+.comp .spine{position:absolute;left:0;top:0;bottom:0;width:13%;background:var(--chianti);border-right:2px solid var(--notte)}
+.comp .label{position:absolute;left:22%;right:9%;top:13%;background:var(--burrata);color:var(--notte);border:2.5px solid var(--notte);border-radius:30px/22px;padding:12px 14px 14px;text-align:center}
+.comp .label .t{font-family:var(--poster);font-weight:900;font-size:clamp(46px,13vw,66px);line-height:.85;text-transform:uppercase;margin:6px 0 2px}
+.comp .label .rule{border-bottom:1.5px solid var(--notte);margin:10px 4px 0;height:24px;text-align:left;font-family:var(--hand);font-size:21px;line-height:1.1;padding-left:4px;color:var(--chianti)}
+.notebook{background:var(--burrata);color:var(--notte);border:2.5px solid var(--notte);box-shadow:6px 6px 0 rgba(0,0,0,.55);position:relative;padding:26px 18px 22px 54px;transform:rotate(1.5deg);
+  background-image:linear-gradient(90deg,transparent 40px,rgba(239,136,61,.9) 40px,rgba(239,136,61,.9) 42px,transparent 42px),repeating-linear-gradient(transparent 0 31px,rgba(80,120,200,.35) 31px 32px);background-position:0 0,0 12px;line-height:32px}
+.notebook::before{content:"";position:absolute;left:12px;top:40px;bottom:40px;width:14px;background:radial-gradient(circle,#1f3a31 0 5px,var(--notte) 5.5px 6.5px,transparent 7px) 0 0/14px 96px repeat-y}
+.notebook h3{font-family:var(--hand);font-weight:400;font-size:34px;line-height:32px;margin:0;color:var(--chianti)}
+.tl{list-style:none;margin:0;padding:0}
+.tl li{display:grid;grid-template-columns:58px 1fr;gap:8px;font-size:16px;line-height:32px}
+.tl .yr{font-family:var(--mono);font-weight:500;font-size:13.5px}
+.tl li.us span:last-child{font-family:var(--hand);font-size:25px;color:var(--chianti)}
+.church{max-width:380px;width:100%;margin-inline:auto}
+.lib{background:#FBF3DF;color:var(--notte);border:2.5px solid var(--notte);box-shadow:6px 6px 0 var(--notte);padding:16px 16px 20px;transform:rotate(-2deg);max-width:450px;width:100%;margin:34px auto 0;position:relative;text-align:left}
+.lib .ttl{text-align:center;font-weight:800;letter-spacing:.14em;border-bottom:2px solid var(--notte);padding-bottom:8px;font-size:17px}
+.lib .row{display:grid;grid-template-columns:auto 1fr;gap:8px;border-bottom:1.5px solid var(--notte);padding:10px 2px 4px;align-items:end}
+.lib .row .hand{font-size:25px;color:var(--chianti)}
+.lib table{width:100%;border-collapse:collapse;margin-top:14px}
+.lib th{font-family:var(--mono);font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.05em;border:1.5px solid var(--notte);padding:5px 6px;text-align:left}
+.lib td{border:1.5px solid var(--notte);height:38px;padding:2px 8px;font-family:var(--hand);font-size:22px;color:var(--chianti)}
+.lib .stamp{position:absolute;right:12px;bottom:22px;transform:rotate(-12deg);border:3px solid var(--chianti);color:var(--chianti);border-radius:8px;padding:4px 10px;font-family:var(--poster);font-weight:900;font-size:24px;text-transform:uppercase;opacity:.85}
+.lib .stamp small{display:block;font-family:var(--mono);font-size:10px;text-align:center}
+.flowers{margin:0 calc(-1 * var(--g)) 34px;overflow:hidden}
+.flowers svg{display:block;width:100%;height:auto;min-width:560px;margin-left:50%;transform:translateX(-50%)}
+footer .poster{font-family:var(--poster);font-weight:900;text-transform:uppercase;font-size:clamp(56px,16vw,190px);line-height:.82;letter-spacing:0;margin:6px 0 30px}
+footer .poster em{font-style:normal;color:var(--aperol)}
+footer .see{font-family:var(--hand);font-size:clamp(28px,7vw,44px);color:var(--prosciutto)}
+@media (min-width:760px){
+  .panel .pic{top:auto!important;bottom:17%;right:8vw;width:min(21vw,320px)}
+  .panel .ink{left:auto;right:calc(8vw + min(21vw,320px) - 70px);bottom:14%;top:auto;width:min(20vw,300px)}
+  .panel.sun .ink{right:12vw;left:auto;transform:none;top:26%;width:min(30vw,440px)}
+  .school{grid-template-columns:.8fr 1.2fr;align-items:start;gap:56px}
+  .casa .grid{grid-template-columns:1.1fr 1fr .9fr}
+  .rsvp .lib{margin-top:44px}
+}
+@media (prefers-reduced-motion:reduce){.ticker .trk,.sparks use{animation:none}}
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><filter id="ink" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/></filter><filter id="boil" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="1" result="n"><animate attributeName="seed" values="1;7;13;19" dur="0.72s" calcMode="discrete" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" in2="n" scale="3.5" xChannelSelector="R" yChannelSelector="G"/></filter><filter id="marble"><feTurbulence type="fractalNoise" baseFrequency="0.045 0.06" numOctaves="3" seed="9"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncR type="discrete" tableValues="0.1 0.1 0.95 0.1 0.95 0.1"/><feFuncG type="discrete" tableValues="0.1 0.1 0.93 0.1 0.93 0.1"/><feFuncB type="discrete" tableValues="0.09 0.09 0.9 0.09 0.9 0.09"/></feComponentTransfer></filter><path id="star" d="M0 -10 C1 -3 3 -1 10 0 C3 1 1 3 0 10 C-1 3 -3 1 -10 0 C-3 -1 -1 -3 0 -10Z"/><g id="coupe"><path d="M-40 -14 Q0 -10 40 -14 Q36 12 0 14 Q-36 12 -40 -14Z" style="fill:var(--c,#F9F4D6)" transform="translate(3 3)"/><g fill="none" stroke="#231605" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-42 -16 Q0 -12 42 -16 Q38 12 0 14 Q-38 12 -42 -16Z"/><path d="M0 14 L0 46 M-18 50 Q0 44 18 50"/></g></g></defs><filter id="chalk"><feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="1" seed="3" result="g"/><feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2 1.55" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter></svg>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="w">
+    <a class="mark" href="#top">A<i class="o">&amp;</i>J</a>
+    <span class="mid mono">06.05.2027 · Bok · Philadelphia</span>
+    <a class="pill zola" href="https://www.zola.com/" target="_blank" rel="noopener">RSVP ↗</a>
+  </div>
+</header>
+
+<main>
+<!-- ============ 1. aperitivo ============ -->
+<section class="hero tint" id="top" data-bg="#FCF9F4" data-fg="#1A1004">
+  <div class="ballhang" aria-hidden="true"><div class="cord"></div><div style="position:relative"><svg class="sparks" viewBox="0 0 100 100" fill="currentColor"><use href="#star" transform="translate(10 30) scale(.55)"/><use href="#star" transform="translate(90 26) scale(.4)"/><use href="#star" transform="translate(86 78) scale(.6)"/><use href="#star" transform="translate(14 84) scale(.35)"/></svg><canvas id="ball1"></canvas><div class="spinme">spin me!</div></div></div>
+  <div class="w">
+    <div class="top"><p class="mono">A long dinner and a late night<br>in South Philadelphia</p></div>
+    <h1 class="disp names" aria-label="Anna and Joshua">
+      <span class="line l1"><span>An<i class="o">n</i>a</span></span>
+    </h1>
+    <figure class="photo-back" aria-hidden="true"><img src="photos/names2.jpg" alt="" width="1050" height="1400"></figure>
+    <figure class="photo-hero" style="margin-block-start:-6vw"><img id="heroimg" src="photos/names.jpg" alt="Anna and Joshua's names drawn in red on a paper tablecloth, mid-dinner" width="1050" height="1400"></figure>
+    <div class="scrawl married" aria-hidden="true">we're getting married!</div>
+    <div class="disp names" style="z-index:3" aria-hidden="true"><span class="line l2"><span><span class="it" style="font-size:.42em;vertical-align:.7em;margin-right:.04em">&amp;</span>Josh<i class="o">u</i>a</span></span></div>
+    <div class="meta mono">
+      <div>Il matrimonio<b>Saturday, June 5, 2027</b></div>
+      <div>Dove<b>Bok, South Philly</b></div>
+      <div>Il weekend<b>June 4–6</b></div>
+      <div>Mancano<b id="count">—</b></div>
+    </div>
+    <a class="cta zola" href="https://www.zola.com/" target="_blank" rel="noopener">RSVP on Zola <span class="arr">↗</span></a>
+    <span class="counthand" id="counthand"></span>
+  </div>
+</section>
+<div class="ticker" aria-hidden="true"><div class="trk" id="trk"></div></div>
+
+<!-- ============ 2. the idea ============ -->
+<section class="statement tint" data-bg="#FCF9F4" data-fg="#1A1004">
+  <div class="w">
+    <p id="words">Three days in Philadelphia. One long table in an old school gym. Big plates passed hand to hand, cocktails on the roof, and a dance floor that goes late. <span class="it">Pull up a chair.</span></p>
+    <div class="sig mono">— Anna &amp; Joshua</div>
+  </div>
+</section>
+
+<!-- ============ 3. the weekend ============ -->
+<section class="weekend" id="weekend" aria-label="The weekend">
+  <div class="track" id="track">
+    <article class="panel fri">
+      <div class="row1 mono"><span>01 / The weekend</span><span>Fri 06.04.27</span></div>
+      <p class="ital">Venerdì</p>
+      <h3 class="poster">Welcome <em>party!</em></h3>
+      <div class="ink" id="art-fri" aria-hidden="true"></div>
+      <figure class="pic"><img src="photos/names2.jpg" alt="Names drawn on a paper tablecloth during dinner" loading="lazy" width="1050" height="1400"></figure>
+      <div class="body">
+        <p>Kick off the weekend with us. Tacos by Mission Taqueria.</p>
+        <div class="facts mono"><div>Where<b>The Deacon</b></div><div>When<b>Time TBA</b></div></div>
+      </div>
+      <div class="num" aria-hidden="true">01</div>
+    </article>
+    <article class="panel sat">
+      <div class="row1 mono"><span>02 / The weekend</span><span>Sat 06.05.27</span></div>
+      <p class="ital">Sabato</p>
+      <h3 class="poster">The <em>wedding!</em></h3>
+      <div class="ink" id="art-sat" aria-hidden="true"></div>
+      <figure class="pic"><img src="photos/tulips.jpg" alt="A dinner table with yellow tulips, candlesticks and doodles on the tablecloth" loading="lazy" width="1120" height="1400"></figure>
+      <div class="body">
+        <p>Cocktails on the roof, a family-style Italian dinner in the old gym, then dancing.</p>
+        <div class="facts mono"><div>Where<b>Bok</b></div><div>When<b>Time TBA</b></div></div>
+      </div>
+      <div class="num" aria-hidden="true">02</div>
+    </article>
+    <article class="panel sun">
+      <div class="row1 mono"><span>03 / The weekend</span><span>Sun 06.06.27</span></div>
+      <p class="ital">Domenica</p>
+      <h3 class="poster">Coffee &amp; <em>goodbyes</em></h3>
+      <div class="ink" id="art-sun" aria-hidden="true"></div>
+      <div class="body">
+        <p>Coffee and pastries before everyone heads home.</p>
+        <div class="facts mono"><div>Where<b>The Deacon</b></div><div>When<b>Time TBA</b></div></div>
+      </div>
+      <div class="num" aria-hidden="true">03</div>
+    </article>
+  </div>
+  <div class="hz-progress" aria-hidden="true"><i id="hzbar"></i></div>
+</section>
+
+<!-- ============ 4. la tavola ============ -->
+<section class="tavola tint" id="dinner" data-bg="#732242" data-fg="#FCF9F4">
+  <div class="w">
+    <div class="mono">04 / The dinner</div>
+    <h2 class="disp big"><span class="line"><span>La</span></span><span class="line"><span><span class="it">t</span>avola</span></span></h2>
+    <figure class="fullpic reveal" style="margin-bottom:0"><img src="photos/table.jpg" alt="A long table set with candles, tomatoes, peaches and names written on the cloth" loading="lazy" width="960" height="1200"></figure>
+    <div class="scrawl" aria-hidden="true">pass the pasta!<svg viewBox="-10 -10 20 20" fill="currentColor"><use href="#star"/></svg></div>
+    <p class="lede">Dinner is one long Italian family-style meal. No stations, no buffet line. Big plates come to the table and get passed down it.</p>
+    <ol class="courses">
+      <li class="course"><span class="n">i.</span><span class="t">Aperi<i class="o">t</i>ivo</span><p>Cocktails on Bok's roof, with the whole city behind us.</p></li>
+      <li class="course"><span class="n">ii.</span><span class="t">La cena</span><p>Italian family-style dinner, down in the old gym.</p></li>
+      <li class="course"><span class="n">iii.</span><span class="t">Dol<i class="o">c</i>i</span><p>Dessert. There will be a lot of it.</p></li>
+      <li class="course"><span class="n">iv.</span><span class="t">Si balla</span><p>Dancing under the disco ball. Open bar all night.</p></li>
+    </ol>
+    <div class="pg">
+      <div class="name">Party Girl<br><span class="it">in the kitchen</span></div>
+      <p>A young Philly cake and catering studio. Mallory Valvano started it in 2021 as Party Girl Bake Club, a pandemic side project, and it grew into a full kitchen with Daniel Daley as executive chef. Their food looks as good as it tastes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. Bok ============ -->
+<section class="bok" id="bok" data-bg="#1f3a31" data-fg="#FCF9F4">
+  <div class="w">
+    <div class="mono">05 / The place</div>
+    <h2 class="bokword" aria-label="Bok"><span class="stroke">B<i class="o">o</i>k</span><span class="fill" id="bokfill" aria-hidden="true">B<i class="o">o</i>k</span></h2>
+    <p class="intro">An Art Deco trade school in South Philly, where kids learned to lay brick, fix pipes, tailor and cut hair. Now it's full of studios. On June 5, it's ours for the night.</p>
+    <div class="stats">
+      <div class="stat"><div class="v" data-to="1938">1938</div><span class="mono">Opens as a trade school</span></div>
+      <div class="stat"><div class="v" data-to="340000" data-sep="1">340,000</div><span class="mono">Square feet</span></div>
+      <div class="stat"><div class="v" data-to="200" data-plus="1">200+</div><span class="mono">Artists &amp; small businesses today</span></div>
+      <div class="stat"><div class="v">1</div><span class="mono">Very long table</span></div>
+    </div>
+    <div class="school">
+      <div class="comp" aria-hidden="true">
+        <svg class="marble" preserveAspectRatio="none"><rect width="100%" height="100%" filter="url(#marble)"/></svg>
+        <div class="spine"></div>
+        <div class="label">
+          <div class="mono" style="font-size:10px">Edward W. Bok Technical High School</div>
+          <div class="t">Bok</div>
+          <div class="mono" style="font-size:10px">Est. 1938 · Philadelphia</div>
+          <div class="rule">Name: Anna &amp; Joshua</div>
+          <div class="rule">Class of 2027</div>
+        </div>
+      </div>
+      <div>
+        <div class="notebook">
+          <h3>a short history</h3>
+          <ol class="tl">
+            <li><span class="yr">1935</span><span>Construction starts</span></li>
+            <li><span class="yr">1938</span><span>Opens as Edward W. Bok Technical High School</span></li>
+            <li><span class="yr">1986</span><span>Added to the National Register of Historic Places</span></li>
+            <li><span class="yr">2013</span><span>School closes</span></li>
+            <li><span class="yr">2014</span><span>Scout buys it and turns it into workspace</span></li>
+            <li class="us"><span class="yr">2027</span><span>cocktails on the roof, dinner in the gym!</span></li>
+          </ol>
+        </div>
+        <p class="mono" style="margin-top:22px">1901 S. 9th St · Philadelphia, PA 19148</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. la casa ============ -->
+<section class="casa tint" id="stay" data-bg="#EFB9B9" data-fg="#732242">
+  <div class="w">
+    <div class="mono">06 / Home base</div>
+    <p class="yr" aria-hidden="true">1906</p>
+    <h2 class="disp">The Deacon</h2>
+    <div class="grid">
+      <p class="lede">A 1906 church in Graduate Hospital, restored as a small hotel and event space.</p>
+      <div>
+        <p>It's our home base for the weekend. The Friday welcome party and Sunday coffee are here, and some of our people are staying here too. More hotel options coming soon.</p>
+        <p class="mono" style="margin-top:14px">1600 Christian St · Philadelphia, PA 19146</p>
+      </div>
+      <div class="church art" id="art-church" aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. then the lights go down ============ -->
+<section class="notte tint" id="night" data-bg="#1A1004" data-fg="#FCF9F4" data-dark="1">
+  <figure class="fullpic reveal"><img src="photos/night.jpg" alt="Late at night, flash on a table of tulips, candles and half-finished glasses" loading="lazy" width="1120" height="1400"></figure>
+  <div class="w" style="position:relative;margin-top:-34vw">
+    <div class="over" style="position:relative">
+      <div class="mono">07 / Later</div>
+      <h2 class="disp" style="font-size:clamp(56px,16vw,250px)"><span class="line"><span>Then the</span></span><span class="line"><span>lights go</span></span><span class="line"><span><span class="it">down</span></span></span></h2>
+    </div>
+  </div>
+  <div class="danceball" aria-hidden="true"><div class="cord"></div><canvas id="ball2"></canvas></div>
+  <h2 class="disp siballa"><span class="it">si balla</span>Dance<br>fl<i class="o">o</i>or</h2>
+</section>
+
+<!-- ============ 8. RSVP ============ -->
+<section class="rsvp tint" id="rsvp" data-bg="#EF883D" data-fg="#1A1004">
+  <div class="w">
+    <div class="mono">08 / Say yes</div>
+    <h2 class="disp huge">RS<i class="o">V</i>P</h2>
+    <p>RSVPs and the registry both live on Zola.</p>
+    <div class="lib" aria-hidden="true">
+      <div class="ttl">LIBRARY CARD</div>
+      <div class="row"><span class="mono">Title</span><span class="hand">Anna &amp; Joshua's Wedding</span></div>
+      <div class="row"><span class="mono">Author</span><span class="hand">the two of us</span></div>
+      <table><thead><tr><th>Due date</th><th>Borrower's name</th></tr></thead>
+        <tbody><tr><td>06.05.27</td><td>you!</td></tr><tr><td>06.05.27</td><td>your plus-one?</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table>
+      <div class="stamp">RSVP<small>on Zola</small></div>
+    </div>
+    <div class="magnet" id="magnet"><a class="cta zola" href="https://www.zola.com/" target="_blank" rel="noopener">Reply on Zola <span class="arr">↗</span></a></div>
+    <div class="gift">
+      <div class="mono">Registry</div>
+      <div class="t">Il nostro<br><span class="it">primo anno</span></div>
+      <p style="margin:0;max-width:30em;text-align:left">Having you there is the gift. If you'd like to give something, we set up a fund for our first year of marriage and picked a few things we'd love.</p>
+      <a class="cta ghost zola" href="https://www.zola.com/" target="_blank" rel="noopener">See the registry <span class="arr">↗</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9. questions ============ -->
+<section class="faq tint" id="faq" data-bg="#1A1004" data-fg="#FCF9F4" data-dark="1">
+  <div class="w">
+    <div class="mono">09 / Good to know</div>
+    <h2 class="disp">Domande</h2>
+    <details><summary>Can I bring my kids?<span class="pm"></span></summary><p>The wedding is adults only. We'll have childcare at The Deacon on Saturday night, so parents can drop off their little ones and come party.</p></details>
+    <details><summary>Can I take photos?<span class="pm"></span></summary><p>The ceremony is unplugged, so please keep your phone put away. We'll have photographers and will share everything after.</p></details>
+    <details><summary>Is there a bar?<span class="pm"></span></summary><p>Yes. Open bar.</p></details>
+    <details><summary>What should I wear?<span class="pm"></span></summary><p>Fancy funky. Dress up and have fun with it.</p></details>
+    <details><summary>How do I RSVP?<span class="pm"></span></summary><p>On Zola. Any RSVP button on this page takes you there.</p></details>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="w">
+    <div class="flowers" id="art-flowers" aria-hidden="true"></div>
+    <div class="see">see you on the</div>
+    <div class="poster">Dance <em>floor!</em></div>
+    <div class="disp">A<i class="o">n</i>na <span class="it">&amp;</span><br>Josh<i class="o">u</i>a</div>
+    <div class="row mono"><span>06.05.2027</span><span>Bok · Philadelphia</span><a href="#top">Back to top ↑</a></div>
+  </div>
+</footer>
+
+<canvas id="glints" aria-hidden="true"></canvas>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+/* ============ ink drawings (original, carried over from the first design) ============ */
+const INK='#231605', C={butter:'#F9F4D6',mustard:'#D7C44B',blush:'#EFB9B9',powder:'#CBDBF4',plum:'#732242',tan:'#EF883D',paper:'#FCF9F4'};
+let _s=7; const rnd=()=>{_s=(_s*16807)%2147483647;return (_s-1)/2147483646};
+const ln=(d,w=3.2)=>`<path d="${d}" fill="none" stroke="${INK}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+const fl=(d,c,dx=4,dy=4)=>`<path d="${d}" style="fill:${c}" transform="translate(${dx} ${dy})"/>`;
+const star=(x,y,s,c=INK)=>`<use href="#star" transform="translate(${x} ${y}) scale(${s})" fill="${c}"/>`;
+function put(id,vb,body,boil){const el=document.getElementById(id); if(el) el.innerHTML=`<svg viewBox="${vb}"><g filter="url(#${boil?'boil':'ink'})">${body}</g></svg>`;}
+(function(){ /* Friday: pour + taco */
+  const bottle='M112 40 L128 40 L128 78 Q152 96 152 124 L152 236 Q152 246 142 246 L98 246 Q88 246 88 236 L88 124 Q88 96 112 78 Z';
+  let b=`<g transform="rotate(-38 120 140) translate(10 -20)">${fl(bottle,C.plum)}${ln(bottle)}${ln('M92 150 L148 150 M92 204 L148 204')}</g>`;
+  b+=`<path d="M212 120 Q216 150 222 176" stroke="${C.plum}" stroke-width="6" fill="none" stroke-linecap="round"/>`;
+  b+=fl('M194 196 L254 196 Q252 230 224 233 Q196 230 194 196Z',C.plum,2,2)+ln('M190 178 L258 178 Q258 232 224 236 Q190 232 190 178Z')+ln('M224 236 L224 280 M202 284 Q224 276 246 284');
+  b+=fl('M44 296 Q70 250 102 250 Q134 250 160 296',C.mustard,4,6)+`<path d="M52 292 q10 -26 22 -8 q12 -24 24 -6 q12 -24 24 -6 q12 -22 24 -2" fill="none" stroke="${C.blush}" stroke-width="9" stroke-linecap="round"/>`+ln('M40 300 A62 62 0 0 1 164 300')+ln('M58 300 A44 44 0 0 1 146 300',2.2);
+  b+=star(60,60,1.2)+star(250,90,.8)+star(270,250,1);
+  put('art-fri','20 30 280 280',b,true); })();
+(function(){ /* Saturday: coupe tower */
+  let b=''; [4,3,2,1].forEach((n,r)=>{ for(let k=0;k<n;k++) b+=`<use href="#coupe" x="${150+(k-(n-1)/2)*74}" y="${270-r*64}" style="--c:${r%2?C.butter:C.paper}"/>`; });
+  b+=star(40,70,1.6,C.plum)+star(262,52,1.1,C.plum)+star(274,190,.8)+star(24,210,.9);
+  put('art-sat','0 20 300 320',b,true); })();
+(function(){ /* Sunday: coffee + croissant */
+  let b=''; const cup='M60 130 L180 130 L170 222 Q168 236 152 236 L88 236 Q72 236 70 222 Z';
+  b+=fl(cup,C.paper)+ln(cup)+ln('M178 150 Q214 150 212 180 Q210 206 174 206')+ln('M40 244 Q120 262 200 244')+ln('M60 130 Q120 146 180 130',2.2);
+  b+=`<path d="M90 176 q10 -10 20 0 q10 10 20 0 q10 -10 20 0" fill="none" stroke="${C.plum}" stroke-width="3" stroke-linecap="round"/>`;
+  b+=ln('M92 112 q-12 -18 0 -36 q12 -18 0 -36',2.6)+ln('M122 108 q-12 -18 0 -36 q12 -18 0 -36',2.6)+ln('M152 112 q-12 -18 0 -36 q12 -18 0 -36',2.6);
+  const cr=[[214,258,18,0],[238,246,22,-24],[266,244,24,0],[294,246,22,24],[318,258,18,0]];
+  cr.forEach(([x,y,r,a])=>{ b+=`<ellipse cx="${x+4}" cy="${y+4}" rx="${r}" ry="${r*0.8}" fill="${C.mustard}" transform="rotate(${a} ${x} ${y})"/>`; });
+  cr.forEach(([x,y,r,a])=>{ b+=`<ellipse cx="${x}" cy="${y}" rx="${r}" ry="${r*0.8}" fill="none" stroke="${INK}" stroke-width="3" transform="rotate(${a} ${x} ${y})"/>`; });
+  b+=star(40,60,1.1)+star(250,90,.8,C.plum);
+  put('art-sun','20 20 320 270',b,true); })();
+(function(){ /* The Deacon */
+  let b=''; const body='M70 300 L70 150 L170 70 L270 150 L270 300 Z';
+  b+=fl(body,C.butter,8,8)+ln(body,3.4)+ln('M170 70 L170 16 M154 32 L186 32');
+  b+=`<circle cx="174" cy="146" r="26" fill="${C.mustard}"/>`+ln('M170 120 A26 26 0 1 1 169.9 120 M170 120 L170 172 M144 146 L196 146',2.6);
+  b+=ln('M144 300 L144 234 Q170 206 196 234 L196 300')+ln('M94 196 L94 250 Q106 240 118 250 L118 196 Q106 180 94 196 M222 196 L222 250 Q234 240 246 250 L246 196 Q234 180 222 196',2.6);
+  b+=ln('M270 200 L330 200 L330 300 M270 230 L330 230',2.6)+ln('M20 300 L340 300')+star(40,90,1.1,C.plum)+star(300,70,1.4);
+  b+=`<text x="210" y="60" font-family="Covered By Your Grace,cursive" font-size="26" fill="${C.plum}" transform="rotate(-6 210 60)">est. 1906</text>`;
+  put('art-church','0 0 360 310',b); })();
+(function(){ /* flowers along the end of the table */
+  _s=5; let b='', W=1000;
+  for(let x=30;x<W;x+=46+rnd()*20){
+    const h=90+rnd()*80, bx=x+rnd()*10-5, top=200-h, kind=Math.floor(rnd()*4), col=[C.butter,C.blush,C.tan,C.mustard,C.powder][Math.floor(rnd()*5)];
+    b+=`<path d="M${x} 200 Q${x+(rnd()-.5)*30} ${200-h/2} ${bx} ${top}" fill="none" stroke="${C.paper}" stroke-width="2.4" stroke-linecap="round"/>`;
+    if(rnd()>.4) b+=`<path d="M${x+(bx-x)*.5} ${200-h*.45} q14 -16 26 -8 q-12 12 -26 8Z" fill="${C.paper}"/>`;
+    if(kind===0){ for(let a=0;a<360;a+=45) b+=`<ellipse cx="${bx}" cy="${top-14}" rx="6" ry="14" fill="${col}" stroke="${INK}" stroke-width="1.8" transform="rotate(${a} ${bx} ${top})"/>`; b+=`<circle cx="${bx}" cy="${top}" r="6" fill="${INK}"/>`; }
+    else if(kind===1){ b+=`<path d="M${bx-14} ${top-26} L${bx-7} ${top-12} L${bx} ${top-28} L${bx+7} ${top-12} L${bx+14} ${top-26} Q${bx+16} ${top+4} ${bx} ${top+4} Q${bx-16} ${top+4} ${bx-14} ${top-26}Z" fill="${col}" stroke="${INK}" stroke-width="2.2"/>`; }
+    else if(kind===2){ b+=`<circle cx="${bx}" cy="${top-6}" r="16" fill="${col}" stroke="${INK}" stroke-width="2.2"/><path d="M${bx-8} ${top-8} q8 -8 16 0 q-8 8 -16 0" fill="none" stroke="${INK}" stroke-width="1.8"/>`; }
+    else { for(let k=0;k<4;k++) b+=`<circle cx="${bx+(rnd()-.5)*10}" cy="${top-k*10}" r="${6-k}" fill="${col}"/>`; }
+  }
+  b+=`<path d="M0 202 L${W} 202" stroke="${C.paper}" stroke-width="2.4"/>`;
+  put('art-flowers','0 20 1000 190',b); })();
+(function(){ /* ticker */
+  const bits=['June 4','Welcome party','June 5','Wedding at Bok','June 6','Coffee & goodbyes','Philadelphia','Fancy funky'];
+  const sep=' <svg viewBox="-10 -10 20 20"><use href="#star"/></svg> ';
+  document.getElementById('trk').innerHTML=('<span>'+bits.map(t=>t.replace('&','&amp;')).join(sep)+sep+'</span>').repeat(4); })();
+
+/* countdown */
+(function(){const n=new Date(),d=Math.ceil((new Date(2027,5,5)-new Date(n.getFullYear(),n.getMonth(),n.getDate()))/864e5);
+  document.getElementById('count').textContent=d>1?d+' days':d===1?'Tomorrow':d===0?'Today':'Married!';
+  document.getElementById('counthand').textContent=d>1?d+' days to go!':'';})();
+
+/* ============ disco balls + light that spills across the page ============ */
+const DISCO=(function(){
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const balls=[...document.querySelectorAll('#ball1,#ball2')].map(cv=>({cv,ctx:null,S:0,vis:false}));
+  const gl=document.getElementById('glints'), gx=gl.getContext('2d');
+  let dpr=1,W=0,H=0;
+  function size(){ dpr=Math.min(devicePixelRatio||1,2);
+    balls.forEach(b=>{b.S=b.cv.clientWidth; if(b.real) return; b.cv.width=b.S*dpr;b.cv.height=b.S*dpr;b.ctx.setTransform(dpr,0,0,dpr,0,0);});
+    W=innerWidth;H=innerHeight;gl.width=W*dpr;gl.height=H*dpr;gx.setTransform(dpr,0,0,dpr,0,0); }
+  const LAT=16,LON=32,seeds=[]; for(let i=0;i<LAT*LON;i++) seeds.push(Math.abs(Math.sin(i*127.1+311.7)*43758.5453)%1);
+  const tints=[[249,244,214],[203,219,244],[239,185,185],[215,196,75],[239,136,61]];
+  const L=(()=>{const v=[-0.45,-0.55,0.7];const m=Math.hypot(...v);return v.map(x=>x/m)})();
+  /* real mirror ball: ~2,000 slightly misaligned mirror tiles reflecting a room of warm lights */
+  function makeReal(b,night){
+    if(!window.THREE) return null;
+    let Rr; try{ Rr=new THREE.WebGLRenderer({canvas:b.cv,alpha:true,antialias:true}); }catch(e){ return null; }
+    Rr.setPixelRatio(Math.min(devicePixelRatio||1,2)); Rr.outputEncoding=THREE.sRGBEncoding; Rr.toneMapping=THREE.ACESFilmicToneMapping; Rr.toneMappingExposure=night?1.15:1.05;
+    const scene=new THREE.Scene(), cam=new THREE.PerspectiveCamera(26,1,.1,50); cam.position.set(0,0,4.9);
+    const ec=document.createElement('canvas'); ec.width=1024; ec.height=512; const g=ec.getContext('2d');
+    const vg=g.createLinearGradient(0,0,0,512);
+    if(night){ vg.addColorStop(0,'#1d120a'); vg.addColorStop(.5,'#0b0603'); vg.addColorStop(1,'#050302'); }
+    else { vg.addColorStop(0,'#fbf6ec'); vg.addColorStop(.45,'#d9cfbf'); vg.addColorStop(.6,'#6b5a48'); vg.addColorStop(1,'#2a1d12'); }
+    g.fillStyle=vg; g.fillRect(0,0,1024,512);
+    const blob=(x,y,r,c,a)=>{const gr=g.createRadialGradient(x,y,0,x,y,r); gr.addColorStop(0,c); gr.addColorStop(1,'rgba(0,0,0,0)'); g.globalAlpha=a; g.fillStyle=gr; g.fillRect(x-r,y-r,r*2,r*2); g.globalAlpha=1;};
+    const cols=['#EF883D','#EFB9B9','#CBDBF4','#D7C44B','#ffffff','#fff1d6','#732242'];
+    if(night){ for(let i=0;i<70;i++) blob(Math.random()*1024,80+Math.random()*300,4+Math.random()*26,cols[i%cols.length],.9);
+      blob(300,120,120,'#EF883D',.55); blob(760,160,140,'#CBDBF4',.4); blob(520,90,90,'#fff1d6',.8); }
+    else { g.fillStyle='rgba(255,255,255,.95)'; for(let i=0;i<5;i++) g.fillRect(80+i*190,70,110,150);
+      for(let i=0;i<24;i++) blob(Math.random()*1024,60+Math.random()*240,6+Math.random()*30,cols[i%cols.length],.8);
+      blob(512,40,200,'#ffffff',.7); }
+    const tex=new THREE.CanvasTexture(ec); tex.mapping=THREE.EquirectangularReflectionMapping; tex.encoding=THREE.sRGBEncoding;
+    const pm=new THREE.PMREMGenerator(Rr); scene.environment=pm.fromEquirectangular(tex).texture;
+    const grp=new THREE.Group(); grp.rotation.z=0.14; scene.add(grp);
+    grp.add(new THREE.Mesh(new THREE.SphereGeometry(.985,48,32),new THREE.MeshStandardMaterial({color:0x0e0c0a,roughness:.9})));
+    const s=0.074, list=[]; let row=0;
+    for(let lat=-Math.PI/2+s*0.6; lat<Math.PI/2-s*0.4; lat+=s*1.02, row++){ const n=Math.max(3,Math.round(2*Math.PI*Math.cos(lat)/(s*1.04)));
+      for(let k=0;k<n;k++) list.push([lat,(k+(row%2)*.5)*2*Math.PI/n]); }
+    const mesh=new THREE.InstancedMesh(new THREE.PlaneGeometry(s*.9,s*.9),new THREE.MeshStandardMaterial({metalness:1,roughness:.16}),list.length);
+    const d=new THREE.Object3D(), col=new THREE.Color(), v=new THREE.Vector3();
+    list.forEach(([lat,lon],i)=>{ v.set(Math.cos(lat)*Math.sin(lon),Math.sin(lat),Math.cos(lat)*Math.cos(lon));
+      d.position.copy(v); d.lookAt(v.clone().multiplyScalar(2)); d.rotateX((Math.random()-.5)*.09); d.rotateY((Math.random()-.5)*.09); d.updateMatrix(); mesh.setMatrixAt(i,d.matrix);
+      const k=.78+Math.random()*.22; col.setRGB(k,k,k*.98); mesh.setColorAt(i,col); });
+    grp.add(mesh);
+    const cap=new THREE.Mesh(new THREE.CylinderGeometry(.09,.12,.1,24),new THREE.MeshStandardMaterial({metalness:1,roughness:.3})); cap.position.y=1.02; grp.add(cap);
+    const key=new THREE.DirectionalLight(0xfff1d6,night?3:2.2); key.position.set(-2,3,4); scene.add(key);
+    const rim=new THREE.PointLight(night?0xEF883D:0xffffff,night?4:1.5,10); rim.position.set(2.5,-1,2.5); scene.add(rim);
+    function fit(){ const w=b.cv.clientWidth; Rr.setSize(w,w,false); }
+    fit(); addEventListener('resize',fit);
+    return rot=>{ grp.rotation.y=rot; Rr.render(scene,cam); };
+  }
+  balls.forEach((b,i)=>{ b.real=makeReal(b,i===1); if(b.real){ b.cv.dataset.real='1'; } });
+  function draw(b,rot,t){ if(b.real){ b.real(rot); return; } if(!b.ctx){ b.ctx=b.cv.getContext('2d'); b.S=b.cv.clientWidth; b.cv.width=b.S*dpr; b.cv.height=b.S*dpr; b.ctx.setTransform(dpr,0,0,dpr,0,0); } const {ctx,S}=b, r=S*0.46,cx=S/2,cy=S/2; ctx.clearRect(0,0,S,S);
+    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle='#2a1c10';ctx.fill();
+    for(let i=0;i<LAT;i++){const t0=-Math.PI/2+i*Math.PI/LAT,t1=t0+Math.PI/LAT,tm=(t0+t1)/2;
+      for(let j=0;j<LON;j++){const p0=j*2*Math.PI/LON+rot,p1=p0+2*Math.PI/LON,pm=(p0+p1)/2;
+        const nz=Math.cos(tm)*Math.cos(pm); if(nz<=0.02) continue; const nx=Math.cos(tm)*Math.sin(pm),ny=Math.sin(tm);
+        const pt=(th,ph)=>{const x=Math.cos(th)*Math.sin(ph),y=Math.sin(th);return [cx+r*(nx+(x-nx)*0.86),cy+r*(ny+(y-ny)*0.86)];};
+        const q=[pt(t0,p0),pt(t0,p1),pt(t1,p1),pt(t1,p0)],sd=seeds[i*LON+j];
+        const d=Math.max(0,nx*L[0]+ny*L[1]+nz*L[2]),lum=0.22+0.62*d+0.16*sd,spec=Math.pow(d,24),tw=Math.sin(t*0.004+sd*60)>0.992;
+        let c; if(tw||spec>0.55) c=[255,255,255]; else {const tint=sd>0.9?tints[3+Math.floor(sd*100)%2]:sd>0.78?tints[1+Math.floor(sd*100)%2]:[214,214,222];const k=Math.min(1,lum);c=tint.map(v=>Math.round(40+(v-40)*k));}
+        ctx.beginPath();ctx.moveTo(q[0][0],q[0][1]);for(let k=1;k<4;k++)ctx.lineTo(q[k][0],q[k][1]);ctx.closePath();ctx.fillStyle='rgb('+c.join(',')+')';ctx.fill();}}
+    const g=ctx.createRadialGradient(cx-r*0.35,cy-r*0.4,0,cx-r*0.35,cy-r*0.4,r*0.5);g.addColorStop(0,'rgba(255,255,255,.55)');g.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill(); }
+  const sprites=tints.map(([r,g,b])=>{const c=document.createElement('canvas');c.width=c.height=64;const x=c.getContext('2d');
+    const gr=x.createRadialGradient(32,32,0,32,32,32);gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(.28,'rgba(255,255,255,.9)');gr.addColorStop(.5,`rgba(${r},${g},${b},.55)`);gr.addColorStop(1,`rgba(${r},${g},${b},0)`);
+    x.fillStyle=gr;x.fillRect(0,0,64,64);return c;});
+  const N=innerWidth<760?26:46,spots=[];for(let i=0;i<N;i++)spots.push({lon:Math.random()*Math.PI*2,y:Math.random(),s:4+Math.random()*8,k:Math.floor(Math.random()*5),ph:Math.random()*10});
+  let dark=0, darkT=0;
+  function glints(rot,t,e){ gx.clearRect(0,0,W,H);
+    for(const p of spots){const a=p.lon-rot*1.6,c=Math.cos(a);if(c<=0)continue;const x=W/2+Math.sin(a)*W*0.72,y=p.y*H,f=0.75+0.25*Math.sin(t*0.003+p.ph);
+      gx.globalAlpha=Math.min(1,e*Math.sqrt(c)*f);const w=p.s*(0.45+0.55*c)*2.4,h=p.s*2.4;gx.drawImage(sprites[p.k],x-w/2,y-h/2,w,h);}
+    gx.globalAlpha=1; }
+  let rot=0.6,vel=0,last=performance.now(),drag=null,px=0;const BASE=0.00026;
+  balls.forEach(b=>{ b.cv.addEventListener('pointerdown',e=>{document.body.classList.add('spun');drag=b;px=e.clientX;try{b.cv.setPointerCapture(e.pointerId)}catch(_){}});
+    b.cv.addEventListener('pointermove',e=>{if(drag!==b)return;const dx=e.clientX-px;px=e.clientX;rot+=dx/(b.S*0.46);vel=Math.max(-0.02,Math.min(0.02,dx*0.00045));});
+    const end=()=>{drag=null}; b.cv.addEventListener('pointerup',end); b.cv.addEventListener('pointercancel',end);
+    new IntersectionObserver(es=>{b.vis=es[0].isIntersecting}).observe(b.cv); });
+  let lastY=scrollY; addEventListener('scroll',()=>{const dy=scrollY-lastY;lastY=scrollY;vel=Math.max(-0.012,Math.min(0.012,vel+dy*0.000012));},{passive:true});
+  function frame(t){ const dt=Math.min(64,t-last);last=t; if(!drag) rot+=(BASE+vel)*dt; vel*=Math.pow(0.9978,dt);
+    dark+=(darkT-dark)*0.04;
+    balls.forEach(b=>{ if(b.vis) draw(b,rot,t); });
+    glints(rot,t,0.16+0.5*dark+Math.min(0.45,Math.abs(vel)*60)); requestAnimationFrame(frame); }
+  size(); addEventListener('resize',size);
+  if(reduce){ balls.forEach(b=>draw(b,rot,0)); glints(rot,0,.3); } else requestAnimationFrame(frame);
+  return { setDark(v){ darkT=v; } };
+})();
+
+/* ============ scroll choreography ============ */
+(function(){
+  if(!window.gsap || !window.ScrollTrigger) return;   // without the libraries the page still reads top to bottom
+  gsap.registerPlugin(ScrollTrigger);
+  const root=document.documentElement, reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  root.classList.add('js');
+
+  /* smooth scrolling on desktop only; phones keep native scrolling */
+  if(window.Lenis && matchMedia('(pointer:fine)').matches && !reduce){
+    const lenis=new Lenis({lerp:0.1}); lenis.on('scroll',ScrollTrigger.update);
+    gsap.ticker.add(t=>lenis.raf(t*1000)); gsap.ticker.lagSmoothing(0);
+    document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const el=document.querySelector(a.getAttribute('href'));if(el){e.preventDefault();lenis.scrollTo(el);}}));
+  }
+
+  if(reduce){
+    /* the page changes color as the evening goes on */
+  document.querySelectorAll('[data-bg]').forEach(sec=>{
+    ScrollTrigger.create({trigger:sec,start:'top 55%',end:'bottom 55%',
+      onToggle:self=>{ if(self.isActive){ root.style.setProperty('--bg',sec.dataset.bg); root.style.setProperty('--fg',sec.dataset.fg); DISCO.setDark(sec.dataset.dark?1:0); } }});
+  });
+
+    return;
+  }
+
+  /* hero entrance */
+  gsap.from('.names .line > span',{yPercent:105,duration:1.2,ease:'power4.out',stagger:.12,delay:.1});
+  gsap.from('.photo-hero',{clipPath:'inset(18% 18% 18% 18%)',duration:1.4,ease:'power4.out',delay:.25});
+  gsap.from('#heroimg',{scale:1.3,duration:1.8,ease:'power3.out',delay:.25});
+  gsap.from('.ballhang',{yPercent:-120,duration:1.6,ease:'elastic.out(1,0.55)',delay:.6});
+  gsap.to('#heroimg',{yPercent:8,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+
+  /* statement: words light up as you read */
+  const p=document.getElementById('words'); const frag=[];
+  p.childNodes.forEach(n=>{ if(n.nodeType===3){ n.textContent.split(/(\s+)/).forEach(w=>frag.push(w.trim()?`<span class="wd">${w}</span>`:w)); } else { frag.push(`<span class="wd">${n.outerHTML}</span>`); } });
+  p.innerHTML=frag.join('');
+  gsap.fromTo('#words .wd',{opacity:.12},{opacity:1,stagger:.08,ease:'none',scrollTrigger:{trigger:p,start:'top 80%',end:'bottom 45%',scrub:true}});
+
+  /* the weekend: three full-screen days that slide sideways */
+  const track=document.getElementById('track'); root.classList.add('hz-on');
+  const dist=()=>track.scrollWidth-root.clientWidth;
+  gsap.to(track,{x:()=>-dist(),ease:'none',scrollTrigger:{trigger:'#weekend',start:'top top',end:()=>'+='+dist(),pin:true,scrub:.6,invalidateOnRefresh:true,anticipatePin:1,
+    onUpdate:s=>{document.getElementById('hzbar').style.width=(s.progress*100)+'%';}}});
+  gsap.utils.toArray('.panel .ital').forEach(el=>gsap.from(el,{xPercent:30,ease:'none',scrollTrigger:{trigger:'#weekend',start:'top top',end:()=>'+='+dist(),scrub:true}}));
+  /* the page changes color as the evening goes on */
+  document.querySelectorAll('[data-bg]').forEach(sec=>{
+    ScrollTrigger.create({trigger:sec,start:'top 55%',end:'bottom 55%',
+      onToggle:self=>{ if(self.isActive){ root.style.setProperty('--bg',sec.dataset.bg); root.style.setProperty('--fg',sec.dataset.fg); DISCO.setDark(sec.dataset.dark?1:0); } }});
+  });
+
+
+  /* headlines rise out of their lines */
+  gsap.utils.toArray('.tavola .big .line > span, .notte .line > span').forEach(el=>gsap.from(el,{yPercent:105,duration:1.1,ease:'power4.out',scrollTrigger:{trigger:el,start:'top 88%'}}));
+
+  /* photos open up and drift */
+  gsap.utils.toArray('.reveal').forEach(fig=>{
+    gsap.fromTo(fig,{clipPath:'inset(14% 10% 14% 10%)'},{clipPath:'inset(0% 0% 0% 0%)',ease:'none',scrollTrigger:{trigger:fig,start:'top 90%',end:'top 25%',scrub:true}});
+    gsap.fromTo(fig.querySelector('img'),{yPercent:-10},{yPercent:0,ease:'none',scrollTrigger:{trigger:fig,start:'top bottom',end:'bottom top',scrub:true}});
+  });
+
+  /* the night, course by course */
+  gsap.utils.toArray('.course').forEach(c=>ScrollTrigger.create({trigger:c,start:'top 62%',end:'bottom 38%',toggleClass:'on'}));
+
+  /* BOK fills in like wet ink */
+  gsap.fromTo('#bokfill',{clipPath:'inset(0 100% 0 0)'},{clipPath:'inset(0 0% 0 0)',ease:'none',scrollTrigger:{trigger:'.bokword',start:'top 80%',end:'bottom 40%',scrub:true}});
+  gsap.utils.toArray('.stat .v[data-to]').forEach(v=>{ const to=+v.dataset.to, o={n:to>2000?0:(to>1000?1800:0)};
+    gsap.to(o,{n:to,duration:1.6,ease:'power2.out',scrollTrigger:{trigger:v,start:'top 85%'},onUpdate:()=>{ let s=Math.round(o.n); s=v.dataset.sep?s.toLocaleString('en-US'):String(s); v.textContent=s+(v.dataset.plus?'+':''); }}); });
+
+  /* 1906 slides across */
+  gsap.fromTo('.casa .yr',{xPercent:12},{xPercent:-18,ease:'none',scrollTrigger:{trigger:'.casa',start:'top bottom',end:'bottom top',scrub:true}});
+
+  /* the disco ball drops in when the lights go down */
+  gsap.from('.danceball',{yPercent:-60,opacity:0,duration:1.4,ease:'elastic.out(1,0.6)',scrollTrigger:{trigger:'.danceball',start:'top 80%'}});
+  gsap.from('.siballa',{scale:.8,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:'.siballa',start:'top 85%'}});
+
+  /* RSVP letters spread as you arrive */
+  gsap.fromTo('.rsvp .huge',{letterSpacing:'-0.2em'},{letterSpacing:'-0.07em',ease:'none',scrollTrigger:{trigger:'.rsvp',start:'top bottom',end:'top 20%',scrub:true}});
+
+  addEventListener('load',()=>ScrollTrigger.refresh());
+})();
+
+/* ============ desktop cursor + magnetic RSVP ============ */
+(function(){
+  if(!matchMedia('(pointer:fine)').matches) return;
+  const cur=document.getElementById('cursor'); let x=innerWidth/2,y=innerHeight/2,cx=x,cy=y;
+  addEventListener('mousemove',e=>{x=e.clientX;y=e.clientY;});
+  document.querySelectorAll('a,summary,canvas').forEach(el=>{el.addEventListener('mouseenter',()=>cur.classList.add('big'));el.addEventListener('mouseleave',()=>cur.classList.remove('big'));});
+  (function loop(){cx+=(x-cx)*.2;cy+=(y-cy)*.2;cur.style.transform=`translate(${cx}px,${cy}px)`;requestAnimationFrame(loop);})();
+  const m=document.getElementById('magnet');
+  m.parentElement.addEventListener('mousemove',e=>{const r=m.getBoundingClientRect(),dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2);
+    const d=Math.hypot(dx,dy); const k=d<220?(1-d/220)*.4:0; m.style.transform=`translate(${dx*k}px,${dy*k}px)`;});
+  m.parentElement.addEventListener('mouseleave',()=>{m.style.transform='';});
+  m.style.transition='transform .25s cubic-bezier(.2,.8,.2,1)';
+})();
+</script>
+
+</body></html>

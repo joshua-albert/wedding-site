@@ -1,0 +1,4 @@
+1. Put this folder at Desktop/Personal/Wedding Website
+2. Open Terminal and type:  cd ~/Desktop/Personal/"Wedding Website"
+3. Type:  claude
+4. Paste:  Read CLAUDE.md and do Phase 1.

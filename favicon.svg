@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <title>Disco ball</title>
+  <g fill="none" stroke="#231605" stroke-width="2" stroke-linecap="round">
+    <path d="M16 1.5V6"/>
+    <circle cx="16" cy="19" r="10.6" fill="#CBDBF4"/>
+  </g>
+  <g fill="#F9F4D6">
+    <path d="M9.6 12.1 14 11.4 13.6 15.4 9.2 16.1z"/>
+    <path d="M18.6 20 23 19.3 23.4 23 19 23.7z"/>
+    <path d="M13.9 24.5 18 23.9 18.3 27.4 14.2 28z"/>
+  </g>
+  <g fill="none" stroke="#231605" stroke-width="1.5" stroke-linecap="round">
+    <path d="M6 15.2q10 3.2 20 0M5.5 19q10.5 4 21 0M6 22.9q10 3.2 20 0"/>
+    <path d="M16 8.4q4.6 10.6 0 21.2M16 8.4q-4.6 10.6 0 21.2"/>
+  </g>
+</svg>
