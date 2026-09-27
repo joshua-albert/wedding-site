@@ -77,7 +77,8 @@ svg.ill{display:block;overflow:visible}
 @keyframes drop{from{transform:translateY(-115%)}}
 .cord{width:2px;height:30px;background:currentColor}
 .ballbox{position:relative;width:min(58vw,250px);aspect-ratio:1}
-#ball{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y;cursor:grab}
+#ball{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y;cursor:grab;
+  -webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 #ball:active{cursor:grabbing}
 .sparks{position:absolute;inset:-22%;pointer-events:none}
 .sparks path{transform-box:fill-box;transform-origin:center;animation:tw 2.8s ease-in-out infinite}
@@ -217,6 +218,14 @@ summary::after{content:"+";font-family:var(--poster);font-weight:900;font-size:3
 details[open] summary::after{transform:rotate(45deg)}
 details p{line-height:34px;margin:0;font-size:17px}
 
+/* ---------- bees (a nod to Anna's family) ---------- */
+.bee{transform-box:fill-box;transform-origin:center;animation:beefly 7s ease-in-out infinite}
+@keyframes beefly{
+  0%,100%{transform:translate(0,0) rotate(0deg)}
+  25%{transform:translate(4px,-5px) rotate(-4deg)}
+  50%{transform:translate(8px,1px) rotate(3deg)}
+  75%{transform:translate(3px,-3px) rotate(-2deg)}}
+
 /* ---------- vendor links ---------- */
 .ilink{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
   border:2px solid currentColor;border-radius:999px;padding:6px 13px 5px;margin-top:14px;transition:transform .15s,box-shadow .15s}
@@ -255,7 +264,10 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .hang,.track,.wptrack,.sparks path{animation:none}
+  .hang,.sparks path,.bee{animation:none}
+  /* the two tickers keep crawling rather than stopping dead */
+  .track{animation-duration:150s}
+  .wptrack{animation-duration:95s}
   .h,.poster .art svg,.menu,.card,.comp,.notebook{animation:none!important}
 }
 </style>
@@ -486,7 +498,18 @@ let _s=7; const rnd=()=>{_s=(_s*16807)%2147483647;return (_s-1)/2147483646};
 const ln=(d,w=3.2)=>`<path d="${d}" fill="none" stroke="${INK}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
 const fl=(d,c,dx=4,dy=4)=>`<path d="${d}" style="fill:${c}" transform="translate(${dx} ${dy})"/>`;
 const star=(x,y,s,c=INK)=>`<use href="#star" transform="translate(${x} ${y}) scale(${s})" fill="${c}"/>`;
-function put(id,vb,body,boil){const el=document.getElementById(id); if(el) el.innerHTML=`<svg class="ill" viewBox="${vb}" role="presentation"><g filter="url(#${boil?'boil':'ink'})">${body}</g></svg>`;}
+/* a small bumblebee, drawn in the same hand-inked way as everything else.
+   outer <g> places it; inner .bee <g> is what the float animation moves. */
+const bee=(x,y,s=1,r=0,d=0)=>`<g transform="translate(${x} ${y}) rotate(${r}) scale(${s})"><g class="bee" style="animation-delay:${d}s">`
+  +`<ellipse cx="-6.5" cy="-12" rx="8.8" ry="4.2" transform="rotate(-38 -6.5 -12)" fill="${C.paper}" fill-opacity=".95" stroke="${INK}" stroke-width="1.6"/>`
+  +`<ellipse cx="5.4" cy="-12.4" rx="7.6" ry="3.8" transform="rotate(30 5.4 -12.4)" fill="${C.paper}" fill-opacity=".95" stroke="${INK}" stroke-width="1.6"/>`
+  +`<ellipse cx="0" cy="0" rx="11" ry="8" fill="${C.mustard}" stroke="${INK}" stroke-width="2"/>`
+  +ln('M-6 -6 L-6 6',2.2)+ln('M-1 -7.6 L-1 7.6',2.2)+ln('M4 -7 L4 7',2.2)
+  +`<circle cx="13" cy="-1" r="4.4" fill="${INK}"/>`
+  +ln('M13.8 -5 Q15.8 -8.8 18.6 -9.4',1.5)+ln('M10.6 -5 Q10 -8.4 11.6 -10.4',1.5)
+  +ln('M-11 2.2 Q-14.4 3.6 -15.6 6',1.7)
+  +`</g></g>`;
+function put(id,vb,body,boil,extra){const el=document.getElementById(id); if(el) el.innerHTML=`<svg class="ill" viewBox="${vb}" role="presentation"><g filter="url(#${boil?'boil':'ink'})">${body}</g>${extra||''}</svg>`;}
 
 /* Friday: bottle pouring into a glass, with a taco */
 (function(){
@@ -538,7 +561,7 @@ function put(id,vb,body,boil){const el=document.getElementById(id); if(el) el.in
   b+=`<text x="340" y="90" text-anchor="middle" font-family="Londrina Solid,Arial Black" font-weight="900" font-size="30" fill="${C.plum}" letter-spacing="6">BOK</text>`;
   b+=`<g transform="translate(252 36)">${ln('M0 24 L0 -4')}${ln('M-12 0 Q0 -8 12 0',2)}</g>`;
   b+=star(596,70,1.4,C.plum)+star(640,110,.8)+star(90,96,1)+`<text x="560" y="42" text-anchor="end" font-family="Covered By Your Grace,cursive" font-size="24" fill="${C.plum}" transform="rotate(-4 560 42)">ceremony + cocktails<tspan x="560" dy="24">up here!</tspan></text>`+ln('M470 84 Q436 100 402 94',2);
-  put('art-bok','0 20 680 300',b);
+  put('art-bok','0 20 680 300',b,false,bee(128,56,1.5,-8,0));
 })();
 
 /* Long table from above, generated */
@@ -575,7 +598,7 @@ function put(id,vb,body,boil){const el=document.getElementById(id); if(el) el.in
   b+=ln('M144 300 L144 234 Q170 206 196 234 L196 300')+ln('M94 196 L94 250 Q106 240 118 250 L118 196 Q106 180 94 196 M222 196 L222 250 Q234 240 246 250 L246 196 Q234 180 222 196',2.6);
   b+=ln('M270 200 L330 200 L330 300 M270 230 L330 230',2.6)+ln('M20 300 L340 300');
   b+=star(40,90,1.1,C.plum)+star(300,70,1.4)+`<text x="210" y="60" font-family="Covered By Your Grace,cursive" font-size="24" fill="${C.plum}" transform="rotate(-6 210 60)">est. 1906</text>`;
-  put('art-church','0 0 360 310',b);
+  put('art-church','0 0 360 310',b,false,bee(30,238,1.15,8,1.4));
 })();
 
 /* Footer bouquet row */
@@ -592,7 +615,7 @@ function put(id,vb,body,boil){const el=document.getElementById(id); if(el) el.in
     else { for(let k=0;k<4;k++) b+=`<circle cx="${bx+(rnd()-.5)*10}" cy="${top-k*10}" r="${6-k}" fill="${INK}"/>`; }
   }
   b+=ln(`M0 202 L${W} 202`,2.4);
-  document.getElementById('art-flowers').innerHTML=`<svg class="ill" viewBox="0 0 ${W} 210" style="color:inherit"><g filter="url(#ink)">${b}</g></svg>`;
+  document.getElementById('art-flowers').innerHTML=`<svg class="ill" viewBox="0 0 ${W} 210" style="color:inherit"><g filter="url(#ink)">${b}</g>${bee(238,48,2.2,-7,0.6)+bee(716,42,2,9,2.2)}</svg>`;
 })();
 
 /* Ticker */
@@ -669,31 +692,48 @@ function put(id,vb,body,boil){const el=document.getElementById(id); if(el) el.in
       gx.globalAlpha=Math.min(1,(0.26+e)*Math.sqrt(c)*f);
       const w=p.s*(0.45+0.55*c)*2.4,h=p.s*2.4; gx.drawImage(sprites[p.k],x-w/2,y-h/2,w,h); }
     gx.globalAlpha=1; }
-  let rot=0.6,vel=0,last=performance.now(),drag=false,px=0,vis=true,hist=[]; const BASE=0.00026;
+  /* Reduce Motion kills the idle drift, but the loop keeps running so a swipe the
+     guest actually asks for still visibly spins the ball. This is what used to
+     freeze the ball outright on iOS with Reduce Motion switched on. */
+  let rot=0.6,vel=0,last=performance.now(),drag=false,px=0,vis=true,hist=[]; const BASE=reduce?0:0.00026;
   const clampV=v=>Math.max(-0.02,Math.min(0.02,v));
-  /* one pointer path for both finger and mouse; touch-action:pan-y keeps vertical scrolling working */
-  cv.addEventListener('pointerdown',e=>{drag=true;px=e.clientX;vel=0;hist=[{x:e.clientX,t:e.timeStamp}];
-    try{cv.setPointerCapture(e.pointerId)}catch(_){}document.body.classList.add('spun');e.preventDefault();});
-  cv.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-px;px=e.clientX;rot+=dx/(S*0.46);
-    hist.push({x:e.clientX,t:e.timeStamp}); if(hist.length>12) hist.shift();});
+  /* one gesture, two ways in: pointer events normally, raw touch events as a fallback
+     for engines that don't deliver pointer events on a canvas. touch-action:pan-y
+     means a sideways drag spins the ball while an up/down drag still scrolls the page. */
+  function gStart(x,t){ drag=true; px=x; vel=0; hist=[{x,t}]; document.body.classList.add('spun'); }
+  function gMove(x,t){ if(!drag) return; const dx=x-px; px=x; rot+=dx/(S*0.46);
+    hist.push({x,t}); if(hist.length>12) hist.shift(); }
   /* on release, throw it: speed comes from the last ~90ms of the swipe, then eases back to the idle spin */
-  const end=e=>{ if(!drag) return; drag=false;
-    const now=(e&&e.timeStamp)||performance.now(), b=hist[hist.length-1];
-    if(b && now-b.t<160){                                  // still travelling when they let go
+  function gEnd(t){ if(!drag) return; drag=false;
+    const b=hist[hist.length-1];
+    if(b && t-b.t<160){                                    // still travelling when they let go
       let i=hist.length-1;
       while(i>0 && b.t-hist[i-1].t<90) i--;                 // average over the last ~90ms
       if(i===hist.length-1 && hist.length>1) i=hist.length-2;  // sparse events: use the last pair
       const a=hist[i];
       if(a && b.t>a.t) vel=clampV(((b.x-a.x)/(S*0.46))/(b.t-a.t));
     }
-    hist=[]; };
-  cv.addEventListener('pointerup',end); cv.addEventListener('pointercancel',end); cv.addEventListener('lostpointercapture',end);
+    hist=[]; }
+  let viaPointer=false;
+  cv.addEventListener('pointerdown',e=>{viaPointer=true;try{cv.setPointerCapture(e.pointerId)}catch(_){}gStart(e.clientX,e.timeStamp);});
+  cv.addEventListener('pointermove',e=>gMove(e.clientX,e.timeStamp));
+  const pEnd=e=>gEnd((e&&e.timeStamp)||performance.now());
+  cv.addEventListener('pointerup',pEnd); cv.addEventListener('pointercancel',pEnd); cv.addEventListener('lostpointercapture',pEnd);
+  cv.addEventListener('touchstart',e=>{if(!viaPointer&&e.touches[0])gStart(e.touches[0].clientX,e.timeStamp)},{passive:true});
+  cv.addEventListener('touchmove',e=>{if(!viaPointer&&e.touches[0])gMove(e.touches[0].clientX,e.timeStamp)},{passive:true});
+  cv.addEventListener('touchend',e=>{if(!viaPointer)gEnd(e.timeStamp)},{passive:true});
+  cv.addEventListener('touchcancel',e=>{if(!viaPointer)gEnd(e.timeStamp)},{passive:true});
   let lastY=scrollY; addEventListener('scroll',()=>{const dy=scrollY-lastY;lastY=scrollY;vel=Math.max(-0.012,Math.min(0.012,vel+dy*0.000012));},{passive:true});
   new IntersectionObserver(es=>{vis=es[0].isIntersecting}).observe(cv);
   function frame(t){ const dt=Math.min(64,t-last); last=t; if(!drag) rot+=(BASE+vel)*dt; vel*=Math.pow(0.9988,dt);
-    if(vis) drawBall(rot,t); drawGlints(rot,t,(vis?0.28:0.1)+Math.min(0.5,Math.abs(vel)*60)); requestAnimationFrame(frame); }
-  size(); addEventListener('resize',()=>{size(); if(reduce){drawBall(rot,0);drawGlints(rot,0,.3);} });
-  if(reduce){drawBall(rot,0);drawGlints(rot,0,.3);} else requestAnimationFrame(frame);
+    if(!reduce || drag || Math.abs(vel)>1e-6){          // under Reduce Motion only redraw while it's actually turning
+      if(vis) drawBall(rot,t);
+      drawGlints(rot,t,(vis?0.28:0.1)+Math.min(0.5,Math.abs(vel)*60));
+    }
+    requestAnimationFrame(frame); }
+  size(); addEventListener('resize',()=>{size(); drawBall(rot,0); drawGlints(rot,0,.3);});
+  drawBall(rot,0); drawGlints(rot,0,.3);
+  requestAnimationFrame(frame);
   setTimeout(()=>document.documentElement.classList.add('lit'),300);
 })();
 </script>

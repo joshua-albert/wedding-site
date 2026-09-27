@@ -5,7 +5,7 @@ confirmed to me yet. Nothing here is invented; where the page doesn't know
 something it says so out loud ("Times are coming soon", "more hotel options
 coming soon!") rather than guessing.
 
-Last updated: 2026-09-27 (after Joshua's first round of edits)
+Last updated: 2026-09-27 (after the iOS fixes and the bees)
 
 ---
 
@@ -83,6 +83,10 @@ found — please confirm or correct each before launch.
 - [x] Open Graph share image `og.png`, 1200×630, made from the hero
 - [x] All four Google Fonts load; zero console errors; no horizontal scroll at 390px
 - [x] Vendor Instagram links (Party Girl, The Deacon, Bok), all open in a new tab
+- [x] Works with iOS **Reduce Motion** switched on: the ball still spins when you
+      swipe it and both tickers keep crawling. Tested in real WebKit (iPhone
+      emulation) at 390px and 402px, with Reduce Motion both on and off.
+- [x] Four small bumblebees tucked into the Bok, Deacon and footer illustrations
 
 ## 5. Things to know
 
