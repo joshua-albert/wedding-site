@@ -5,7 +5,7 @@ confirmed to me yet. Nothing here is invented; where the page doesn't know
 something it says so out loud ("Times are coming soon", "more hotel options
 coming soon!") rather than guessing.
 
-Last updated: 2026-09-27 (after the flash-safety pass)
+Last updated: 2026-09-27 (GitHub side of Phase 2 done; GoDaddy DNS still to do)
 
 ---
 
@@ -122,8 +122,13 @@ found — please confirm or correct each before launch.
 
 ## 6. After the domain is connected (Phase 2)
 
-- [ ] `CNAME` file committed
-- [ ] Custom domain set on the Pages site
+- [x] `CNAME` file committed (contains `annaandjoshuasayido.com`)
+- [x] Custom domain set on the Pages site (`cname` now reads annaandjoshuasayido.com)
+- [ ] **GoDaddy DNS — Joshua's next step.** Replace the current parking records with:
+      four A records on `@` pointing to 185.199.108.153, 185.199.109.153,
+      185.199.110.153 and 185.199.111.153, and a CNAME on `www` pointing to
+      `joshua-albert.github.io.` Right now `@` resolves to 15.197.148.33 /
+      3.33.130.190 (GoDaddy parking) and `www` is a CNAME to the bare domain.
 - [ ] A records resolve to 185.199.108.153 / .109.153 / .110.153 / .111.153
 - [ ] `www` CNAME resolves
 - [ ] Certificate issued, **Enforce HTTPS** turned on
