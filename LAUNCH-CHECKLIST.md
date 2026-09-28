@@ -5,17 +5,12 @@ confirmed to me yet. Nothing here is invented; where the page doesn't know
 something it says so out loud ("Times are coming soon", "more hotel options
 coming soon!") rather than guessing.
 
-Last updated: 2026-09-27 (GitHub side of Phase 2 done; GoDaddy DNS still to do)
+Last updated: 2026-09-27 (DNS live, Zola links in)
 
 ---
 
 ## 1. Blockers — the link should not go out until these are done
 
-- [ ] **Real Zola URL.** Every RSVP/registry button currently points at
-      `https://www.zola.com/` (the company homepage, not your wedding page).
-      There are **6** of them in `index.html`: top bar, hero, RSVP section (RSVP),
-      RSVP section (Registry), footer, and they all need swapping.
-      Two URLs needed: the RSVP page and the registry page.
 - [ ] **Anna's approval** on the copy and the colours.
 - [ ] **The designer's sign-off** on the final build.
 - [ ] **Phase 2: DNS.** Joshua adds the records at GoDaddy by hand, then tells me
@@ -95,6 +90,9 @@ found — please confirm or correct each before launch.
       ball capped at ~1.5 turns/sec (was 3.2). With Reduce Motion on, the glint
       layer drops to 25% and the ink lines stop boiling, while both tickers crawl.
 - [x] "website built by Joshua" in the footer
+- [x] All five Zola buttons point at the real wedding page — four to
+      `/annaandjoshuaphl/rsvp` (top bar, hero, RSVP section, footer) and one to
+      `/annaandjoshuaphl/registry`. All open in a new tab.
 
 ## 5. Things to know
 
