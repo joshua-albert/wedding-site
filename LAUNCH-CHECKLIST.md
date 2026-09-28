@@ -5,7 +5,7 @@ confirmed to me yet. Nothing here is invented; where the page doesn't know
 something it says so out loud ("Times are coming soon", "more hotel options
 coming soon!") rather than guessing.
 
-Last updated: 2026-09-27 (DNS live, Zola links in; event times deliberately still TBD)
+Last updated: 2026-09-28 (Phase 2 complete — the site is live on https)
 
 ---
 
@@ -13,8 +13,9 @@ Last updated: 2026-09-27 (DNS live, Zola links in; event times deliberately stil
 
 - [ ] **Anna's approval** on the copy and the colours.
 - [ ] **The designer's sign-off** on the final build.
-- [ ] **Phase 2: HTTPS.** DNS is live and the site already loads over http.
-      Waiting on GitHub to issue the TLS certificate, then Enforce HTTPS goes on.
+- [x] **Phase 2 is done.** https://annaandjoshuasayido.com is live with a valid
+      Let's Encrypt certificate covering both the apex and www, and Enforce HTTPS
+      is on. http redirects to https; www redirects to the apex.
 
 ## 2. Placeholders visible on the page
 
@@ -122,13 +123,15 @@ found — please confirm or correct each before launch.
 
 - [x] `CNAME` file committed (contains `annaandjoshuasayido.com`)
 - [x] Custom domain set on the Pages site (`cname` now reads annaandjoshuasayido.com)
-- [ ] **GoDaddy DNS — Joshua's next step.** Replace the current parking records with:
-      four A records on `@` pointing to 185.199.108.153, 185.199.109.153,
-      185.199.110.153 and 185.199.111.153, and a CNAME on `www` pointing to
-      `joshua-albert.github.io.` Right now `@` resolves to 15.197.148.33 /
-      3.33.130.190 (GoDaddy parking) and `www` is a CNAME to the bare domain.
-- [ ] A records resolve to 185.199.108.153 / .109.153 / .110.153 / .111.153
-- [ ] `www` CNAME resolves
-- [ ] Certificate issued, **Enforce HTTPS** turned on
-- [ ] `https://annaandjoshuasayido.com` and `https://www.` both load
+- [x] GoDaddy DNS done by Joshua
+- [x] A records resolve to 185.199.108.153 / .109.153 / .110.153 / .111.153
+- [x] `www` CNAME resolves to joshua-albert.github.io
+- [x] Certificate issued, **Enforce HTTPS** turned on
+- [x] `https://annaandjoshuasayido.com` and `https://www.` both load
 - [ ] Re-check the share image in an actual iMessage before sending the link out
+      (now that the domain is live, the absolute og:image URL finally resolves)
+
+**Note for next time:** GitHub sat on the certificate for 11 hours while its own
+health check reported the domain valid and HTTPS-eligible the whole time.
+Removing the custom domain and re-adding it got it issued within seconds. GitHub
+deletes and recreates the `CNAME` file when you do that, which is harmless.
