@@ -181,6 +181,8 @@ p{max-width:36em;margin:0 0 14px}
 .menu li{font-family:var(--hand);font-size:27px;line-height:1.05}
 .menu li small{display:block;margin-top:6px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
 .menu .dots{border-top:2px dotted var(--ink);margin:14px 0 10px}
+.menu .dj{margin-top:9px;font-size:11px;opacity:.8}
+.menu .dj a{color:inherit;text-decoration:underline;text-underline-offset:3px}
 
 /* ---------- stay ---------- */
 .stay{background:var(--butter)} /* palette A: var(--powder) */
@@ -228,6 +230,8 @@ details p{line-height:34px;margin:0;font-size:17px}
 /* ---------- vendor links ---------- */
 .ilink{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
   border:2px solid currentColor;border-radius:999px;padding:6px 13px 5px;margin-top:14px;transition:transform .15s,box-shadow .15s}
+.ilinks{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.ilinks .ilink{margin-top:0}
 .ilink:hover{transform:translate(-1px,-2px);box-shadow:3px 3px 0 currentColor}
 .ilink:active{transform:translate(1px,1px);box-shadow:none}
 .ilink svg{width:15px;height:15px;flex:none}
@@ -401,7 +405,10 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
     <div>
       <p><b>Party Girl is cooking.</b> It's a young Philadelphia cake and catering studio. Mallory Valvano started it in 2021 as Party Girl Bake Club, a pandemic side project, and it grew into a full kitchen with Daniel Daley as executive chef.</p>
       <p>Their food looks as good as it tastes, which is exactly why we picked them.</p>
-      <a class="ilink" href="https://www.instagram.com/partygirl.worldwide/" target="_blank" rel="noopener" aria-label="Party Girl on Instagram"><svg viewBox="-10 -10 20 20" aria-hidden="true"><use href="#ig"/></svg>@partygirl.worldwide</a>
+      <div class="ilinks">
+        <a class="ilink" href="https://www.instagram.com/partygirl.worldwide/" target="_blank" rel="noopener" aria-label="Party Girl on Instagram"><svg viewBox="-10 -10 20 20" aria-hidden="true"><use href="#ig"/></svg>@partygirl.worldwide</a>
+        <a class="ilink" href="https://www.instagram.com/dominodancingdjco/" target="_blank" rel="noopener" aria-label="Domino Dancing DJ Co on Instagram"><svg viewBox="-10 -10 20 20" aria-hidden="true"><use href="#ig"/></svg>@dominodancingdjco</a>
+      </div>
     </div>
     <div class="menu">
       <span class="mono">Saturday · June 5 · Bok</span>
@@ -414,6 +421,7 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
       </ol>
       <div class="dots"></div>
       <span class="mono">Open bar all night</span>
+      <span class="mono dj">Music by <a href="https://www.instagram.com/dominodancingdjco/" target="_blank" rel="noopener">Domino Dancing DJ Co</a></span>
     </div>
   </div>
 </section>
