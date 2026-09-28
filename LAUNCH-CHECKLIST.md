@@ -2,10 +2,10 @@
 
 Everything on this list is either a placeholder on the page or a fact nobody has
 confirmed to me yet. Nothing here is invented; where the page doesn't know
-something it says so out loud ("Times are coming soon", "more hotel options
-coming soon!") rather than guessing.
+something it says so out loud ("more hotel options coming soon!") rather than
+guessing.
 
-Last updated: 2026-09-27 (DNS live, Zola links in)
+Last updated: 2026-09-27 (DNS live, Zola links and event times in)
 
 ---
 
@@ -13,17 +13,19 @@ Last updated: 2026-09-27 (DNS live, Zola links in)
 
 - [ ] **Anna's approval** on the copy and the colours.
 - [ ] **The designer's sign-off** on the final build.
-- [ ] **Phase 2: DNS.** Joshua adds the records at GoDaddy by hand, then tells me
-      and I do the CNAME file, custom domain, and HTTPS.
+- [ ] **Phase 2: HTTPS.** DNS is live and the site loads over http. Waiting on
+      GitHub to issue the TLS certificate, then Enforce HTTPS goes on.
 
 ## 2. Placeholders visible on the page
 
 | Where | What it says now | What it needs |
 |---|---|---|
-| Weekend section | "Times are coming soon." | Real start times for Fri June 4, Sat June 5, Sun June 6 |
-| Friday poster | "More times and details to be announced." | Friday start time and the rest of the Deacon details |
 | Stay section | "more hotel options coming soon!" | Hotel options beyond The Deacon (names, addresses, any room block) |
 | FAQ, "What do I wear?" | "More inspiration to come." | Links to add — there's a commented-out `<a class="ilink">` line in `index.html` right after that sentence showing the exact pattern |
+
+**Resolved:** the event times. Friday 6:00 PM at The Deacon, Saturday arrival
+3:30 PM with the ceremony at 4:00 PM at Bok, Sunday 8:00–10:00 AM at The Deacon.
+All three are on their posters in the big poster type.
 
 **Resolved:** the ceremony location. Joshua confirmed the ceremony and cocktails
 are up on the roof at Bok and dinner stays in the gym, so the illustration reads
