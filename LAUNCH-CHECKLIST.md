@@ -2,10 +2,10 @@
 
 Everything on this list is either a placeholder on the page or a fact nobody has
 confirmed to me yet. Nothing here is invented; where the page doesn't know
-something it says so out loud ("Times are coming soon", "more hotel options
-coming soon!") rather than guessing.
+something it says so out loud ("More times and details to be announced",
+"[TBD: …]") rather than guessing.
 
-Last updated: 2026-09-28 (Phase 2 complete — the site is live on https)
+Last updated: 2026-10-13 (Anna + Casey's round of 12 changes)
 
 ---
 
@@ -21,10 +21,14 @@ Last updated: 2026-09-28 (Phase 2 complete — the site is live on https)
 
 | Where | What it says now | What it needs |
 |---|---|---|
-| Weekend section | "Times are coming soon." | Real start times for Fri June 4, Sat June 5, Sun June 6 |
-| Friday poster | "More times and details to be announced." | Friday start time and the rest of the Deacon details |
-| Stay section | "more hotel options coming soon!" | Hotel options beyond The Deacon (names, addresses, any room block) |
+| Weekend section | "More times and details to be announced." | Real start times for Fri June 4, Sat June 5, Sun June 6 |
+| Stay section | "[TBD: Marriott booking link / room block details]" | The booking link and room-block details for the Philadelphia Marriott Old City |
 | FAQ, "What do I wear?" | "More inspiration to come." | Links to add — there's a commented-out `<a class="ilink">` line in `index.html` right after that sentence showing the exact pattern |
+
+**Hidden until ready: the registry.** The Registry button, the "we set up a
+fund…" paragraph and the word "registry" in the RSVP section are commented out
+in `index.html` (search for `registry hidden`). To bring it back, delete the
+three `registry hidden` lines and uncomment the originals next to them.
 
 **Resolved:** the ceremony location. Joshua confirmed the ceremony and cocktails
 are up on the roof at Bok and dinner stays in the gym, so the illustration reads
@@ -50,7 +54,8 @@ found — please confirm or correct each before launch.
 - [ ] Sunday coffee is at The Deacon
 
 **FAQ answers**
-- [ ] Wedding is adults only
+- [x] Wedding is adults only; kids are welcome at the Friday welcome party
+      (confirmed by Anna, 2026-10-13)
 - [ ] Childcare at The Deacon on Saturday night
 - [ ] The ceremony is unplugged
 - [ ] Open bar all night
@@ -63,6 +68,9 @@ found — please confirm or correct each before launch.
 - [ ] There is a rooftop bar
 - [ ] Bok address: 1901 S. 9th St, Philadelphia, PA 19148
 - [ ] The Deacon address: 1600 Christian St, Philadelphia, PA 19146
+      (street confirmed by Anna 2026-10-13; ZIP not yet confirmed)
+- [x] Guests stay at the Philadelphia Marriott Old City, One Dock Street,
+      Philadelphia, PA 19106; Deacon rooms are already arranged (Anna, 2026-10-13)
 - [ ] The Deacon is a 1906 church in Graduate Hospital
 
 ## 4. Done in Phase 1
@@ -80,7 +88,8 @@ found — please confirm or correct each before launch.
 - [x] All four Google Fonts load; zero console errors; no horizontal scroll at 390px
 - [x] Vendor Instagram links (Party Girl, The Deacon, Bok), all open in a new tab
 - [x] Works with iOS **Reduce Motion** switched on: the ball still spins when you
-      swipe it and both tickers keep crawling. Tested in real WebKit (iPhone
+      swipe it. (The yellow ticker and the moving Friday banner were removed on
+      2026-10-13 at Casey's request.) Tested in real WebKit (iPhone
       emulation) at 390px and 402px, with Reduce Motion both on and off.
 - [x] Ten small bumblebees spread from the hero down to the footer, all tucked
       inside illustrations so they can't cover text or buttons (checked
@@ -89,11 +98,11 @@ found — please confirm or correct each before launch.
 - [x] **Flash safety (WCAG 2.3.1, no more than 3 flashes/second).** Measured after
       the hardest possible flick: glints 1.99/s, ink-line jitter 2.5/s (was 5.6/s),
       ball capped at ~1.5 turns/sec (was 3.2). With Reduce Motion on, the glint
-      layer drops to 25% and the ink lines stop boiling, while both tickers crawl.
+      layer drops to 25% and the ink lines stop boiling.
 - [x] "website built by Joshua" in the footer
-- [x] All five Zola buttons point at the real wedding page — four to
-      `/annaandjoshuaphl/rsvp` (top bar, hero, RSVP section, footer) and one to
-      `/annaandjoshuaphl/registry`. All open in a new tab.
+- [x] All four visible Zola buttons go to `/annaandjoshuaphl/rsvp` (top bar,
+      hero, RSVP section, footer) and open in a new tab. The fifth, the Registry
+      button to `/annaandjoshuaphl/registry`, is hidden for now (see section 2).
 
 ## 5. Things to know
 
