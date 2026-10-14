@@ -3,9 +3,9 @@
 Everything on this list is either a placeholder on the page or a fact nobody has
 confirmed to me yet. Nothing here is invented; where the page doesn't know
 something it says so out loud ("More times and details to be announced",
-"[TBD: …]") rather than guessing.
+"Booking link and details coming soon") rather than guessing.
 
-Last updated: 2026-10-13 (Anna + Casey's round of 12 changes)
+Last updated: 2026-10-14 (kids Sunday, Marriott wording, couple in the bar, FAQ bar question removed)
 
 ---
 
@@ -22,7 +22,7 @@ Last updated: 2026-10-13 (Anna + Casey's round of 12 changes)
 | Where | What it says now | What it needs |
 |---|---|---|
 | Weekend section | "More times and details to be announced." | Real start times for Fri June 4, Sat June 5, Sun June 6 |
-| Stay section | "[TBD: Marriott booking link / room block details]" | The booking link and room-block details for the Philadelphia Marriott Old City |
+| Stay section | "Booking link and details coming soon." | **Marriott booking link** and room-block details for the Philadelphia Marriott Old City |
 | FAQ, "What do I wear?" | "More inspiration to come." | Links to add — there's a commented-out `<a class="ilink">` line in `index.html` right after that sentence showing the exact pattern |
 
 **Hidden until ready: the registry.** The Registry button, the "we set up a
@@ -54,11 +54,12 @@ found — please confirm or correct each before launch.
 - [ ] Sunday coffee is at The Deacon
 
 **FAQ answers**
-- [x] Wedding is adults only; kids are welcome at the Friday welcome party
-      (confirmed by Anna, 2026-10-13)
+- [x] Wedding (Saturday) is adults only; kids are welcome at the Friday welcome
+      party (Anna, 2026-10-13) and the Sunday goodbye morning (2026-10-14)
 - [ ] Childcare at The Deacon on Saturday night
 - [ ] The ceremony is unplugged
-- [ ] Open bar all night
+- [ ] Open bar all night (still on the dinner menu card; the FAQ question
+      "Will there be a bar?" was removed 2026-10-14)
 - [ ] Dress code is "fancy funky"
 
 **Bok history + addresses**
