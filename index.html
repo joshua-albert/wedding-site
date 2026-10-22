@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400..800;1,400..800&family=Roboto+Mono:wght@400;500&family=Londrina+Solid:wght@400;900&family=Covered+By+Your+Grace&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400..800;1,400..800&family=Roboto+Mono:wght@400;500;700&family=Londrina+Solid:wght@400;900&family=Covered+By+Your+Grace&display=swap">
 </head>
 <body>
 <style>
@@ -118,18 +118,22 @@ p{max-width:36em;margin:0 0 14px}
 .weekend{background:var(--butter)}
 .posters{display:grid;grid-auto-flow:column;grid-auto-columns:84%;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px var(--g) 22px;margin:24px calc(-1 * var(--g)) 0;scrollbar-width:none}
 .posters::-webkit-scrollbar{display:none}
-.poster{scroll-snap-align:center;border:2.5px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:16px 16px 18px;display:flex;flex-direction:column;min-height:520px;position:relative;overflow:hidden}
+.poster{scroll-snap-align:center;border:2.5px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:16px 16px 18px;display:flex;flex-direction:column;min-height:520px;position:relative;overflow:hidden;container-type:inline-size}
 .poster:nth-child(1){background:var(--p1);transform:rotate(-1deg)}
 .poster:nth-child(2){background:var(--p2);transform:rotate(.8deg)}
 .poster:nth-child(3){background:var(--p3);transform:rotate(-.6deg)}
 .poster .top{display:flex;justify-content:space-between;border-bottom:1.5px solid var(--ink);padding-bottom:8px}
-.poster h3{font-family:var(--poster);font-weight:900;text-transform:uppercase;font-size:64px;line-height:.82;margin:14px 0 0;color:var(--ink)}
+/* titles shrink with the poster (cqi = 1% of its inner width) so they never spill out when the posters go 3-across;
+   the caps are the old fixed sizes, so phones look exactly as before. 25cqi keeps "GOODBYES", the widest word, inside. */
+.poster h3{font-family:var(--poster);font-weight:900;text-transform:uppercase;font-size:64px;font-size:min(64px,25cqi);line-height:.82;margin:14px 0 0;color:var(--ink)}
 .poster h3 em{font-style:normal;color:var(--plum)}
 .poster:nth-child(3) h3 em{color:var(--butter)} /* palette A: delete this line */
-.poster h3.wp{margin:14px -16px 0;padding:3px 0 1px;font-size:46px;line-height:1.08;border-block:2px solid var(--ink);text-align:center;white-space:nowrap}
+.poster h3.wp{margin:14px -16px 0;padding:3px 0 1px;font-size:46px;line-height:1.08;border-block:2px solid var(--ink);text-align:center;white-space:nowrap;
+  font-size:min(46px,calc((100cqi + 16px) / 6))}  /* "WELCOME PARTY!" is ~6.06em wide; the band is the poster's full width */
 .poster .art{flex:1;display:flex;align-items:center;justify-content:center;padding:8px 0}
 .poster .art svg{width:100%;max-width:300px;height:auto}
 .poster .deets{border-top:1.5px solid var(--ink);padding-top:10px;display:grid;gap:4px}
+.poster .deets .mono{font-weight:700}
 .poster .deets p{font-size:16px;margin:0}
 .poster .deets .tba{font-family:var(--hand);font-size:20px;line-height:1.12;color:var(--plum);margin-top:4px}
 .swipe{font-size:22px;color:var(--plum);text-align:right;margin-top:-6px}
@@ -181,6 +185,51 @@ p{max-width:36em;margin:0 0 14px}
 .staygrid{display:grid;gap:26px;align-items:center}
 .stay .art svg{width:min(80vw,380px);height:auto;margin-inline:auto}
 
+button.btn{cursor:pointer;font-family:var(--poster)}
+
+/* ---------- things to do ---------- */
+.todo{background:var(--powder)}
+.spots{list-style:none;padding:0;margin:30px 0 0;display:grid;gap:24px}
+.spot{border:2.5px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:14px 16px 18px;display:flex;flex-direction:column;align-items:flex-start;background:var(--paper)}
+.spot:nth-child(1){background:var(--blush);transform:rotate(-1deg)}
+.spot:nth-child(2){background:var(--mustard);transform:rotate(.7deg)}
+.spot:nth-child(3){background:var(--tangerine);transform:rotate(-.5deg)}
+.spot:nth-child(4){background:var(--butter);transform:rotate(.9deg)}
+.spot:nth-child(5){background:var(--paper);transform:rotate(-.8deg)}
+.spot .top{display:flex;justify-content:space-between;align-items:flex-end;align-self:stretch;border-bottom:1.5px solid var(--ink);padding-bottom:6px}
+.spot .doodle svg{width:76px;height:auto}
+.spot h3{font-family:var(--poster);font-weight:900;text-transform:uppercase;font-size:40px;line-height:.86;margin:12px 0 2px}
+.spot .what{font-family:var(--hand);font-size:25px;line-height:1.1;color:var(--plum);margin:0}
+.spot .where{margin:8px 0 16px;font-weight:700}
+.spot .ilink{margin-top:auto}
+.todo .closer{font-family:var(--hand);font-size:27px;line-height:1.15;color:var(--plum);margin:44px 0 0;max-width:24em}
+
+/* ---------- neighborhood maps (full-screen dialog) ---------- */
+html:has(dialog.maps[open]){overflow:hidden}
+dialog.maps{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;border:0;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);
+  background:var(--butter);color:var(--ink);flex-direction:column;overflow:hidden}
+dialog.maps[open]{display:flex}
+dialog.maps::backdrop{background:rgba(35,22,5,.55)}
+.mapshead{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px var(--g) 8px}
+.mapshead .hand{font-size:22px;line-height:1;color:var(--plum)}
+.mapshead h2{font-family:var(--poster);font-weight:900;text-transform:uppercase;font-size:clamp(30px,8vw,48px);line-height:.85;margin:4px 0 0}
+.mapsx{flex:none;width:46px;height:46px;border-radius:50%;border:2.5px solid var(--ink);background:var(--tangerine);color:var(--ink);box-shadow:3px 3px 0 var(--ink);
+  cursor:pointer;display:grid;place-items:center;padding:0}
+.mapsx svg{width:20px;height:20px}
+.mapsx:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.maptabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:6px var(--g) 10px;border-bottom:1.5px solid var(--ink)}
+.maptabs::-webkit-scrollbar{display:none}
+.maptabs button{flex:none;font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink);background:var(--paper);
+  border:2px solid var(--ink);border-radius:999px;padding:6px 9px 5px;cursor:pointer}
+.maptabs button[aria-selected=true]{background:var(--ink);color:var(--butter)}
+.mapstrip{flex:1;min-height:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+.mapstrip::-webkit-scrollbar{display:none}
+.mappanel{flex:0 0 100%;min-width:0;scroll-snap-align:center;scroll-snap-stop:always;display:flex;flex-direction:column;padding:10px var(--g) 14px}
+.mappanel .cap{font-family:var(--hand);font-size:22px;line-height:1.1;color:var(--plum);margin:0 0 8px;max-width:30em}
+.mapart{flex:1;min-height:0;display:flex;justify-content:center}
+.mapart svg{display:block;width:100%;height:100%;max-width:980px;filter:drop-shadow(5px 5px 0 var(--ink))}
+.mapsfoot{font-size:20px;text-align:center;padding:0 var(--g) 10px;color:var(--plum)}
+
 /* ---------- library card RSVP ---------- */
 .rsvp{background:var(--blush)}
 .rsvpgrid{display:grid;gap:34px;align-items:center}
@@ -203,14 +252,23 @@ p{max-width:36em;margin:0 0 14px}
 /* ---------- FAQ on ruled paper ---------- */
 .faq{background:var(--paper)}
 .faq .soon{font-family:var(--hand);font-size:22px;line-height:30px;color:var(--plum)}
-.paper{background:var(--paper);border:2.5px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:10px 18px 14px 50px;position:relative;
-  background-image:linear-gradient(90deg,transparent 36px,rgba(239,136,61,.9) 36px,rgba(239,136,61,.9) 38px,transparent 38px),repeating-linear-gradient(transparent 0 33px,rgba(80,120,200,.33) 33px 34px);background-position:0 0,0 8px}
+/* every line of text is 34px tall and the blue rules repeat every 34px, starting 3px above the first line's bottom,
+   so text keeps sitting on the rules. Change the top padding and the rules' offset together (offset = padding - 3px). */
+.paper{background:var(--paper);border:2.5px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:5px 14px 3px 44px;position:relative;max-width:720px;
+  background-image:linear-gradient(90deg,transparent 31px,rgba(239,136,61,.9) 31px,rgba(239,136,61,.9) 33px,transparent 33px),repeating-linear-gradient(transparent 0 33px,rgba(80,120,200,.33) 33px 34px);background-position:0 0,0 2px}
 details{border-bottom:0}
 summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:14px;font-family:var(--hand);font-size:29px;line-height:34px;padding-top:0;color:var(--plum)}
 summary::-webkit-details-marker{display:none}
 summary::after{content:"+";font-family:var(--poster);font-weight:900;font-size:30px;transition:transform .2s;color:var(--ink)}
 details[open] summary::after{transform:rotate(45deg)}
 details p{line-height:34px;margin:0;font-size:17px}
+.faq .h{margin-bottom:6px}
+/* the two style-guide pills: one 34px rule-line per row, so the ruling stays lined up */
+.paper .styleguides{margin:0;gap:8px 10px;padding:4px 0}
+.paper .styleguides .ilink{height:26px;padding:0 12px;margin:0}
+.ilink.off{opacity:.6;cursor:default;border-style:dashed}
+.ilink.off:hover{transform:none;box-shadow:none}
+.ilink.off small{font-family:var(--hand);font-size:15px;letter-spacing:0;text-transform:none}
 
 /* ---------- bees (a nod to Anna's family) ---------- */
 .bee{transform-box:fill-box;transform-origin:center;animation:beefly 7s ease-in-out infinite}
@@ -257,9 +315,14 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
   .foodgrid{grid-template-columns:1.2fr .8fr;gap:56px}
   .staygrid{grid-template-columns:1.1fr .9fr;gap:56px}
   .rsvpgrid{grid-template-columns:1fr 1fr;gap:56px}
+  .spots{grid-template-columns:1fr 1fr;gap:30px}
+  .mapsfoot{display:none}
   .ballbox{width:270px}
   .cord{height:50px}
   .spinme{right:-70px;top:40%}
+}
+@media (min-width:1024px){
+  .spots{grid-template-columns:repeat(3,1fr)}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -286,7 +349,7 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
 
 <div class="bar"><div class="w">
   <a class="who" href="#top">AN<i class="sw">N</i>A &amp; JOSH<i class="sw">U</i>A<span class="couple" id="bar-couple"></span></a>
-  <nav class="mono" aria-label="Sections"><a href="#weekend">Weekend</a><a href="#bok">Bok</a><a href="#food">Dinner</a><a href="#stay">Stay</a><a href="#rsvp">RSVP</a><a href="#faq">FAQ</a></nav>
+  <nav class="mono" aria-label="Sections"><a href="#weekend">Weekend</a><a href="#bok">Bok</a><a href="#food">Dinner</a><a href="#stay">Stay</a><a href="#todo">To do</a><a href="#rsvp">RSVP</a><a href="#faq">FAQ</a></nav>
   <a class="btn zola" href="https://www.zola.com/wedding/annaandjoshuaphl/rsvp" target="_blank" rel="noopener">RSVP</a>
 </div></div>
 <header class="hero" id="top">
@@ -422,15 +485,44 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
       <h2 class="h">The Deacon</h2>
       <p class="lede">A 1906 church in Graduate Hospital, restored as a small hotel and event space.</p>
       <p>It's our home base for the weekend. The Friday welcome party and the Sunday coffee are both here.</p>
-      <p><b>Rooms at The Deacon are already arranged</b>, so please don't try to book there.</p>
+      <p><b>Rooms here are already booked</b> for some of our guests, so please don't try to get a room there.</p>
       <div class="addr mono">1600 Christian St · Philadelphia, PA 19146</div>
       <a class="ilink" href="https://www.instagram.com/thedeaconphl/" target="_blank" rel="noopener" aria-label="The Deacon on Instagram"><svg viewBox="-10 -10 20 20" aria-hidden="true"><use href="#ig"/></svg>@thedeaconphl</a>
       <p class="hand" style="font-size:27px;color:var(--plum);margin:34px 0 4px">where you'll stay:</p>
       <p>Please stay at the <b>Philadelphia Marriott Old City</b>.</p>
       <div class="addr mono" style="margin-top:2px">One Dock Street · Philadelphia, PA 19106</div>
       <p style="margin-top:14px">Booking link and details coming soon.</p>
+      <p class="hand" style="font-size:27px;color:var(--plum);margin:34px 0 4px">rather do an Airbnb?</p>
+      <p>Totally fine. Stay wherever you like. If you want our picks, South Philly near us (1123 Linn St), Graduate Hospital around The Deacon, and Center City are all great.</p>
+      <button type="button" class="btn alt" id="maps-open" aria-haspopup="dialog" style="margin-top:8px">See the neighborhood maps →</button>
     </div>
     <div class="art" id="art-church" aria-hidden="true"></div>
+  </div>
+</section>
+
+<section class="todo" id="todo">
+  <div class="w">
+    <div class="kick mono">Saturday daytime</div>
+    <h2 class="h">Things to do</h2>
+    <p class="lede">Free on Saturday before the wedding? Here's where we'd go.</p>
+    <ol class="spots">
+      <li class="spot"><div class="top"><span class="mono">01</span><span class="doodle" id="dd-0"></span></div>
+        <h3>Comfort &amp; Floyd</h3><p class="what">coffee</p><span class="mono where">Passyunk Square</span>
+        <a class="ilink" href="https://www.comfortandfloyd.com/" target="_blank" rel="noopener">comfortandfloyd.com ↗</a></li>
+      <li class="spot"><div class="top"><span class="mono">02</span><span class="doodle" id="dd-1"></span></div>
+        <h3>Mighty Bread</h3><p class="what">really good pastries and bread</p><span class="mono where">East Passyunk</span>
+        <a class="ilink" href="https://www.mightybreadco.com/" target="_blank" rel="noopener">mightybreadco.com ↗</a></li>
+      <li class="spot"><div class="top"><span class="mono">03</span><span class="doodle" id="dd-2"></span></div>
+        <h3>Machine Shop</h3><p class="what">pastries</p><span class="mono where">Inside Bok · door on Dudley St</span>
+        <a class="ilink" href="https://www.machineshopphilly.com/" target="_blank" rel="noopener">machineshopphilly.com ↗</a></li>
+      <li class="spot"><div class="top"><span class="mono">04</span><span class="doodle" id="dd-3"></span></div>
+        <h3>Oyster House</h3><p class="what">lunch, one of our favorites</p><span class="mono where">Center City</span>
+        <a class="ilink" href="https://www.oysterhousephilly.com/" target="_blank" rel="noopener">oysterhousephilly.com ↗</a></li>
+      <li class="spot"><div class="top"><span class="mono">05</span><span class="doodle" id="dd-4"></span></div>
+        <h3>Fishtown</h3><p class="what">spend the day wandering around</p><span class="mono where">A whole neighborhood</span>
+        <a class="ilink" href="https://www.visitphilly.com/areas/fishtown/" target="_blank" rel="noopener">Visit Philly's guide ↗</a></li>
+    </ol>
+    <p class="closer">We love supporting small, independent places known for really good food.</p>
   </div>
 </section>
 
@@ -477,9 +569,13 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
       <details><summary>Can I bring my kids?</summary><p>Kids are welcome at the Friday welcome party and the Sunday goodbye morning. The wedding itself on Saturday is adults only. We'll have childcare at The Deacon on Saturday night, so parents can drop off their little ones and come party.</p></details>
       <details><summary>Can I take photos?</summary><p>The ceremony is unplugged, so please keep your phone put away. We'll have photographers and will share everything after.</p></details>
       <details><summary>What do I wear?</summary><p>Fancy funky. Dress up and have fun with it.</p>
-        <p class="soon">More inspiration to come.<!-- Inspiration links go here. Copy this line and fill in the URL and the label:
-        <a class="ilink" href="https://example.com" target="_blank" rel="noopener">Lookbook</a>
-        --></p></details>
+        <p class="soon">We'll have style guides up soon.</p>
+        <div class="ilinks styleguides">
+          <!-- PINTEREST STYLE GUIDES go here. When a board is ready, replace its <span> with a real link, e.g.
+               <a class="ilink" href="PINTEREST BOARD URL" target="_blank" rel="noopener">Style guide for women</a> -->
+          <span class="ilink off" aria-disabled="true">Style guide for women <small>coming soon</small></span>
+          <span class="ilink off" aria-disabled="true">Style guide for men <small>coming soon</small></span>
+        </div></details>
     </div>
   </div>
 </section>
@@ -495,6 +591,26 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
     <div class="hand builtby">website built by Joshua</div>
   </div>
 </footer>
+
+<dialog class="maps" id="maps" aria-labelledby="maps-title">
+  <div class="mapshead">
+    <div><div class="hand">neighborhoods we love</div><h2 id="maps-title">The maps</h2></div>
+    <button type="button" class="mapsx" id="maps-close" aria-label="Close the maps" autofocus><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4 L16 16 M16 4 L4 16" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></svg></button>
+  </div>
+  <div class="maptabs" role="tablist" aria-label="Pick a map">
+    <button type="button" role="tab" id="mt-0" aria-controls="mp-0" aria-selected="true">Overview</button>
+    <button type="button" role="tab" id="mt-1" aria-controls="mp-1" aria-selected="false" tabindex="-1">The Deacon</button>
+    <button type="button" role="tab" id="mt-2" aria-controls="mp-2" aria-selected="false" tabindex="-1">Bok</button>
+    <button type="button" role="tab" id="mt-3" aria-controls="mp-3" aria-selected="false" tabindex="-1">Our place</button>
+  </div>
+  <div class="mapstrip" id="mapstrip">
+    <div class="mappanel" role="tabpanel" id="mp-0" aria-labelledby="mt-0"><p class="cap">Center City up top, South Philly down below.</p><div class="mapart" id="map-0"></div></div>
+    <div class="mappanel" role="tabpanel" id="mp-1" aria-labelledby="mt-1"><p class="cap">16th &amp; Christian, in Graduate Hospital. Friday's party and Sunday's coffee are here.</p><div class="mapart" id="map-1"></div></div>
+    <div class="mappanel" role="tabpanel" id="mp-2" aria-labelledby="mt-2"><p class="cap">9th &amp; Mifflin. The wedding! Machine Shop bakery is inside too.</p><div class="mapart" id="map-2"></div></div>
+    <div class="mappanel" role="tabpanel" id="mp-3" aria-labelledby="mt-3"><p class="cap">1123 Linn St, right by the Singing Fountain on East Passyunk Ave.</p><div class="mapart" id="map-3"></div></div>
+  </div>
+  <div class="mapsfoot hand" aria-hidden="true">swipe for more maps →</div>
+</dialog>
 
 <canvas id="glints" aria-hidden="true"></canvas>
 
@@ -646,6 +762,167 @@ const couple=
 
 /* the hero bee lives in the sparks layer, which is already pointer-events:none */
 (function(){ const el=document.getElementById('bee-hero'); if(el) el.innerHTML=bee(6,58,0.24,-6,0.4); })();
+
+/* Things to do: a little doodle in each card's corner */
+(function(){
+  const box=(id,body,extra)=>{const el=document.getElementById(id); if(el) el.innerHTML=`<svg class="ill" viewBox="0 0 80 60" aria-hidden="true"><g filter="url(#ink)">${body}</g>${extra||''}</svg>`;};
+  const cup='M16 22 L52 22 L49 50 Q48 54 43 54 L25 54 Q20 54 19 50 Z';
+  box('dd-0',fl(cup,C.paper,3,3)+ln(cup,2.6)+ln('M51 28 Q62 28 61 37 Q60 45 50 45',2.6)+ln('M28 16 q-5 -6 0 -12 M40 16 q-5 -6 0 -12',2.2));
+  const loaf='M8 48 Q6 24 40 22 Q74 24 72 48 Q40 54 8 48Z';
+  box('dd-1',fl(loaf,C.tan,3,3)+ln(loaf,2.6)+ln('M24 30 L30 42 M37 28 L43 42 M50 30 L56 42',2.2));
+  const cr=[[214,258,18,0],[238,246,22,-24],[266,244,24,0],[294,246,22,24],[318,258,18,0]];
+  let c='';
+  cr.forEach(([x,y,r,a])=>{ c+=`<ellipse cx="${x+5}" cy="${y+5}" rx="${r}" ry="${r*0.8}" fill="${C.butter}" transform="rotate(${a} ${x} ${y})"/>`; });
+  cr.forEach(([x,y,r,a])=>{ c+=`<ellipse cx="${x}" cy="${y}" rx="${r}" ry="${r*0.8}" fill="none" stroke="${INK}" stroke-width="5" transform="rotate(${a} ${x} ${y})"/>`; });
+  box('dd-2',`<g transform="translate(6 14) scale(.5) translate(-196 -226)">${c}</g>`);
+  const shell='M10 40 Q16 14 42 14 Q70 16 70 40 Q40 56 10 40Z';
+  box('dd-3',fl(shell,C.blush,3,3)+ln(shell,2.6)+ln('M24 42 Q28 26 40 18 M40 46 Q42 30 42 16 M56 44 Q54 28 46 17',1.8)+`<circle cx="64" cy="52" r="5" fill="${C.paper}" stroke="${INK}" stroke-width="2"/>`);
+  const fish='M8 34 Q28 12 52 34 Q28 56 8 34Z';
+  box('dd-4',fl(fish,C.powder,3,3)+ln(fish,2.6)+ln('M52 34 L66 22 L66 46 Z',2.6)+`<circle cx="20" cy="31" r="2.4" fill="${INK}"/>`+ln('M31 26 Q37 34 31 42',1.8),bee(72,14,.55,-8,1.2));
+})();
+
+/* ============ neighborhood maps ============
+   Hand-drawn and not to scale, but every street and place sits where it really is.
+   Positions are metres on Philly's street grid, measured from OpenStreetMap (Oct 2026) and turned
+   ~9.6° so the numbered streets run straight up the page: x grows east from City Hall, y grows north
+   (so everything in South Philly is negative). True north is drawn on each map's compass. */
+const GRID={
+  ns:{'20th':-875,'19th':-739,'18th':-602,'17th':-467,'16th':-330,'15th':-195,'Broad':-48,'13th':136,'12th':272,'11th':408,'10th':544,'9th':680,'8th':816},
+  ew:{Market:-8,Walnut:-350,Pine:-774,South:-989,Bainbridge:-1087,Fitzwater:-1197,Catharine:-1309,Christian:-1395,Carpenter:-1504,Washington:-1640,
+      Wharton:-2054,Reed:-2191,Dickinson:-2327,Tasker:-2466,Morris:-2602,Moore:-2740,Mifflin:-2877,Dudley:-2966,McKean:-3013},
+  passyunk:[[-41,-3012],[285,-2601],[407,-2417],[544,-2211],[681,-2004],[874,-1716],[1070,-1420],[1254,-979]],
+  linn:[[272,-2379],[282,-2385],[358,-2458],[366,-2466]],
+  deacon:[-344,-1407], bok:[690,803,-2886,-2954], home:[330,-2414], fountain:[396,-2452], cityhall:[1,0],
+  rittenhouse:[-780,-608,-358,-531], mightybread:[248,-2231], comfortfloyd:[433,-2064]
+};
+function phmap(o){
+  const s=o.s, X=x=>+((x-o.x0)*s).toFixed(1), Y=y=>+((o.y0-y)*s).toFixed(1);
+  const W=X(o.x1), H=Y(o.y1);
+  const P=pts=>'M'+pts.map(([x,y])=>X(x)+' '+Y(y)).join(' L');
+  const halo=`stroke="${C.paper}" stroke-width="3.6" stroke-linejoin="round" paint-order="stroke"`;
+  const R={
+    W,H,X,Y,P,
+    /* a road: ink casing with a coloured fill, or a single thin ink line */
+    road:(d,w,col)=>w?`<path d="${d}" fill="none" stroke="${INK}" stroke-width="${w+3.4}" stroke-linecap="square"/><path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="square"/>`
+                     :`<path d="${d}" fill="none" stroke="${INK}" stroke-width="1.5" stroke-opacity=".55"/>`,
+    ns:(n,w,col)=>R.road(`M${X(GRID.ns[n])} -10 L${X(GRID.ns[n])} ${H+10}`,w,col),
+    ew:(n,w,col,a=o.x0-50,b=o.x1+50)=>R.road(`M${X(a)} ${Y(GRID.ew[n])} L${X(b)} ${Y(GRID.ew[n])}`,w,col),
+    /* street names: small mono caps sitting on the street, with a paper halo */
+    sl:(x,y,t,rot=0,sz=8.4)=>{ const w=t.length*(.6*sz+.5)+6, h=sz+4;   /* Roboto Mono: every letter is .6em wide */
+      return `<g transform="translate(${X(x)} ${Y(y)}) rotate(${rot})"><rect x="${-w/2}" y="${-h/2}" width="${w}" height="${h}" rx="2" fill="${C.paper}"/><text text-anchor="middle" dy=".36em" font-family="Roboto Mono,monospace" font-weight="700" font-size="${sz}" letter-spacing=".5" fill="${INK}">${t}</text></g>`; },
+    /* place names: hand lettering */
+    hl:(x,y,t,sz=20,anchor='middle',rot=0,col=C.plum)=>`<text transform="translate(${X(x)} ${Y(y)}) rotate(${rot})" text-anchor="${anchor}" font-family="Covered By Your Grace,cursive" font-size="${sz}" fill="${col}" ${halo}>${t}</text>`,
+    star:(x,y,k=.8,col=C.plum)=>`<use href="#star" transform="translate(${X(x)} ${Y(y)}) scale(${k})" fill="${col}"/>`,
+    blob:(x,y,rx,ry,col)=>`<ellipse cx="${X(x)}" cy="${Y(y)}" rx="${rx}" ry="${ry}" fill="${col}" fill-opacity=".55"/>`,
+    pin:(x,y,col=C.tan)=>`<g transform="translate(${X(x)} ${Y(y)})"><path d="M0 0 C-3 -6 -8 -9 -8 -14 A8 8 0 1 1 8 -14 C8 -9 3 -6 0 0Z" fill="${col}" stroke="${INK}" stroke-width="2"/><circle cx="0" cy="-14" r="2.8" fill="${C.paper}" stroke="${INK}" stroke-width="1.4"/></g>`,
+    church:(x,y,k=1)=>`<g transform="translate(${X(x)} ${Y(y)}) scale(${k})"><path d="M-12 12 L-12 -3 L0 -14 L12 -3 L12 12Z" fill="${C.blush}" stroke="${INK}" stroke-width="2.2" stroke-linejoin="round"/>${ln('M0 -14 L0 -24 M-4 -20 L4 -20',2.2)}${ln('M-4 12 L-4 4 Q0 0 4 4 L4 12',1.8)}</g>`,
+    house:(x,y,k=1)=>`<g transform="translate(${X(x)} ${Y(y)}) scale(${k})"><path d="M-11 10 L-11 -3 L0 -12 L11 -3 L11 10Z" fill="${C.mustard}" stroke="${INK}" stroke-width="2.2" stroke-linejoin="round"/>${ln('M-3 10 L-3 3 L3 3 L3 10',1.8)}<path d="M0 -15 q-3 -3.6 -5.2 -1 q-1.6 2.4 5.2 6.4 q6.8 -4 5.2 -6.4 q-2.2 -2.6 -5.2 1Z" transform="translate(0 -6)" fill="${C.plum}"/></g>`,
+    tower:(x,y,k=1)=>`<g transform="translate(${X(x)} ${Y(y)}) scale(${k})"><path d="M-12 6 L-12 -2 L12 -2 L12 6Z" fill="${C.butter}" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/><path d="M-4 -2 L-4 -16 L0 -26 L4 -16 L4 -2Z" fill="${C.butter}" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/></g>`,
+    fountain:(x,y,k=1)=>`<g transform="translate(${X(x)} ${Y(y)}) scale(${k})"><ellipse cx="0" cy="3" rx="9" ry="4" fill="${C.powder}" stroke="${INK}" stroke-width="1.8"/>${ln('M0 2 L0 -8 M0 -8 Q-6 -10 -8 -2 M0 -8 Q6 -10 8 -2',1.6)}</g>`,
+    rect:([a,b,c,d],col)=>`<path d="M${X(a)} ${Y(c)} L${X(b)} ${Y(c)} L${X(b)} ${Y(d)} L${X(a)} ${Y(d)} Z" fill="${col}" stroke="${INK}" stroke-width="2.2" stroke-linejoin="round"/>`,
+  };
+  const L=o.draw(R);   // {roads, marks, labels}
+  /* the corner plate: compass (true north, ~9.6° left of the grid) + "not to scale" */
+  const plate=`<g transform="translate(${o.plate==='tr'?W-124:8} ${o.plate==='tr'?8:H-38})"><rect width="116" height="30" fill="${C.paper}" stroke="${INK}" stroke-width="2"/>`
+    +`<g transform="translate(16 15) rotate(-9.6)">${ln('M0 9 L0 -9 M-4 -4 L0 -9 L4 -4',1.8)}</g>`
+    +`<text x="27" y="12" font-family="Roboto Mono,monospace" font-weight="700" font-size="8" fill="${INK}">N</text>`
+    +`<text x="40" y="20" font-family="Covered By Your Grace,cursive" font-size="15" fill="${C.plum}">not to scale</text></g>`;
+  const cid='mc'+o.id;
+  return `<svg viewBox="-6 -6 ${W+12} ${H+12}" preserveAspectRatio="xMidYMin meet" role="img" aria-label="${o.alt}"><defs><clipPath id="${cid}"><rect width="${W}" height="${H}"/></clipPath></defs>`
+    +`<g filter="url(#ink)"><rect width="${W}" height="${H}" fill="${C.paper}" stroke="${INK}" stroke-width="3"/></g>`
+    +`<g clip-path="url(#${cid})"><g filter="url(#ink)">${L.roads}</g><g filter="url(#ink)">${L.marks}</g>${L.labels}</g>${plate}</svg>`;
+}
+
+const MAPS=[
+  /* a) the big picture: Center City down to Bok */
+  {id:0,x0:-960,x1:900,y0:140,y1:-3090,s:.215,alt:'Overview map: Center City at the top with City Hall and Rittenhouse Square, Graduate Hospital and The Deacon at 16th and Christian, then South Philly with our place on Linn St, East Passyunk Avenue and Bok at 9th and Mifflin.',
+   draw:R=>{ const G=GRID; let roads='',marks='',labels='';
+     roads+=R.blob(-110,-470,92,42,C.blush)+R.blob(-640,-1250,66,40,C.powder)+R.blob(330,-2620,74,46,C.blush);
+     ['20th','19th','18th','17th','16th','15th','13th','12th','11th','10th','9th','8th'].forEach(n=>roads+=R.ns(n));
+     ['Walnut','Pine','Christian','Reed','Tasker','Mifflin'].forEach(n=>roads+=R.ew(n));
+     ['Market','South','Washington'].forEach(n=>roads+=R.ew(n,4.5,C.powder));
+     roads+=R.ns('Broad',6,C.powder)+R.road(R.P(G.passyunk),5,C.tan);
+     marks+=R.rect(G.rittenhouse,C.mustard)+R.rect(G.bok,C.tan)+R.tower(...G.cityhall,.9)+R.church(...G.deacon,.85)+R.house(...G.home,.85);
+     marks+=R.star(560,-250,.9)+R.star(-860,-1880,.7)+R.star(760,-2620,.8,C.tan)+R.star(-300,-2930,.6);
+     ['20th','18th','16th','12th','10th','8th'].forEach(n=>labels+=R.sl(G.ns[n],80,n.toUpperCase()));
+     labels+=R.sl(G.ns.Broad,80,'BROAD')+R.sl(G.ns.Broad,-2150,'BROAD ST',-90);
+     labels+=R.sl(-760,G.ew.Market,'MARKET ST')+R.sl(-790,G.ew.South,'SOUTH ST')+R.sl(-800,G.ew.Christian,'CHRISTIAN')+R.sl(-740,G.ew.Washington,'WASHINGTON AVE')+R.sl(-800,G.ew.Tasker,'TASKER')+R.sl(-800,G.ew.Mifflin,'MIFFLIN');
+     labels+=R.sl(760,-1830,'E. PASSYUNK AVE',-56.3);
+     labels+=R.hl(-110,-470,'Center City',30,'middle',-4)+R.hl(-140,-90,'City Hall',15,'start')+R.hl(-694,-640,'Rittenhouse Sq',14);
+     labels+=R.hl(-640,-1240,'Graduate',21,'middle',-5)+R.hl(-620,-1330,'Hospital',21,'middle',-5)+R.hl(-300,-1540,'The Deacon',19,'start');
+     labels+=R.hl(250,-2440,'our place!',19,'end')+R.hl(330,-2700,'East Passyunk',20,'middle',-6)+R.hl(746,-3060,'Bok',22);
+     return {roads,marks,labels:labels+bee(R.X(560),R.Y(-1100),.75,-8,.5)+bee(R.X(-820),R.Y(-2600),.7,10,2)}; }},
+
+  /* b) around The Deacon, 16th & Christian */
+  {id:1,x0:-665,x1:190,y0:-945,y1:-1720,s:.468,alt:'Map around The Deacon at 16th and Christian Streets in Graduate Hospital, from South Street down to Washington Avenue and from 18th Street over to 13th Street.',
+   draw:R=>{ const G=GRID; let roads='',marks='',labels='';
+     roads+=R.blob(-480,-1155,80,30,C.powder);
+     ['18th','17th','16th','15th','13th'].forEach(n=>roads+=R.ns(n,5,C.butter));
+     ['Bainbridge','Fitzwater','Catharine','Christian','Carpenter'].forEach(n=>roads+=R.ew(n,5,C.butter));
+     roads+=R.ns('Broad',8,C.powder)+R.ew('South',8,C.powder)+R.ew('Washington',8,C.powder);
+     marks+=R.church(-400,-1452,1.15)+R.star(-330,-1395,.75,C.tan)+R.star(80,-1260,.8)+R.star(-600,-1600,.6,C.plum);
+     ['18th','17th','16th','15th','13th'].forEach(n=>labels+=R.sl(G.ns[n],-1253,n.toUpperCase()+' ST',-90));
+     labels+=R.sl(G.ns.Broad,-1253,'BROAD ST',-90);
+     labels+=R.sl(-120,G.ew.South,'SOUTH ST')+R.sl(-535,G.ew.Bainbridge,'BAINBRIDGE')+R.sl(-535,G.ew.Fitzwater,'FITZWATER')+R.sl(-262,G.ew.Catharine,'CATHARINE')
+       +R.sl(-120,G.ew.Christian,'CHRISTIAN ST')+R.sl(-535,G.ew.Carpenter,'CARPENTER')+R.sl(-120,G.ew.Washington,'WASHINGTON AVE');
+     labels+=R.hl(-480,-1172,'Graduate Hospital',22,'middle',-4)+R.hl(-400,-1550,'The Deacon!',21)+R.hl(40,-1040,'Center City ↑',17,'middle',-3);
+     return {roads,marks,labels:labels+bee(R.X(80),R.Y(-1580),.9,-8,.4)}; }},
+
+  /* c) around Bok, 9th & Mifflin */
+  {id:2,plate:'tr',x0:340,x1:900,y0:-2385,y1:-3090,s:.714,alt:'Map around Bok at 9th and Mifflin Streets: Bok fills the block between 9th and 8th, Mifflin and Dudley, with Machine Shop bakery inside, entered from Dudley Street. East Passyunk Avenue is a few blocks northwest.',
+   draw:R=>{ const G=GRID; let roads='',marks='',labels='';
+     ['11th','10th','8th'].forEach(n=>roads+=R.ns(n,6,C.butter));
+     ['Tasker','Morris','Moore','McKean'].forEach(n=>roads+=R.ew(n,6,C.butter));
+     roads+=R.ew('Dudley',3.5,C.butter,G.ns['10th'],950)+R.ns('9th',8,C.powder)+R.ew('Mifflin',8,C.powder)+R.road(R.P(G.passyunk),7,C.tan);
+     marks+=R.rect(G.bok,C.tan)+R.star(746,-2985,.8,C.plum)+R.star(860,-2560,.7)+R.star(470,-2800,.6,C.tan);
+     labels+=`<text x="${R.X(746.5)}" y="${R.Y(-2932)}" text-anchor="middle" font-family="Londrina Solid,Arial Black" font-weight="900" font-size="22" letter-spacing="3" fill="${C.plum}">BOK</text>`;
+     ['11th','10th','8th'].forEach(n=>labels+=R.sl(G.ns[n],-2672,n.toUpperCase()+' ST',-90));
+     labels+=R.sl(G.ns['9th'],-2672,'9TH ST',-90);
+     ['Tasker','Morris','Moore','Mifflin','McKean'].forEach(n=>labels+=R.sl(612,G.ew[n],n.toUpperCase()+' ST'));
+     labels+=R.sl(612,G.ew.Dudley,'DUDLEY ST',0,7.4)+R.sl(372,-2445,'E. PASSYUNK',-56.3,7.6);
+     labels+=R.hl(746,-2840,'the wedding!',22)+R.hl(660,-3060,'Machine Shop is in here,',15,'end')+R.hl(660,-3080,'door on Dudley St',15,'end');
+     labels+=ln(`M${R.X(670)} ${R.Y(-3050)} Q${R.X(712)} ${R.Y(-3045)} ${R.X(734)} ${R.Y(-2996)}`,1.8);
+     return {roads,marks,labels:labels+bee(R.X(560),R.Y(-2540),.9,8,1.1)}; }},
+
+  /* d) around our place, 1123 Linn St */
+  {id:3,x0:70,x1:740,y0:-1985,y1:-2665,s:.597,alt:'Map around our place at 1123 Linn Street, a short diagonal street between 12th Street and Tasker, right by the Singing Fountain where 11th, Tasker and East Passyunk Avenue meet. Mighty Bread is on Gerritt Street near 12th, and Comfort and Floyd is at 11th and Wharton.',
+   draw:R=>{ const G=GRID; let roads='',marks='',labels='';
+     ['13th','12th','11th','10th','9th'].forEach(n=>roads+=R.ns(n,5.5,C.butter));
+     ['Wharton','Reed','Dickinson','Tasker','Morris'].forEach(n=>roads+=R.ew(n,5.5,C.butter));
+     roads+=R.road(`M${R.X(136)} ${R.Y(-2240)} L${R.X(272)} ${R.Y(-2240)}`,3.4,C.butter);
+     roads+=R.road(R.P(G.passyunk),8,C.tan)+R.road(R.P(G.linn),4.2,C.powder);
+     marks+=R.fountain(...G.fountain,1)+R.star(...G.mightybread,.75,C.plum)+R.star(...G.comfortfloyd,.75,C.plum)+R.house(342,-2398,1.2)+R.star(640,-2420,.6)+R.star(120,-2560,.7,C.tan);
+     ['13th','12th','11th','10th','9th'].forEach(n=>labels+=R.sl(G.ns[n],-2122,n.toUpperCase()+' ST',-90));
+     ['Wharton','Reed','Dickinson','Tasker','Morris'].forEach(n=>labels+=R.sl(612,G.ew[n],n.toUpperCase()+' ST'));
+     labels+=R.sl(204,-2240,'GERRITT',0,7.2)+R.sl(296,-2432,'LINN ST',42.8,7.2)+R.sl(335,-2535,'E. PASSYUNK AVE',-56.3,8);
+     labels+=R.hl(262,-2400,'our place!',22,'end')+R.hl(420,-2512,'Singing Fountain',15,'start');
+     labels+=R.hl(236,-2272,'Mighty Bread',15,'end')+R.hl(450,-2098,'Comfort & Floyd',15,'start');
+     return {roads,marks,labels:labels+bee(R.X(160),R.Y(-2045),.85,-6,.8)}; }},
+];
+
+/* the maps live in a full-screen <dialog>: Esc and the × close it, and focus goes back to the button */
+(function(){
+  const dlg=document.getElementById('maps'), opener=document.getElementById('maps-open'), strip=document.getElementById('mapstrip');
+  if(!dlg||!opener) return;
+  const tabs=[...dlg.querySelectorAll('[role=tab]')], smooth=!matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let drawn=false, cur=0, tm;
+  function select(i,scroll){ cur=i;
+    tabs.forEach((t,k)=>{t.setAttribute('aria-selected',k===i);t.tabIndex=k===i?0:-1});
+    tabs[i].scrollIntoView({block:'nearest',inline:'nearest'});
+    if(scroll) strip.scrollTo({left:i*strip.clientWidth,behavior:smooth?'smooth':'auto'}); }
+  opener.addEventListener('click',()=>{
+    if(!drawn){ MAPS.forEach(m=>{document.getElementById('map-'+m.id).innerHTML=phmap(m)}); drawn=true; }
+    dlg.showModal(); strip.scrollLeft=0; select(0); });
+  document.getElementById('maps-close').addEventListener('click',()=>dlg.close());
+  dlg.addEventListener('close',()=>opener.focus());
+  tabs.forEach((t,i)=>{
+    t.addEventListener('click',()=>select(i,true));
+    t.addEventListener('keydown',e=>{ const k={ArrowRight:1,ArrowLeft:-1,Home:-i,End:tabs.length-1-i}[e.key];
+      if(k===undefined) return; e.preventDefault(); const j=(i+k+tabs.length)%tabs.length; tabs[j].focus(); select(j,true); }); });
+  /* swiping between maps keeps the tabs in step */
+  strip.addEventListener('scroll',()=>{ clearTimeout(tm); tm=setTimeout(()=>{ const i=Math.round(strip.scrollLeft/strip.clientWidth); if(i!==cur) select(Math.max(0,Math.min(tabs.length-1,i))); },90); },{passive:true});
+  addEventListener('resize',()=>{ if(dlg.open) strip.scrollLeft=cur*strip.clientWidth; });
+})();
 
 /* Countdown */
 (function(){

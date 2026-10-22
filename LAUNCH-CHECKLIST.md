@@ -5,7 +5,7 @@ confirmed to me yet. Nothing here is invented; where the page doesn't know
 something it says so out loud ("More times and details to be announced",
 "Booking link and details coming soon") rather than guessing.
 
-Last updated: 2026-10-14 (kids Sunday, Marriott wording, couple in the bar, FAQ bar question removed)
+Last updated: 2026-10-22 (Anna's round: poster titles, Things to do, neighborhood maps, style guides)
 
 ---
 
@@ -22,8 +22,28 @@ Last updated: 2026-10-14 (kids Sunday, Marriott wording, couple in the bar, FAQ 
 | Where | What it says now | What it needs |
 |---|---|---|
 | Weekend section | "More times and details to be announced." | Real start times for Fri June 4, Sat June 5, Sun June 6 |
-| Stay section | "Booking link and details coming soon." | **Marriott booking link** and room-block details for the Philadelphia Marriott Old City |
-| FAQ, "What do I wear?" | "More inspiration to come." | Links to add — there's a commented-out `<a class="ilink">` line in `index.html` right after that sentence showing the exact pattern |
+| Stay section | "Booking link and details coming soon." | **Marriott booking link** and room-block details for the Philadelphia Marriott Old City. Guests should mention **"the Becker wedding"** when booking; exact wording for the page still TBD. No Marriott link on the page yet (on purpose). |
+| FAQ, "What do I wear?" | "We'll have style guides up soon." + two greyed-out pills, "Style guide for women" / "Style guide for men", each marked *coming soon* | **Pinterest style-guide links** for women and for men. In `index.html` search for `PINTEREST STYLE GUIDES`; the comment there shows the exact `<a class="ilink">` line to swap in for each `<span>`. |
+
+**Things to do (#6): no [TBD]s.** Every place was checked on 2026-10-22 and
+is open, with its official site linked:
+
+- [x] Comfort & Floyd: comfortandfloyd.com is live with current hours (Thu–Mon 8–3); 1301 S. 11th St at Wharton
+- [x] Mighty Bread: mightybreadco.com lists the bakery-café at 1211 Gerritt St with current hours.
+      (They've also opened a second café at 1644 Pine St; the page says East Passyunk as Anna wrote it.)
+- [x] Machine Shop: still inside Bok, ground floor, **entrance on Dudley St**
+      (machineshopphilly.com, Wed–Sun 8–3). That's its "current location" on the page.
+- [x] Oyster House: oysterhousephilly.com, 1516 Sansom St, open Tue–Sat
+- [x] Fishtown: a neighborhood, so it links to Visit Philly's Fishtown guide
+- No addresses or hours are printed on the page (they change); the links carry them.
+
+**Neighborhood maps (#5).** Hand-drawn SVG in a full-screen pop-up from the
+"See the neighborhood maps" button in Stay. Street positions come from
+OpenStreetMap; **1123 Linn St** was confirmed by both the US Census geocoder and
+OpenStreetMap's building record (Passyunk Square, 19147). Linn St is a short
+diagonal street from 12th St down to Tasker, a few steps from the Singing
+Fountain. Worth a 10-second look from Anna and Joshua that the house pin is on the right
+side of the street. Note this puts the home address on a public page; that was Anna's copy.
 
 **Hidden until ready: the registry.** The Registry button, the "we set up a
 fund…" paragraph and the word "registry" in the RSVP section are commented out
