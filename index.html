@@ -196,6 +196,10 @@ button.btn{cursor:pointer;font-family:var(--poster)}
 .spot:nth-child(3){background:var(--tangerine);transform:rotate(-.5deg)}
 .spot:nth-child(4){background:var(--butter);transform:rotate(.9deg)}
 .spot:nth-child(5){background:var(--paper);transform:rotate(-.8deg)}
+.spot:nth-child(6){background:var(--blush);transform:rotate(.6deg)}
+.spot:nth-child(7){background:var(--paper);transform:rotate(-.7deg)}
+.spot:nth-child(8){background:var(--mustard);transform:rotate(.8deg)}
+.spot:nth-child(9){background:var(--tangerine);transform:rotate(-.6deg)}
 .spot .top{display:flex;justify-content:space-between;align-items:flex-end;align-self:stretch;border-bottom:1.5px solid var(--ink);padding-bottom:6px}
 .spot .doodle svg{width:76px;height:auto}
 .spot h3{font-family:var(--poster);font-weight:900;text-transform:uppercase;font-size:40px;line-height:.86;margin:12px 0 2px}
@@ -252,6 +256,7 @@ dialog.maps::backdrop{background:rgba(35,22,5,.55)}
 /* ---------- FAQ on ruled paper ---------- */
 .faq{background:var(--paper)}
 .faq .soon{font-family:var(--hand);font-size:22px;line-height:30px;color:var(--plum)}
+.faq .soon a{overflow-wrap:anywhere;color:inherit}
 /* every line of text is 34px tall and the blue rules repeat every 34px, starting 3px above the first line's bottom,
    so text keeps sitting on the rules. Change the top padding and the rules' offset together (offset = padding - 3px). */
 .paper{background:var(--paper);border:2.5px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:5px 14px 3px 44px;position:relative;max-width:720px;
@@ -516,12 +521,24 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
         <h3>Mighty Bread</h3><p class="what">really good pastries and bread</p><span class="mono where">East Passyunk</span>
         <a class="ilink" href="https://www.mightybreadco.com/" target="_blank" rel="noopener">mightybreadco.com ↗</a></li>
       <li class="spot"><div class="top"><span class="mono">03</span><span class="doodle" id="dd-2"></span></div>
-        <h3>Machine Shop</h3><p class="what">pastries</p><span class="mono where">Inside Bok · door on Dudley St</span>
+        <h3>Machine Shop</h3><p class="what">pastries, then poke around the small businesses inside Bok</p><span class="mono where">Inside Bok · door on Dudley St</span>
         <a class="ilink" href="https://www.machineshopphilly.com/" target="_blank" rel="noopener">machineshopphilly.com ↗</a></li>
       <li class="spot"><div class="top"><span class="mono">04</span><span class="doodle" id="dd-3"></span></div>
         <h3>Oyster House</h3><p class="what">lunch, one of our favorites</p><span class="mono where">Center City</span>
         <a class="ilink" href="https://www.oysterhousephilly.com/" target="_blank" rel="noopener">oysterhousephilly.com ↗</a></li>
-      <li class="spot"><div class="top"><span class="mono">05</span><span class="doodle" id="dd-4"></span></div>
+      <li class="spot"><div class="top"><span class="mono">05</span><span class="doodle" id="dd-5"></span></div>
+        <h3>Mission Taqueria</h3><p class="what">lunch where we first met</p><span class="mono where">Center City · upstairs from Oyster House</span>
+        <a class="ilink" href="http://www.missiontaqueria.com" target="_blank" rel="noopener">missiontaqueria.com ↗</a></li>
+      <li class="spot"><div class="top"><span class="mono">06</span><span class="doodle" id="dd-6"></span></div>
+        <h3>Rittenhouse</h3><p class="what">stroll around the square and Center City</p><span class="mono where">Rittenhouse Square</span>
+        <a class="ilink" href="https://www.visitphilly.com/areas/philadelphia-neighborhoods/rittenhouse-square/" target="_blank" rel="noopener">Visit Philly's guide ↗</a></li>
+      <li class="spot"><div class="top"><span class="mono">07</span><span class="doodle" id="dd-7"></span></div>
+        <h3>Reading Terminal</h3><p class="what">explore and eat your way through</p><span class="mono where">12th &amp; Arch</span>
+        <a class="ilink" href="https://readingterminalmarket.org/" target="_blank" rel="noopener">readingterminalmarket.org ↗</a></li>
+      <li class="spot"><div class="top"><span class="mono">08</span><span class="doodle" id="dd-8"></span></div>
+        <h3>Cherry Street Pier</h3><p class="what">walk the waterfront</p><span class="mono where">Old City · on the Delaware</span>
+        <a class="ilink" href="https://www.cherrystreetpier.com/" target="_blank" rel="noopener">cherrystreetpier.com ↗</a></li>
+      <li class="spot"><div class="top"><span class="mono">09</span><span class="doodle" id="dd-4"></span></div>
         <h3>Fishtown</h3><p class="what">spend the day wandering around</p><span class="mono where">A whole neighborhood</span>
         <a class="ilink" href="https://www.visitphilly.com/areas/fishtown/" target="_blank" rel="noopener">Visit Philly's guide ↗</a></li>
     </ol>
@@ -569,7 +586,7 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
     <h2 class="h">Questions</h2>
     <div class="paper">
       <details><summary>How do I RSVP?</summary><p>On Zola. Tap any RSVP button on this page.</p></details>
-      <details><summary>Can I bring my kids?</summary><p>Kids are welcome at the Friday welcome party and the Sunday goodbye morning. The wedding itself on Saturday is adults only. We'll have childcare at The Deacon on Saturday night, so parents can drop off their little ones and come party.</p></details>
+      <details><summary>Can I bring my kids?</summary><p>Kids are welcome at the Friday welcome party and the Sunday goodbye morning. The wedding itself on Saturday is adults only. We'll have childcare at The Deacon on Saturday night, so parents can drop off their little ones and come party.</p><p class="soon">Want to babysit, or know someone who does? Email us at <a href="mailto:annaandjoshuasayido@gmail.com">annaandjoshuasayido@gmail.com</a>.</p></details>
       <details><summary>Can I take photos?</summary><p>The ceremony is unplugged, so please keep your phone put away. We'll have photographers and will share everything after.</p></details>
       <details><summary>What do I wear?</summary><p>Fancy funky. Dress up and have fun with it.</p>
         <p class="soon">We'll have style guides up soon.</p>
@@ -784,6 +801,14 @@ const couple=
   box('dd-3',fl(shell,C.blush,3,3)+ln(shell,2.6)+ln('M24 42 Q28 26 40 18 M40 46 Q42 30 42 16 M56 44 Q54 28 46 17',1.8)+`<circle cx="64" cy="52" r="5" fill="${C.paper}" stroke="${INK}" stroke-width="2"/>`);
   const fish='M8 34 Q28 12 52 34 Q28 56 8 34Z';
   box('dd-4',fl(fish,C.powder,3,3)+ln(fish,2.6)+ln('M52 34 L66 22 L66 46 Z',2.6)+`<circle cx="20" cy="31" r="2.4" fill="${INK}"/>`+ln('M31 26 Q37 34 31 42',1.8),bee(72,14,.55,-8,1.2));
+  const taco='M8 46 Q10 14 40 14 Q70 14 72 46 Z';
+  box('dd-5',fl(taco,C.butter,3,3)+ln(taco,2.6)+ln('M16 38 Q24 30 30 36 Q38 28 46 36 Q54 28 62 38',2.2)+`<circle cx="28" cy="28" r="2.6" fill="${C.plum}"/><circle cx="48" cy="26" r="2.6" fill="${C.plum}"/>`);
+  const crown='M22 34 Q14 34 14 26 Q14 14 28 16 Q32 6 44 8 Q56 6 58 18 Q68 18 66 28 Q66 36 56 34 Z';
+  box('dd-6',fl(crown,C.powder,3,3)+ln(crown,2.6)+ln('M40 34 L40 54 M40 44 L48 38',2.6)+ln('M26 54 L56 54',2.2));
+  const pretzel='M40 50 Q12 50 14 30 Q16 14 30 16 Q42 18 40 34 Q38 18 50 16 Q64 14 66 30 Q68 50 40 50 Z M24 44 L56 24 M56 44 L24 24';
+  box('dd-7',fl('M40 50 Q12 50 14 30 Q16 14 30 16 Q42 18 40 34 Q38 18 50 16 Q64 14 66 30 Q68 50 40 50 Z',C.tan,3,3)+ln(pretzel,2.6)+`<circle cx="30" cy="30" r="1.4" fill="${C.paper}"/><circle cx="50" cy="30" r="1.4" fill="${C.paper}"/>`);
+  const hull='M12 34 L68 34 L60 46 L20 46 Z';
+  box('dd-8',fl(hull,C.blush,3,3)+ln(hull,2.6)+ln('M38 34 L38 10 L54 30 Z',2.4)+ln('M6 52 q6 -5 12 0 t12 0 t12 0 t12 0 t12 0 t12 0',2.2));
 })();
 
 /* ============ neighborhood maps ============
