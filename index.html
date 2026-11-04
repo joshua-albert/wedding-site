@@ -284,6 +284,9 @@ details p{line-height:34px;margin:0;font-size:17px}
 
 /* ---------- bees (a nod to Anna's family) ---------- */
 .bee{transform-box:fill-box;transform-origin:center;animation:beefly 7s ease-in-out infinite}
+/* Speed: a moving bee or star forces its whole drawing (ink filter and all) to repaint every frame.
+   So they pause when scrolled off screen, and everything decorative pauses while the maps are open. */
+.anim-off .bee,.anim-off .sparks path,.mapsopen .bee,.mapsopen .sparks path{animation-play-state:paused}
 @keyframes beefly{
   0%,100%{transform:translate(0,0) rotate(0deg)}
   25%{transform:translate(4px,-5px) rotate(-4deg)}
@@ -524,7 +527,7 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
     <p class="lede">Free on Saturday before the wedding? Here's where we'd go.</p>
     <ol class="spots">
       <li class="spot"><div class="top"><span class="mono">01</span><span class="doodle" id="dd-0"></span></div>
-        <h3>Comfort &amp; Floyd</h3><p class="what">coffee</p><span class="mono where">Passyunk Square</span>
+        <h3>Comfort &amp; Floyd</h3><p class="what">coffee and brunch</p><span class="mono where">Passyunk Square</span>
         <a class="ilink" href="https://www.comfortandfloyd.com/" target="_blank" rel="noopener">comfortandfloyd.com ↗</a></li>
       <li class="spot"><div class="top"><span class="mono">02</span><span class="doodle" id="dd-1"></span></div>
         <h3>Mighty Bread</h3><p class="what">really good pastries and bread</p><span class="mono where">East Passyunk</span>
@@ -536,10 +539,10 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
         <h3>Oyster House</h3><p class="what">lunch, one of our favorites</p><span class="mono where">Center City</span>
         <a class="ilink" href="https://www.oysterhousephilly.com/" target="_blank" rel="noopener">oysterhousephilly.com ↗</a></li>
       <li class="spot"><div class="top"><span class="mono">05</span><span class="doodle" id="dd-5"></span></div>
-        <h3>Mission Taqueria</h3><p class="what">lunch where we first met</p><span class="mono where">Center City · upstairs from Oyster House</span>
+        <h3>Mission Taqueria</h3><p class="what">lunch, where we first met</p><span class="mono where">Center City · upstairs from Oyster House</span>
         <a class="ilink" href="http://www.missiontaqueria.com" target="_blank" rel="noopener">missiontaqueria.com ↗</a></li>
       <li class="spot"><div class="top"><span class="mono">06</span><span class="doodle" id="dd-6"></span></div>
-        <h3>Rittenhouse</h3><p class="what">stroll around the square and Center City</p><span class="mono where">Rittenhouse Square</span>
+        <h3>Rittenhouse</h3><p class="what">stroll the square, the Saturday farmers market and Center City</p><span class="mono where">Rittenhouse Square</span>
         <a class="ilink" href="https://www.visitphilly.com/areas/philadelphia-neighborhoods/rittenhouse-square/" target="_blank" rel="noopener">Visit Philly's guide ↗</a></li>
       <li class="spot"><div class="top"><span class="mono">07</span><span class="doodle" id="dd-7"></span></div>
         <h3>Reading Terminal</h3><p class="what">explore and eat your way through</p><span class="mono where">12th &amp; Arch</span>
@@ -596,7 +599,7 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
     <h2 class="h">Questions</h2>
     <div class="paper">
       <details><summary>How do I RSVP?</summary><p>On Zola. Tap any RSVP button on this page.</p></details>
-      <details><summary>Can I bring my kids?</summary><p>Kids are welcome at the Friday welcome party and the Sunday goodbye morning. The wedding itself on Saturday is adults only. We'll have childcare at The Deacon on Saturday night, so parents can drop off their little ones and come party.</p><p class="soon">Want to babysit, or know someone who does? Email us at <a href="mailto:annaandjoshuasayido@gmail.com">annaandjoshuasayido@gmail.com</a>.</p></details>
+      <details><summary>Can I bring my kids?</summary><p>Kids are welcome at the Friday welcome party and the Sunday goodbye morning. The wedding itself on Saturday is adults only. We'll have childcare at The Deacon on Saturday night, so parents can drop off their little ones and come party.</p><p class="soon">Will you need a babysitter on Saturday night? Let us know at <a href="mailto:annaandjoshuasayido@gmail.com">annaandjoshuasayido@gmail.com</a>.</p></details>
       <details><summary>Can I take photos?</summary><p>The ceremony is unplugged, so please keep your phone put away. We'll have photographers and will share everything after.</p></details>
       <details><summary>What do I wear?</summary><p>Fancy funky. Dress up and have fun with it.</p>
         <p class="soon">Need ideas? Check out our style guides.</p>
@@ -838,6 +841,8 @@ const GRID={
   deacon:[-344,-1407], bok:[690,803,-2886,-2954], home:[330,-2414], fountain:[396,-2452], cityhall:[1,0],
   rittenhouse:[-780,-608,-358,-531], mightybread:[248,-2231], comfortfloyd:[433,-2064]
 };
+/* the page's ink filter + star shape, copied into each baked map image (an image can't see the page's defs) */
+let _mapdefs; const MAPDEFS=()=>_mapdefs||(_mapdefs=document.getElementById('ink').outerHTML+document.getElementById('star').outerHTML);
 function phmap(o){
   const s=o.s, X=x=>+((x-o.x0)*s).toFixed(1), Y=y=>+((o.y0-y)*s).toFixed(1);
   const W=X(o.x1), H=Y(o.y1);
@@ -871,9 +876,15 @@ function phmap(o){
     +`<text x="27" y="12" font-family="Roboto Mono,monospace" font-weight="700" font-size="8" fill="${INK}">N</text>`
     +`<text x="40" y="20" font-family="Covered By Your Grace,cursive" font-size="15" fill="${C.plum}">not to scale</text></g>`;
   const cid='mc'+o.id;
-  return `<svg viewBox="-6 -6 ${W+12} ${H+12}" preserveAspectRatio="xMidYMin meet" role="img" aria-label="${o.alt}"><defs><clipPath id="${cid}"><rect width="${W}" height="${H}"/></clipPath></defs>`
+  /* Speed: the wobbly-ink filter is expensive, and phones (Safari most of all) re-run it on every
+     repaint and swipe. So the inked layers (frame, roads, marks) are baked once into a flat SVG
+     image, and only the crisp labels stay live on top. Same look, a fraction of the work. */
+  const ink=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -6 ${W+12} ${H+12}"><defs>${MAPDEFS()}<clipPath id="c"><rect width="${W}" height="${H}"/></clipPath></defs>`
     +`<g filter="url(#ink)"><rect width="${W}" height="${H}" fill="${C.paper}" stroke="${INK}" stroke-width="3"/></g>`
-    +`<g clip-path="url(#${cid})"><g filter="url(#ink)">${L.roads}</g><g filter="url(#ink)">${L.marks}</g>${L.labels}</g>${plate}</svg>`;
+    +`<g clip-path="url(#c)"><g filter="url(#ink)">${L.roads}</g><g filter="url(#ink)">${L.marks}</g></g></svg>`;
+  return `<svg viewBox="-6 -6 ${W+12} ${H+12}" preserveAspectRatio="xMidYMin meet" role="img" aria-label="${o.alt}"><defs><clipPath id="${cid}"><rect width="${W}" height="${H}"/></clipPath></defs>`
+    +`<image href="data:image/svg+xml;charset=utf-8,${encodeURIComponent(ink)}" x="-6" y="-6" width="${W+12}" height="${H+12}"/>`
+    +`<g clip-path="url(#${cid})">${L.labels}</g>${plate}</svg>`;
 }
 
 const MAPS=[
@@ -949,15 +960,19 @@ const MAPS=[
   if(!dlg||!opener) return;
   const tabs=[...dlg.querySelectorAll('[role=tab]')], smooth=!matchMedia('(prefers-reduced-motion: reduce)').matches;
   let drawn=false, cur=0, tm;
+  const draw=()=>{ if(drawn) return; MAPS.forEach(m=>{document.getElementById('map-'+m.id).innerHTML=phmap(m)}); drawn=true; };
+  /* draw them quietly after the page has loaded, so the button opens instantly */
+  addEventListener('load',()=>{ (window.requestIdleCallback||(f=>setTimeout(f,1500)))(draw,{timeout:4000}); });
   function select(i,scroll){ cur=i;
     tabs.forEach((t,k)=>{t.setAttribute('aria-selected',k===i);t.tabIndex=k===i?0:-1});
     tabs[i].scrollIntoView({block:'nearest',inline:'nearest'});
     if(scroll) strip.scrollTo({left:i*strip.clientWidth,behavior:smooth?'smooth':'auto'}); }
   opener.addEventListener('click',()=>{
-    if(!drawn){ MAPS.forEach(m=>{document.getElementById('map-'+m.id).innerHTML=phmap(m)}); drawn=true; }
+    draw();
+    document.documentElement.classList.add('mapsopen');
     dlg.showModal(); strip.scrollLeft=0; select(0); });
   document.getElementById('maps-close').addEventListener('click',()=>dlg.close());
-  dlg.addEventListener('close',()=>opener.focus());
+  dlg.addEventListener('close',()=>{document.documentElement.classList.remove('mapsopen'); opener.focus();});
   tabs.forEach((t,i)=>{
     t.addEventListener('click',()=>select(i,true));
     t.addEventListener('keydown',e=>{ const k={ArrowRight:1,ArrowLeft:-1,Home:-i,End:tabs.length-1-i}[e.key];
@@ -966,6 +981,11 @@ const MAPS=[
   strip.addEventListener('scroll',()=>{ clearTimeout(tm); tm=setTimeout(()=>{ const i=Math.round(strip.scrollLeft/strip.clientWidth); if(i!==cur) select(Math.max(0,Math.min(tabs.length-1,i))); },90); },{passive:true});
   addEventListener('resize',()=>{ if(dlg.open) strip.scrollLeft=cur*strip.clientWidth; });
 })();
+
+/* pause bees and stars in any drawing that's scrolled out of view (see .anim-off) */
+addEventListener('load',()=>{ if(!('IntersectionObserver' in window)) return;
+  const io=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('anim-off',!e.isIntersecting)),{rootMargin:'100px'});
+  document.querySelectorAll('svg').forEach(sv=>{ if(sv.querySelector('.bee,.sparks')||sv.classList.contains('sparks')) io.observe(sv.classList.contains('sparks')?sv.parentElement:sv); }); });
 
 /* Countdown */
 (function(){
@@ -980,7 +1000,7 @@ const MAPS=[
   const gl=document.getElementById('glints'), gx=gl.getContext('2d');
   let S=0,dpr=1,W=0,H=0;
   function size(){ dpr=Math.min(devicePixelRatio||1,2); S=cv.clientWidth; cv.width=S*dpr; cv.height=S*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
-    W=innerWidth; H=innerHeight; gl.width=W*dpr; gl.height=H*dpr; gx.setTransform(dpr,0,0,dpr,0,0); }
+    W=innerWidth; H=innerHeight; gl.width=W; gl.height=H; }   /* glints are soft blurs: 1x is plenty, and 4x less to repaint each frame on a phone */
   const LAT=16, LON=32;
   const seeds=[]; for(let i=0;i<LAT*LON;i++) seeds.push(Math.abs(Math.sin(i*127.1+311.7)*43758.5453)%1);
   const tints=[[249,244,214],[203,219,244],[239,185,185],[215,196,75],[239,136,61]];
@@ -1064,7 +1084,9 @@ const MAPS=[
   cv.addEventListener('touchcancel',e=>{if(!viaPointer)gEnd(e.timeStamp)},{passive:true});
   let lastY=scrollY; addEventListener('scroll',()=>{const dy=scrollY-lastY;lastY=scrollY;vel=Math.max(-0.012,Math.min(0.012,vel+dy*0.000012));},{passive:true});
   new IntersectionObserver(es=>{vis=es[0].isIntersecting}).observe(cv);
-  function frame(t){ const dt=Math.min(64,t-last); last=t; if(!drag) rot+=(BASE+vel)*dt; vel*=Math.pow(0.9988,dt);
+  const mapsDlg=document.getElementById('maps');
+  function frame(t){ if(mapsDlg&&mapsDlg.open){ last=t; requestAnimationFrame(frame); return; }   /* hidden behind the maps: don't burn the phone's CPU */
+    const dt=Math.min(64,t-last); last=t; if(!drag) rot+=(BASE+vel)*dt; vel*=Math.pow(0.9988,dt);
     const cap=GLINTCAP*dt;                              // glints follow the ball, but never faster than the cap
     gRot+=Math.max(-cap,Math.min(cap,rot-pRot)); pRot=rot;
     if(!reduce || drag || Math.abs(vel)>1e-6){          // under Reduce Motion only redraw while it's actually turning
