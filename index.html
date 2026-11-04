@@ -741,10 +741,10 @@ const couple=
 /* Long table from above, generated */
 (function(){
   _s=11; let b='';
-  const W=1200, y1=70, y2=190;
+  const W=1200, y1=50, y2=210;
   b+=fl(`M20 ${y1} L${W-20} ${y1} L${W-20} ${y2} L20 ${y2} Z`,C.paper,0,0)+ln(`M20 ${y1} L${W-20} ${y1} L${W-20} ${y2} L20 ${y2} Z`,3.4);
   for(let x=70;x<W-40;x+=110){
-    [y1+28,y2-28].forEach((y,k)=>{
+    [y1+24,y2-24].forEach((y,k)=>{
       const cx=x+(k?55:0);
       b+=`<circle cx="${cx+3}" cy="${y+3}" r="22" fill="${C.powder}"/>`+`<circle cx="${cx}" cy="${y}" r="22" fill="none" stroke="${INK}" stroke-width="2.8"/><circle cx="${cx}" cy="${y}" r="13" fill="none" stroke="${INK}" stroke-width="1.8"/>`;
       b+=ln(`M${cx+30} ${y-14} L${cx+30} ${y+14}`,2.4)+ln(`M${cx-30} ${y-14} L${cx-30} ${y+14}`,2.4);
@@ -754,12 +754,11 @@ const couple=
     });
   }
   for(let x=120;x<W-60;x+=220){
-    /* family-style platter of spaghetti & meatballs */
+    /* family-style platter of spaghetti & meatballs, sized to the middle lane */
     const my=(y1+y2)/2;
-    b+=`<ellipse cx="${x+4}" cy="${my+4}" rx="42" ry="22" fill="${C.tan}"/><ellipse cx="${x}" cy="${my}" rx="42" ry="22" fill="${C.paper}" stroke="${INK}" stroke-width="3"/><ellipse cx="${x}" cy="${my}" rx="32" ry="14" fill="#D9542B" opacity=".45"/>`;
-    b+=`<path d="M${x-30} ${my+2} q5 -12 13 -2 q6 9 13 -1 q6 -10 12 0 q6 9 13 -1 q5 -8 9 2" fill="none" stroke="${C.mustard}" stroke-width="3.4" stroke-linecap="round"/>`;
-    b+=`<path d="M${x-24} ${my-6} q6 -6 12 0 q6 6 12 -1 M${x+4} ${my+9} q6 4 12 -2 q5 -5 10 1 M${x-28} ${my+8} q6 5 12 0 q6 -5 11 1" fill="none" stroke="${C.mustard}" stroke-width="3.4" stroke-linecap="round"/>`;
-    [[-15,-1],[2,3],[18,-2]].forEach(([dx,dy])=>{ b+=`<circle cx="${x+dx}" cy="${my+dy}" r="6.5" fill="#7A3E22" stroke="${INK}" stroke-width="2"/><circle cx="${x+dx-2}" cy="${my+dy-2.3}" r="1.7" fill="${C.butter}" opacity=".8"/>`; });
+    b+=`<ellipse cx="${x+3}" cy="${my+3}" rx="40" ry="15" fill="${C.tan}"/><ellipse cx="${x}" cy="${my}" rx="40" ry="15" fill="${C.paper}" stroke="${INK}" stroke-width="3"/><ellipse cx="${x}" cy="${my}" rx="30" ry="9" fill="#D9542B" opacity=".45"/>`;
+    b+=`<path d="M${x-28} ${my+1} q5 -8 12 -1 q6 6 12 -1 q6 -7 12 0 q6 6 12 -1 q5 -6 8 1 M${x-22} ${my-4} q6 -4 11 0 q6 4 11 -1 M${x+2} ${my+5} q6 3 11 -1 q5 -3 9 1" fill="none" stroke="${C.mustard}" stroke-width="3" stroke-linecap="round"/>`;
+    [[-14,0],[2,1],[17,-1]].forEach(([dx,dy])=>{ b+=`<circle cx="${x+dx}" cy="${my+dy}" r="5.5" fill="#7A3E22" stroke="${INK}" stroke-width="2"/><circle cx="${x+dx-1.8}" cy="${my+dy-2}" r="1.5" fill="${C.butter}" opacity=".8"/>`; });
     const cx=x+110, cy=(y1+y2)/2;
     b+=`<circle cx="${cx}" cy="${cy}" r="6" fill="${C.butter}" stroke="${INK}" stroke-width="2"/><circle cx="${cx}" cy="${cy}" r="12" fill="none" stroke="${C.mustard}" stroke-width="2" stroke-dasharray="3 5"/>`;
     b+=`<g transform="translate(${cx+36} ${cy-4})">${ln('M0 0 L10 -8 M4 6 L14 -2',2)}</g>`;
