@@ -1096,10 +1096,11 @@ addEventListener('load',()=>{ if(!('IntersectionObserver' in window)) return;
   function spunAsk(path){ return fetch(SPUN_API+path+SPUN_KEY,{credentials:'omit',cache:'no-store'})
     .then(r=>r.status===404?{value:0}:r.ok?r.json():Promise.reject(r.status))
     .then(d=>{ if(typeof d.value!=='number') throw 0; return d.value; }); }
-  spunAsk('/get').then(v=>{ spunOk=true; spunShow(SPUN_START+v,false); spunEl.classList.add('on'); }).catch(()=>{});
-  function countSpin(){ const now=performance.now(); if(!spunOk || now-spunLast<600) return; spunLast=now;   // one count per swipe, never a burst
-    spunShow(spunShown+1,true);
-    spunAsk('/hit').then(v=>spunShow(SPUN_START+v,true)).catch(()=>{}); }
+  const spunOn=v=>{ spunOk=true; spunShow(SPUN_START+v,false); spunEl.classList.add('on'); };
+  spunAsk('/get').then(spunOn).catch(()=>{});
+  function countSpin(){ const now=performance.now(); if(now-spunLast<600) return; spunLast=now;   // one count per swipe, never a burst
+    if(spunOk) spunShow(spunShown+1,true);
+    spunAsk('/hit').then(v=>{ if(spunOk) spunShow(SPUN_START+v,true); else spunOn(v); }).catch(()=>{}); }   // if the first read failed, a spin that lands still brings the note up
   let viaPointer=false;
   cv.addEventListener('pointerdown',e=>{viaPointer=true;try{cv.setPointerCapture(e.pointerId)}catch(_){}gStart(e.clientX,e.timeStamp);});
   cv.addEventListener('pointermove',e=>gMove(e.clientX,e.timeStamp));
