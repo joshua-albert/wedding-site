@@ -90,6 +90,13 @@ svg.ill{display:block;overflow:visible}
 .spinme{position:absolute;right:-14px;top:4px;font-size:22px;line-height:1.05;color:var(--hero-soft);transform:rotate(8deg);text-align:center;
   pointer-events:none} /* pointer-events:none, or the note swallows taps meant for the ball */
 .spinme .arr{display:block;width:2.1em;height:1.6em;margin:.15em .3em 0 auto;transform:rotate(-5deg)}
+/* spin counter: the note on the other side of the ball. Hidden until the shared count loads; stays hidden if it can't. */
+.spun{position:absolute;right:-66px;top:47%;font-size:19px;line-height:1;color:var(--hero-soft);transform:rotate(6deg);text-align:center;
+  pointer-events:none;opacity:0;transition:opacity .7s}
+.spun.on{opacity:1}
+.spun b{display:block;font-weight:400;font-size:1.75em;line-height:.9;color:var(--hero-fg);margin:.02em 0 .04em}
+.spun b.pop{animation:spunpop .45s cubic-bezier(.2,1.6,.4,1)}
+@keyframes spunpop{0%{transform:scale(1)}40%{transform:scale(1.35) rotate(-6deg)}100%{transform:scale(1)}}
 /* early-RSVP note: the mirror of "give it a spin!", but it's a real link */
 .rsvpme{position:relative;align-self:center;margin:0 0 4px clamp(150px,44vw,250px);font-size:22px;white-space:nowrap;line-height:1.05;color:var(--hero-soft);transform:rotate(-6deg);text-align:center;text-decoration:none;padding:4px}
 .rsvpme .arr{position:absolute;left:-36px;bottom:-12px;width:38px;height:30px;transform:rotate(6deg)}
@@ -338,6 +345,7 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
   .ballbox{width:270px}
   .cord{height:50px}
   .spinme{right:-70px;top:40%}
+  .spun{right:-150px;top:60%;font-size:22px}
 }
 @media (min-width:1024px){
   .spots{grid-template-columns:repeat(3,1fr)}
@@ -378,6 +386,7 @@ footer .big em{font-style:normal;color:var(--hero-hot)}
         <canvas id="ball" role="img" aria-label="A hand-drawn disco ball, spinning. Swipe it to spin faster."></canvas>
         <svg class="sparks" viewBox="0 0 100 100" aria-hidden="true" fill="currentColor"><use href="#star" transform="translate(12 22) scale(.7)"/><use href="#star" transform="translate(88 30) scale(.5)"/><use href="#star" transform="translate(84 84) scale(.8)"/><use href="#star" transform="translate(16 80) scale(.45)"/><g id="bee-hero"></g></svg>
         <div class="spinme hand" aria-hidden="true">give it<br>a spin!<svg class="arr" viewBox="0 0 44 34" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M40 5C27 2 13 8 7 22"/><path d="M7 22l10-1.6M7 22l3.4 8.6"/></svg></div>
+        <div class="spun hand" id="spun">spun<b id="spunN">111</b>times</div>
       </div>
     </div>
     <div class="getting hand">we're gettin' married!</div>
@@ -1059,11 +1068,12 @@ addEventListener('load',()=>{ if(!('IntersectionObserver' in window)) return;
   /* one gesture, two ways in: pointer events normally, raw touch events as a fallback
      for engines that don't deliver pointer events on a canvas. touch-action:pan-y
      means a sideways drag spins the ball while an up/down drag still scrolls the page. */
-  function gStart(x,t){ drag=true; px=x; vel=0; hist=[{x,t}]; }
-  function gMove(x,t){ if(!drag) return; const dx=x-px; px=x; rot+=dx/(S*0.46);
+  function gStart(x,t){ drag=true; px=x; vel=0; hist=[{x,t}]; moved=0; }
+  function gMove(x,t){ if(!drag) return; const dx=x-px; px=x; rot+=dx/(S*0.46); moved+=Math.abs(dx);
     hist.push({x,t}); if(hist.length>12) hist.shift(); }
   /* on release, throw it: speed comes from the last ~90ms of the swipe, then eases back to the idle spin */
   function gEnd(t){ if(!drag) return; drag=false;
+    if(moved>24) countSpin();                              // a real swipe, not a tap
     const b=hist[hist.length-1];
     if(b && t-b.t<160){                                    // still travelling when they let go
       let i=hist.length-1;
@@ -1073,6 +1083,23 @@ addEventListener('load',()=>{ if(!('IntersectionObserver' in window)) return;
       if(a && b.t>a.t) vel=clampV(((b.x-a.x)/(S*0.46))/(b.t-a.t));
     }
     hist=[]; }
+  /* ---- spin counter ----
+     One shared number for every guest, kept by a tiny free counter service (Abacus).
+     It stores a single number and nothing about who spun. The site shows that number
+     plus SPUN_START, which is where Joshua wanted the count to begin.
+     If the service can't be reached, the note simply never appears. */
+  const SPUN_START=111, SPUN_API='https://abacus.jasoncameron.dev', SPUN_KEY='/annaandjoshuasayido/disco-spins';
+  const spunEl=document.getElementById('spun'), spunN=document.getElementById('spunN');
+  let moved=0, spunShown=0, spunOk=false, spunLast=0;
+  function spunShow(n,pop){ if(n<=spunShown) return; spunShown=n; spunN.textContent=n.toLocaleString('en-US');
+    if(pop&&!reduce){ spunN.classList.remove('pop'); void spunN.offsetWidth; spunN.classList.add('pop'); } }
+  function spunAsk(path){ return fetch(SPUN_API+path+SPUN_KEY,{credentials:'omit',cache:'no-store'})
+    .then(r=>r.status===404?{value:0}:r.ok?r.json():Promise.reject(r.status))
+    .then(d=>{ if(typeof d.value!=='number') throw 0; return d.value; }); }
+  spunAsk('/get').then(v=>{ spunOk=true; spunShow(SPUN_START+v,false); spunEl.classList.add('on'); }).catch(()=>{});
+  function countSpin(){ const now=performance.now(); if(!spunOk || now-spunLast<600) return; spunLast=now;   // one count per swipe, never a burst
+    spunShow(spunShown+1,true);
+    spunAsk('/hit').then(v=>spunShow(SPUN_START+v,true)).catch(()=>{}); }
   let viaPointer=false;
   cv.addEventListener('pointerdown',e=>{viaPointer=true;try{cv.setPointerCapture(e.pointerId)}catch(_){}gStart(e.clientX,e.timeStamp);});
   cv.addEventListener('pointermove',e=>gMove(e.clientX,e.timeStamp));
