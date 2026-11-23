@@ -1090,7 +1090,7 @@ addEventListener('load',()=>{ if(!('IntersectionObserver' in window)) return;
      If the counter can't be reached, the note simply never appears. */
   const SPUN_START=111, SPUN_API='https://p2u3txxnj9af.ample.run';
   const spunEl=document.getElementById('spun'), spunN=document.getElementById('spunN');
-  let moved=0, spunShown=0, spunOk=false, spunLast=0;
+  let moved=0, spunShown=0, spunOk=false, spunLast=-1e9;
   function spunShow(n,pop){ if(n<=spunShown) return; spunShown=n; spunN.textContent=n.toLocaleString('en-US');
     if(pop&&!reduce){ spunN.classList.remove('pop'); void spunN.offsetWidth; spunN.classList.add('pop'); } }
   /* Nothing is fire-and-forget: the first read retries, and every spin waits in a
