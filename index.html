@@ -1093,14 +1093,23 @@ addEventListener('load',()=>{ if(!('IntersectionObserver' in window)) return;
   let moved=0, spunShown=0, spunOk=false, spunLast=0;
   function spunShow(n,pop){ if(n<=spunShown) return; spunShown=n; spunN.textContent=n.toLocaleString('en-US');
     if(pop&&!reduce){ spunN.classList.remove('pop'); void spunN.offsetWidth; spunN.classList.add('pop'); } }
-  function spunAsk(path){ return fetch(SPUN_API+path+SPUN_KEY,{credentials:'omit',cache:'no-store'})
+  /* The counter service can be slow or briefly down, so nothing is fire-and-forget:
+     the first read retries, and every spin waits in a queue until the service confirms it. */
+  function spunAsk(path,keep){ const ac=new AbortController(), to=setTimeout(()=>ac.abort(),20000);
+    return fetch(SPUN_API+path+SPUN_KEY,{credentials:'omit',cache:'no-store',keepalive:!!keep,signal:ac.signal})
     .then(r=>r.status===404?{value:0}:r.ok?r.json():Promise.reject(r.status))
-    .then(d=>{ if(typeof d.value!=='number') throw 0; return d.value; }); }
-  const spunOn=v=>{ spunOk=true; spunShow(SPUN_START+v,false); spunEl.classList.add('on'); };
-  spunAsk('/get').then(spunOn).catch(()=>{});
+    .then(d=>{ if(typeof d.value!=='number') throw 0; return d.value; }).finally(()=>clearTimeout(to)); }
+  let spunPending=0, spunBusy=false, spunFails=0, spunReads=0;
+  const spunOn=v=>{ spunOk=true; spunShow(SPUN_START+v+spunPending,false); spunEl.classList.add('on'); };
+  (function spunRead(){ spunAsk('/get').then(spunOn).catch(()=>{ if(!spunOk && ++spunReads<6) setTimeout(spunRead,1500*spunReads); }); })();
+  function spunFlush(){ if(spunBusy||!spunPending) return; spunBusy=true;
+    spunAsk('/hit',true).then(v=>{ spunBusy=false; spunFails=0; spunPending--;
+        if(spunOk) spunShow(SPUN_START+v+spunPending,true); else spunOn(v);
+        spunFlush(); })
+      .catch(()=>{ spunBusy=false; spunFails++; setTimeout(spunFlush,Math.min(30000,1500*Math.pow(2,Math.min(spunFails,5)))); }); }   // try again, backing off to every 30s
   function countSpin(){ const now=performance.now(); if(now-spunLast<600) return; spunLast=now;   // one count per swipe, never a burst
-    if(spunOk) spunShow(spunShown+1,true);
-    spunAsk('/hit').then(v=>{ if(spunOk) spunShow(SPUN_START+v,true); else spunOn(v); }).catch(()=>{}); }   // if the first read failed, a spin that lands still brings the note up
+    spunPending++; if(spunOk) spunShow(spunShown+1,true);
+    spunFlush(); }
   let viaPointer=false;
   cv.addEventListener('pointerdown',e=>{viaPointer=true;try{cv.setPointerCapture(e.pointerId)}catch(_){}gStart(e.clientX,e.timeStamp);});
   cv.addEventListener('pointermove',e=>gMove(e.clientX,e.timeStamp));
